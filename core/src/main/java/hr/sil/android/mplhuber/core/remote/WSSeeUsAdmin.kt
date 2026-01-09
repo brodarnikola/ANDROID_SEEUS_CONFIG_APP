@@ -47,8 +47,8 @@ object WSSeeUsAdmin : WSBase() {
                 this.metadata = metaData
             }
             return wrapAwaitIsSuccessful(
-                    call = AdminAppService.service.registerDevice(request),
-                    methodName = "registerDevice()"
+                call = AdminAppService.service.registerDevice(request),
+                methodName = "registerDevice()"
             )
         } else {
             return false
@@ -57,37 +57,40 @@ object WSSeeUsAdmin : WSBase() {
 
     suspend fun getAccountInfo(): RAdminUserInfo? {
         return wrapAwaitData(
-                call = AdminAppService.service.getAccountInfo(),
-                methodName = "getAccountInfo()"
+            call = AdminAppService.service.getAccountInfo(),
+            methodName = "getAccountInfo()"
         )
     }
 
     suspend fun modifyStationUnit(mac: String, request: RStationUnitRequest): RStationUnit? {
-        log.info("Request to backend: ${request.stationId} \n ${request.radiusMeters} \n ${request.latitude} \n" +
-                " ${request.longitude} \n" +
-                " ${request.name} \n" +
-                " ${request.polygon.size} \n" +
-                " ${request.stopPoint}")
+        log.info(
+            "Request to backend: ${request.stationId} \n ${request.radiusMeters} \n ${request.latitude} \n" +
+                    " ${request.longitude} \n" +
+                    " ${request.name} \n" +
+                    " ${request.polygon.size} \n" +
+                    " ${request.stopPoint}"
+        )
         return wrapAwaitData(
-                call = AdminAppService.service.modifyStationUnit(mac, request),
-                methodName = "modifyStationUnit()"
+            call = AdminAppService.service.modifyStationUnit(mac, request),
+            methodName = "modifyStationUnit()"
         )
     }
 
 
     suspend fun getGlobalConfigurationData(): RGlobalConfigurationData? {
         return wrapAwaitData(
-                call = AdminAppService.service.getGlobalConfigurationData(),
-                methodName = "getGlobalConfigurationData()"
+            call = AdminAppService.service.getGlobalConfigurationData(),
+            methodName = "getGlobalConfigurationData()"
         )
     }
 
     suspend fun getDeviceApiKey(challenge: ByteArray, masterBleMacAddress: String): ByteArray? {
         val result = wrapAwaitData(
-                call = AdminAppService.service.getDeviceApiKey(
-                        masterBleMacAddress.macRealToClean(),
-                        challenge.toHexString()),
-                methodName = "getDeviceApiKey()"
+            call = AdminAppService.service.getDeviceApiKey(
+                masterBleMacAddress.macRealToClean(),
+                challenge.toHexString()
+            ),
+            methodName = "getDeviceApiKey()"
         )
 
         val b64 = result?.data
@@ -98,52 +101,53 @@ object WSSeeUsAdmin : WSBase() {
 
     suspend fun getButtons(masterBleMacAddress: String): List<RButtonUnit>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getButtonForMaster(masterBleMacAddress.macRealToClean()),
-                methodName = "getLockerForMaster()"
+            call = AdminAppService.service.getButtonForMaster(masterBleMacAddress.macRealToClean()),
+            methodName = "getLockerForMaster()"
         )
     }
 
     suspend fun eraseDevice(masterBleMacAddress: String): Void? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.eraseMasterDevice(masterBleMacAddress.macRealToClean()),
-                methodName = "eraseDevice()"
+            call = AdminAppService.service.eraseMasterDevice(masterBleMacAddress.macRealToClean()),
+            methodName = "eraseDevice()"
         )
     }
 
-    suspend fun getStopPoints(stationReferenceId: String): Map<String,String>? {
+    suspend fun getStopPoints(stationReferenceId: String): Map<String, String>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getStopPoints(stationReferenceId),
-                methodName = "getStopPoints()"
+            call = AdminAppService.service.getStopPoints(stationReferenceId),
+            methodName = "getStopPoints()"
         )
     }
+
     suspend fun getEpdLists(): List<RAdminEpdInfo>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getEpdListTypes(),
-                methodName = "getEpdListTypes()"
+            call = AdminAppService.service.getEpdListTypes(),
+            methodName = "getEpdListTypes()"
         )
     }
 
     suspend fun getStationUnits(): List<RStationUnit>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getStationUnits(),
-                methodName = "getStationUnits()",
-                defaultNullValue = listOf()
+            call = AdminAppService.service.getStationUnits(),
+            methodName = "getStationUnits()",
+            defaultNullValue = listOf()
         )
     }
 
     suspend fun getStationUnitsReal(): List<RRealStationLocation>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getStationUnitsReal(),
-                methodName = "getStationUnits()",
-                defaultNullValue = listOf()
+            call = AdminAppService.service.getStationUnitsReal(),
+            methodName = "getStationUnits()",
+            defaultNullValue = listOf()
         )
     }
 
     suspend fun getStationUnit(id: Int): RRealStation? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getStationUnit(id),
-                methodName = "getStationUnits()",
-                defaultNullValue = RRealStation()
+            call = AdminAppService.service.getStationUnit(id),
+            methodName = "getStationUnits()",
+            defaultNullValue = RRealStation()
         )
     }
 
@@ -152,9 +156,9 @@ object WSSeeUsAdmin : WSBase() {
 
 
         val locations = WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getStationUnitsByLocation(lat, long),
-                methodName = "getStationUnitsByLocation()",
-                defaultNullValue = listOf()
+            call = AdminAppService.service.getStationUnitsByLocation(lat, long),
+            methodName = "getStationUnitsByLocation()",
+            defaultNullValue = listOf()
         ) ?: listOf()
         val locationsDTO = locations.map {
             val item = it
@@ -174,9 +178,9 @@ object WSSeeUsAdmin : WSBase() {
 
     suspend fun getAllButtons(): List<RButtonUnit>? {
         return wrapAwaitData(
-                call = AdminAppService.service.getButtonUnits(),
-                methodName = "getAllButtons()",
-                defaultNullValue = listOf()
+            call = AdminAppService.service.getButtonUnits(),
+            methodName = "getAllButtons()",
+            defaultNullValue = listOf()
         )
     }
 
@@ -184,50 +188,56 @@ object WSSeeUsAdmin : WSBase() {
         return AdminAppService.service.encrypt(mac, request)
     }
 
-    fun getLanguages(): RWebLanguage? {
-        return RWebLanguage()
+    suspend fun getLanguages(): List<RLanguage>? {
+        val languages = mutableListOf<RLanguage>()
+        languages.add(RLanguage())
+        languages.add(RLanguage(2, "DE", "Germany"))
+        languages.toList()
+        return languages
     }
 
     suspend fun addButtonToStation(stationMac: String, buttonMac: String): Boolean {
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.assignButtonToStation(stationMac, buttonMac),
-                methodName = "assignButtonToStation()"
+            call = AdminAppService.service.assignButtonToStation(stationMac, buttonMac),
+            methodName = "assignButtonToStation()"
         )
     }
+
     suspend fun simulateStationAction(stationMac: String, action: String): Boolean {
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.simulateStationAction(stationMac, action),
-                methodName = "simulateStopSupportRequest()"
+            call = AdminAppService.service.simulateStationAction(stationMac, action),
+            methodName = "simulateStopSupportRequest()"
         )
     }
 
 
     suspend fun deleteButtonFromStation(buttonMac: String): Boolean {
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.deleteButtonFromStation( buttonMac),
-                methodName = "assignButtonToStation()"
+            call = AdminAppService.service.deleteButtonFromStation(buttonMac),
+            methodName = "assignButtonToStation()"
         )
     }
+
     suspend fun getNetworkConfigurations(): List<RNetworkConfiguration>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getNetworkConfigurations(),
-                methodName = "getNetworkConfigurations()"
+            call = AdminAppService.service.getNetworkConfigurations(),
+            methodName = "getNetworkConfigurations()"
         )
     }
 
     suspend fun updateUserProfile(
-            user: RUpdateAdminInfo
+        user: RUpdateAdminInfo
     ): RAdminUserInfo? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.updateUserProfile(user),
-                methodName = "updateUserProfile()"
+            call = AdminAppService.service.updateUserProfile(user),
+            methodName = "updateUserProfile()"
         )
     }
 
     suspend fun requestPasswordRecovery(email: String): Boolean {
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.requestPasswordRecovery(email),
-                methodName = "requestPasswordRecovery()"
+            call = AdminAppService.service.requestPasswordRecovery(email),
+            methodName = "requestPasswordRecovery()"
         )
     }
 
@@ -237,8 +247,8 @@ object WSSeeUsAdmin : WSBase() {
             this.newPassword = newPassword
         }
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.updatePassword(request),
-                methodName = "updatePassword()"
+            call = AdminAppService.service.updatePassword(request),
+            methodName = "updatePassword()"
         )
     }
 
@@ -249,29 +259,29 @@ object WSSeeUsAdmin : WSBase() {
             this.password = password
         }
         return WSSeeUsAdmin.wrapAwaitIsSuccessful(
-                call = AdminAppService.service.resetPassword(request),
-                methodName = "resetPassword()"
+            call = AdminAppService.service.resetPassword(request),
+            methodName = "resetPassword()"
         )
     }
 
     suspend fun getMessageLog(): List<RMessageLog>? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.getMessageLog(),
-                methodName = "getMessageLog()"
+            call = AdminAppService.service.getMessageLog(),
+            methodName = "getMessageLog()"
         )
     }
 
     suspend fun deleteMessageItem(itemId: Int): Void? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.deleteMessageItem(itemId),
-                methodName = "deleteMessageItem()"
+            call = AdminAppService.service.deleteMessageItem(itemId),
+            methodName = "deleteMessageItem()"
         )
     }
 
     suspend fun deleteAll(): Void? {
         return WSSeeUsAdmin.wrapAwaitData(
-                call = AdminAppService.service.deleteAllMessages(),
-                methodName = "deleteAllMessages()"
+            call = AdminAppService.service.deleteAllMessages(),
+            methodName = "deleteAllMessages()"
         )
     }
 }

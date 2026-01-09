@@ -244,7 +244,7 @@ fun ShowTitleScreen(
         val masterUnitName = DeviceStore.devices[deviceMacAddress.value]?.unitName?.substring(0, maxLength)
         masterUnitName ?: stringResource(R.string.mpl_locker_details_title)
     } else if(route?.contains(MainDestinations.SETTINGS) == true) {
-        stringResource(R.string.mpl_locker_details_title)
+        stringResource(R.string.app_generic_settings)
     } else if(route?.contains(MainDestinations.SETTINGS) == true) {
         stringResource(R.string.select_locker_location_title)
     } else if(route?.contains(MainDestinations.SETTINGS) == true) {

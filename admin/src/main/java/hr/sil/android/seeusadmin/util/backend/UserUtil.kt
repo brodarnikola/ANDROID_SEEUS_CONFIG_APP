@@ -79,7 +79,7 @@ object UserUtil {
                 //invalidate caches on login
                 AppUtil.refreshCache()
 
-                val languagesList = WSSeeUsAdmin.getLanguages()?.data //DataCache.getLanguages(true)
+                val languagesList = WSSeeUsAdmin.getLanguages() //DataCache.getLanguages(true)
 
                 val languageData = languagesList?.find { it.id == responseUser.languageId }
                 SettingsHelper.languageName = "EN"
