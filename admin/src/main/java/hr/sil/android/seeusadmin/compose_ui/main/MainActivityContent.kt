@@ -7,20 +7,10 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -211,7 +200,7 @@ fun MainActivityContent(
                 contentScale = ContentScale.Crop
             )
 
-            MainComposeApp(appState, navBackStackEntry)
+            MainComposeApp(appState, navBackStackEntry, deviceMacAddress)
 
             // Overlays - shown in priority order
             when {
@@ -245,12 +234,12 @@ fun ShowTitleScreen(
     deviceMacAddress: MutableState<String>
 ) {
     val routeTitle = if (route?.contains(MainDestinations.DEVICE_DETAILS) == true) {
-        val maxLength = if ((DeviceStore.devices[deviceMacAddress.value]?.unitName?.length
+        val maxLength = if ((DeviceStore.devices[deviceMacAddress.value]?.displayName?.length
                 ?: 0) > 60
-        ) 60 else DeviceStore.devices[deviceMacAddress.value]?.unitName?.length ?: 0
+        ) 60 else DeviceStore.devices[deviceMacAddress.value]?.displayName?.length ?: 0
         val masterUnitName =
-            DeviceStore.devices[deviceMacAddress.value]?.unitName?.substring(0, maxLength)
-        masterUnitName ?: stringResource(R.string.mpl_locker_details_title)
+            DeviceStore.devices[deviceMacAddress.value]?.displayName?.substring(0, maxLength)
+        masterUnitName ?: DeviceStore.devices[deviceMacAddress.value]?.macAddress ?: ""
     } else if (route?.contains(MainDestinations.SETTINGS) == true) {
         stringResource(R.string.app_generic_settings)
     } else if (route?.contains(MainDestinations.ALERTS) == true) {

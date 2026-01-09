@@ -2,7 +2,6 @@ package hr.sil.android.seeusadmin.compose_ui.main
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,18 +9,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,6 +28,7 @@ import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.compose_ui.home_screens.AlertsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
+import hr.sil.android.seeusadmin.compose_ui.home_screens.StationItemDetailsScreen
 import kotlin.collections.forEachIndexed
 
 
@@ -37,21 +36,27 @@ import kotlin.collections.forEachIndexed
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
-fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStackEntry?>) {
+fun MainComposeApp(
+    appState: MainAppState,
+    navBackStackEntry: State<NavBackStackEntry?>,
+    deviceMacAddress: MutableState<String>
+) {
     NavHost(
         navController = appState.navController,
         startDestination = MainDestinations.HOME,
         //modifier = Modifier.padding(paddingValues)
     ) {
         mainNavGraph(
+            navController = appState.navController,
+            deviceMacAddress = deviceMacAddress,
             navBackStackEntry = navBackStackEntry,
             goToPickup = { route, macAddress ->
                 appState.goToPickup(route = route, macAddress)
             },
-            goToDeviceDetails = { route, deviceId ->
+            goToDeviceDetails = { route, macAddress ->
                 appState.navigateToDeviceDetails(
                     route = route,
-                    deviceId = deviceId
+                    macAddress = macAddress
                 )
             },
             goToDeviceDetailsCleanUpScreens = { route, deviceId, nameOfDevice ->
@@ -67,19 +72,36 @@ fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStack
 
 fun NavGraphBuilder.mainNavGraph(
     navBackStackEntry: State<NavBackStackEntry?>,
-    goToDeviceDetails: (route: String, deviceId: String ) -> Unit,
+    goToDeviceDetails: (route: String, macAddress: String) -> Unit,
     goToDeviceDetailsCleanUpScreens: (route: String, deviceId: String, nameOfDevice: String) -> Unit,
     goToPickup: (route: String, macAddress: String) -> Unit,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
+    navController: NavHostController,
+    deviceMacAddress: MutableState<String>
 ) {
     composable(MainDestinations.HOME) {
         NavHomeScreen(
             viewModel = viewModel(), // viewModel,
-            onNavigateToDeviceDetails = { deviceId ->
+            onNavigateToDeviceDetails = { macAddress ->
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId)
+                    deviceMacAddress.value = macAddress
+                    navController.navigate("${MainDestinations.DEVICE_DETAILS}/$macAddress")
                 }
             }
+        )
+    }
+
+    composable(
+        "${MainDestinations.DEVICE_DETAILS}/{${NavArguments.MAC_ADDRESS}}",
+        arguments = listOf(
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        StationItemDetailsScreen(
+            viewModel = viewModel(), // viewModel,
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
         )
     }
 

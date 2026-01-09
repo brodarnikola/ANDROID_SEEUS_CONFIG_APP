@@ -69,9 +69,9 @@ class MainAppState(
         }
     }
 
-    fun navigateToDeviceDetails(route: String, deviceId: String ) {
+    fun navigateToDeviceDetails(route: String, macAddress: String ) {
         if (route != currentRoute) {
-            navController.navigate("$route/$deviceId") {
+            navController.navigate("$route/$macAddress") {
                 launchSingleTop = true
                 restoreState = true
 //                if (popPreviousScreen) {
