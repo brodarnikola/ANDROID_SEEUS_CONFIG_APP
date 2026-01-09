@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp">
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvLanguages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical|left"
+
+                android:text="@string/nav_settings_language"
+                android:textColor="@color/colorWhite"
+
+                android:textSize="13sp"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+                android:id="@+id/llLanguages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLanguages">
+
+            <Spinner
+                    android:id="@+id/spinerLanguageSelection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@color/colorWhite" />
+
+        </LinearLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+
+                android:text="@string/app_generic_name"
+                android:textColor="@color/colorWhite"
+
+                android:textSize="13sp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llLanguages" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+            <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="text"
+                    android:maxLines="1"
+
+                    android:singleLine="true"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+
+                    android:textSize="13sp"
+                    android:background="@drawable/edittext_available_bottom_line_color"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ivName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvNameError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="13sp"
+                android:text="@string/edit_user_validation_blank_fields_exist"
+                android:textColor="@color/colorError"
+
+                android:visibility="gone"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clName" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/app_generic_email"
+                android:textColor="@color/colorWhite"
+
+                android:textSize="13sp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameError" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvEmail">
+
+            <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                    android:id="@+id/settingsEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:alpha="0.7"
+                    android:enabled="false"
+
+                    android:inputType="text"
+                    android:maxLines="1"
+
+                    android:singleLine="true"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+
+                    android:textSize="13sp"
+                    android:background="@drawable/edittext_available_bottom_line_color"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ivEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                android:id="@+id/tvChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+
+                android:gravity="left"
+                android:text="@string/nav_settings_change_password"
+
+                android:textSize="13sp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clEmail" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvOldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:text="@string/current_password"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChangePassword" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clOldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvOldPassword">
+
+            <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                    android:id="@+id/oldPasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+
+                    android:singleLine="true"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp"
+                    android:background="@drawable/edittext_available_bottom_line_color"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ivOldPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvOldPasswordError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/edit_user_validation_blank_fields_exist"
+                android:textColor="@color/colorError"
+                android:textSize="13sp"
+                android:visibility="gone"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clOldPassword" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:text="@string/reset_password_new"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOldPasswordError" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvNewPassword">
+
+            <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                    android:id="@+id/newPasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+
+                    android:singleLine="true"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp"
+                    android:background="@drawable/edittext_available_bottom_line_color"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ivNewPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvNewPasswordError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/edit_user_validation_blank_fields_exist"
+                android:textColor="@color/colorError"
+                android:textSize="13sp"
+                android:visibility="gone"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNewPassword" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvRetypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:text="@string/nav_settings_retype_new"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNewPasswordError" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRetypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvRetypePassword">
+
+            <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                    android:id="@+id/retypePasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+
+                    android:singleLine="true"
+                    android:textColorHint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp"
+                    android:background="@drawable/edittext_available_bottom_line_color"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                    android:id="@+id/ivRetypePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvRetypePasswordError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/edit_user_validation_blank_fields_exist"
+                android:textColor="@color/colorError"
+                android:textSize="13sp"
+                android:visibility="gone"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clRetypePassword" />
+
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvShowPasswords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp"
+                android:text="@string/intro_register_show_password"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRetypePasswordError" />
+
+
+        <hr.sil.android.seeusadmin.fonts.ButtonWithFont
+                android:id="@+id/btnSubmit"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/app_generic_submit"
+                android:background="@drawable/rounded_button"
+                android:textSize="16sp"
+                android:letterSpacing="0.1"
+
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShowPasswords" />
+
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShowPasswords" />
+
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/nav_settings_change_password"
+                android:textColor="@color/colorWhite"
+
+                app:layout_constraintTop_toBottomOf="@id/btnSubmit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

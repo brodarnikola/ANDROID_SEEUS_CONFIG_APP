@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_bottom_header_id" type="id" />
+    <item name="main_title_id" type="id" />
+    <item name="main_title_image_id" type="id" />
+    <item name="main_activity_content" type="id" />
+    <item name="main_edit_text_id" type="id" />
+    <item name="main_frame_layout" type="id" />
+    <item name="main_edit_password_id" type="id" />
+    <item name="main_button_id" type="id" />
+    <item name="home_view_pager_dots" type="id" />
+    <item name="main_fragment_wrapper" type="id" />
+    <item name="main_title_id_1" type="id" />
+    <item name="main_title_id_2" type="id" />
+    <item name="main_no_parcel_items" type="id" />
+    <item name="main_parcel_items" type="id" />
+    <item name="main_address_box_user_name" type="id" />
+    <item name="main_address_box_address" type="id" />
+    <item name="main_no_parcel_items_text" type="id" />
+    <item name="main_parcel_items_frame" type="id" />
+    <item name="main_mpl_parcel_items_frame" type="id" />
+    <item name="main_home_header" type="id" />
+    <item name="main_parcel_items_text" type="id" />
+    <item name="main_parcel_locker_item_name" type="id" />
+    <item name="main_single_parcel_locker_arrow" type="id" />
+    <item name="main_parcel_locker_item_address" type="id" />
+    <item name="main_single_parcel_locker_icon" type="id" />
+    <item name="main_parcel_locker_item_id" type="id" />
+    <item name="main_parcel_locker_item_wrapper" type="id" />
+    <item name="main_spl_recycle_view" type="id" />
+    <item name="mainMplRecycleView" type="id" />
+    <item name="main_mpl_locker_wrapper" type="id" />
+    <item name="main_add_parcel_fab" type="id" />
+    <item name="main_profile_icon" type="id" />
+    <item name="main_profile_icon_wrapper" type="id" />
+    <item name="main_nav_home_frame" type="id" />
+    <item name="main_nav_home_frame_details" type="id" />
+    <item name="main_locker_availability" type="id" />
+    <item name="main_floating_button" type="id" />
+    <item name="main_single_parcel_locker_wrapper" type="id" />
+    <item name="main_multiple_parcel_locker_wrapper" type="id" />
+    <item name="main_parcel_locker_item_group_number" type="id" />
+    <item name="main_parcel_locker_item_group_name" type="id" />
+    <item name="main_locker_title" type="id" />
+    <item name="main_locker_battery" type="id" />
+    <item name="main_locker_mac_address" type="id" />
+    <item name="main_locker_mac_address_value" type="id" />
+    <item name="main_locker_battery_value" type="id" />
+    <item name="main_locker_fw" type="id" />
+    <item name="main_locker_fw_value" type="id" />
+    <item name="main_locker_register_wrapper" type="id" />
+    <item name="main_locker_line" type="id" />
+    <item name="main_locker_latitude" type="id" />
+    <item name="main_locker_longitude" type="id" />
+    <item name="main_locker_radius" type="id" />
+    <item name="main_locker_name" type="id" />
+    <item name="main_locker_register" type="id" />
+    <item name="main_locker_unregister_wrapper" type="id" />
+    <item name="main_locker_manage_peripherals_layout" type="id" />
+    <item name="main_locker_manage_peripherals_picture" type="id" />
+    <item name="main_locker_manage_peripherals_textView" type="id" />
+    <item name="main_locker_manage_users_layout" type="id" />
+    <item name="main_locker_manage_users_picture" type="id" />
+    <item name="main_locker_manage_users_textView" type="id" />
+    <item name="main_locker_manage_network_layout" type="id" />
+    <item name="main_locker_manage_network_picture" type="id" />
+    <item name="main_locker_manage_network_textView" type="id" />
+    <item name="main_locker_epaper_update_layout" type="id" />
+    <item name="main_locker_epaper_update_picture" type="id" />
+    <item name="main_locker_epaper_update_textView" type="id" />
+    <item name="main_locker_epaper_progress_bar" type="id" />
+    <item name="main_locker_network_progress_bar" type="id" />
+    <item name="radio_offline" type="id" />
+    <item name="radio_sleep" type="id" />
+    <item name="psm_mode" type="id" />
+    <item name="psm_wraning_text" type="id" />
+    <item name="item_netowrk_config_name" type="id" />
+    <item name="g_maps" type="id" />
+
+
+    <item name="mainactivity_toolbar_arrow" type="id" />
+    <item name="mainactivity_toolbar_huber_picture" type="id" />
+    <item name="mainactivity_toolbar_huber_text" type="id" />
+
+    <item name="home_spl_details_pickup_parcel" type="id" />
+    <item name="home_spl_details_pickup_parcel_button" type="id" />
+    <item name="home_spl_details_pickup_parcel_wrapper" type="id" />
+    <item name="main_parcel_pickup_content" type="id" />
+    <item name="home_spl_details_send_parcel" type="id" />
+    <item name="home_spl_details_key_share" type="id" />
+    <item name="home_spl_details_help" type="id" />
+    <item name="main_locker_name_title" type="id" />
+    <item name="main_locker_title_value" type="id" />
+    <item name="main_number_of_buttons" type="id" />
+    <item name="main_number_of_lockers_value_per_locker" type="id" />
+    <item name="main_number_of_lockers_value" type="id" />
+    <item name="register_in_progress" type="id" />
+    <item name="main_register_progress_bar" type="id" />
+    <item name="main_locker_apn_drop_down" type="id" />
+    <item name="main_locker_apn_wrapper" type="id" />
+    <item name="main_locker_apn_title" type="id" />
+
+    <item name="pickup_parcel_header" type="id" />
+    <item name="pickup_parcel_state" type="id" />
+    <item name="pickup_parcel_image" type="id" />
+    <item name="pickup_parcel_state_text" type="id" />
+    <item name="pickup_pin_form" type="id" />
+    <item name="pickup_repeat_pin_form" type="id" />
+    <item name="pickup_password_input" type="id" />
+    <item name="pickup_password_repeate" type="id" />
+
+    <item name="send_parcel_text" type="id" />
+    <item name="send_parcel_title" type="id" />
+    <item name="send_parcel_main_image" type="id" />
+    <item name="send_parcel_main_text" type="id" />
+    <item name="send_parcel_content_text" type="id" />
+    <item name="send_parcel_delivery_next" type="id" />
+    <item name="send_parcel_delivery_finish" type="id" />
+    <item name="send_parcel_header" type="id" />
+    <item name="send_parcel_button_m" type="id" />
+    <item name="send_parcel_button_l" type="id" />
+    <item name="send_parcel_button_s" type="id" />
+    <item name="send_parcel_button_xs" type="id" />
+    <item name="send_parcel_button_xl" type="id" />
+    <item name="send_parcel_next" type="id" />
+    <item name="send_parcel_button_wrapper" type="id" />
+    <item name="send_parcel_menu" type="id" />
+    <item name="send_parcel_delivery_wrapper" type="id" />
+    <item name="send_parcel_retry" type="id" />
+    <item name="send_parcel_progress_bar" type="id" />
+
+    <item name="notification_title" type="id" />
+    <item name="notification_wrapper" type="id" />
+    <item name="notifications_clear_items" type="id" />
+    <item name="notification_list_wrapper" type="id" />
+    <item name="notification_item_date" type="id" />
+    <item name="notification_item_content" type="id" />
+    <item name="notification_item_name" type="id" />
+
+    <item name="ttc_title" type="id" />
+    <item name="ttc_wrapper" type="id" />
+    <item name="ttc_scroll" type="id" />
+    <item name="ttc_main_conditions" type="id" />
+
+      //Welcome screen
+    <item name="welcome_slider_top_image" type="id" />
+    <item name="welcome_slider_bottom_image" type="id" />
+    <item name="intro_start_sign_in" type="id" />
+    <item name="intro_register_your_account" type="id" />
+    <item name="toolbar" type="id" />
+
+    <item name="key_sharing_header" type="id" />
+    <item name="key_sharing_subheader" type="id" />
+    <item name="key_sharing_content" type="id" />
+    <item name="key_sharing_create_button" type="id" />
+    <item name="key_sharing_input_wrapper" type="id" />
+    <item name="key_sharing_new_user_title" type="id" />
+    <item name="key_sharing_new_user_email_contacts" type="id" />
+    <item name="key_sharing_new_user_name" type="id" />
+    <item name="key_sharing_new_user_email" type="id" />
+    <item name="key_sharing_button" type="id" />
+    <item name="key_list_wrapper" type="id" />
+    <item name="key_sharing_user_name_wrapper" type="id" />
+    <item name="key_sharing_user_email_wrapper" type="id" />
+    <item name="key_sharing_user_address_book_wrapper" type="id" />
+    <item name="key_sharing_user_mpl_wrapper" type="id" />
+
+
+    <item name="key_sharing_item_key_image" type="id" />
+    <item name="key_sharing_item_key_new" type="id" />
+    <item name="key_sharing_item_key_header" type="id" />
+    <item name="key_sharing_item_key_content" type="id" />
+    <item name="key_sharing_item_key_content_right" type="id" />
+    <item name="key_sharing_item_key_delete" type="id" />
+
+    <item name="login_email_input" type="id" />
+    <item name="login_register" type="id" />
+    <item name="login_password_recovery" type="id" />
+    <item name="login_password_wrapper" type="id" />
+    <item name="forgot_password_content_title" type="id" />
+    <item name="forgot_password_send" type="id" />
+    <item name="forgot_password_email_input" type="id" />
+    <item name="forgot_password_pin_input" type="id" />
+    <item name="forgot_password_password" type="id" />
+    <item name="forgot_password_repeat_password" type="id" />
+    <item name="subscribeButton" type="id" />
+    <item name="logTokenButton" type="id" />
+    <item name="toolbar_spliter" type="id" />
+
+
+    <item name="home_mpl_circle_value" type="id" />
+
+    <item name="key_sharing_pending_text" type="id" />
+    <item name="key_sharing_item_key_size" type="id" />
+    <item name="key_sharing_item_key_proximity_status" type="id" />
+
+
+      <item name="master_access_list_wrapper" type="id" />
+    <item name="main_gsm_status" type="id" />
+    <item name="main_gsm_rssi" type="id" />
+    <item name="main_gsm_rssi_value" type="id" />
+    <item name="main_locker_stm_ver" type="id" />
+    <item name="main_locker_stm_ver_value" type="id" />
+    <item name="main_locker_stm_version" type="id" />
+    <item name="main_gsm_status_value" type="id" />
+    <item name="main_gsm_modem_queue_value" type="id" />
+    <item name="main_gsm_modem_queue" type="id" />
+    <item name="main_gsm_modem_rat" type="id" />
+
+    <item name="mpl_selection_menu" type="id" />
+    <item name="main_unregister_master" type="id" />
+
+    <item name="mpl_section_1" type="id" />
+    <item name="mpl_section_2" type="id" />
+    <item name="mpl_section_3" type="id" />
+    <item name="mpl_section_4" type="id" />
+    <item name="mpl_section_5" type="id" />
+    <item name="mpl_section_6" type="id" />
+    <item name="mpl_section_7" type="id" />
+    <item name="mpl_section_8" type="id" />
+    <item name="mpl_section_9" type="id" />
+    <item name="mpl_section_10" type="id" />
+    <item name="mpl_section_11" type="id" />
+    <item name="mpl_section_12" type="id" />
+    <item name="mpl_section_13" type="id" />
+    <item name="mpl_section_14" type="id" />
+    <item name="mpl_section_15" type="id" />
+    <item name="mpl_section_16" type="id" />
+
+
+    <!-- Settings-->
+    <item name="nav_settings_name_edit" type="id" />
+    <item name="nav_settings_email_edit" type="id" />
+    <item name="nav_settings_address_edit" type="id" />
+    <item name="nav_settings_phone" type="id" />
+    <item name="nav_settings_scroll_list" type="id" />
+    <item name="settings_sign_out" type="id" />
+    <item name="settings_submit" type="id" />
+    <item name="settings_name" type="id" />
+    <item name="settings_register_email" type="id" />
+    <item name="settings_register_address" type="id" />
+    <item name="settings_register_phone" type="id" />
+    <item name="settings_group_name_icon" type="id" />
+    <item name="peripheral_settings_share" type="id" />
+    <item name="settings_group_name" type="id" />
+    <item name="settings_group_name_edit" type="id" />
+    <item name="settings_language_selection" type="id" />
+    <item name="settings_new_password" type="id" />
+    <item name="settings_email_notification" type="id" />
+    <item name="settings_push_notification" type="id" />
+    <item name="main_locker_settings_layout" type="id" />
+    <item name="main_locker_settings_picture" type="id" />
+    <item name="main_locker_settings" type="id" />
+    <item name="peripheral_settings_lockers" type="id" />
+    <item name="peripheral_settings_force_open" type="id" />
+    <item name="peripheral_settings_force_open_layout" type="id" />
+    <item name="peripheral_settings_force_open_picture" type="id" />
+    <item name="peripheral_settings_force_open_textView" type="id" />
+    <item name="peripheral_settings_debug_mode" type="id" />
+    <item name="peripheral_settings_discover_peripheral" type="id" />
+    <item name="perihperal_list_wrapper" type="id" />
+    <item name="peripheral_settings_delete" type="id" />
+    <item name="peripheral_settings_add" type="id" />
+    <item name="peripheral_settings_distinct" type="id" />
+    <item name="progress_circular_discover" type="id" />
+    <item name="peripheral_settings_force_open_progress" type="id" />
+    <item name="main_locker_force_reboot_progress_bar" type="id" />
+    <item name="main_station_debug_mode_progress_bar" type="id" />
+    <item name="main_station_reset_progress_bar" type="id" />
+    <item name="peripheral_settings_reboot_layout" type="id" />
+    <item name="peripheral_settings_debug_layout" type="id" />
+    <item name="peripheral_settings_reset_layout" type="id" />
+
+    <item name="locker_settings_save_changes" type="id" />
+    <item name="settings_title" type="id" />
+    <item name="settings_wrapper" type="id" />
+    <item name="settings_scroll" type="id" />
+    <item name="settings_password" type="id" />
+    <item name="settings_repeat_password" type="id" />
+    <item name="password_icon_old" type="id" />
+    <item name="pickup_password_input_old" type="id" />
+    <item name="ic_regisgter" type="id" />
+    <item name="main_locker_settings_scroll" type="id" />
+    <item name="no_internet_layout" type="id" />
+    <item name="no_ble_layout" type="id" />
+    <item name="key_sharing_item_key_phone" type="id" />
+    <item name="key_sharing_item_key_content_email" type="id" />
+    <item name="key_sharing_item_key_content_index" type="id" />
+    <item name="main_locker_force_open_progress_bar" type="id" />
+
+
+
+
+
+
+
+</resources>

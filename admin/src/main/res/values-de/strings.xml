@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"SeeUs Konfigurator"</string>
+    <string name="name">"Name"</string>
+    <string name="locker_mac_address">"MAC Adresse:"</string>
+    <string name="main_no_stations">"Sie haben derzeit keinen Zugriff auf die SeeUs Geräte. Bitte halten Sie sich in der Nähe von den Geräten auf."</string>
+    <string name="mpl_locker_details_title">"Details"</string>
+    <string name="main_locker_battery">"Batterie:"</string>
+    <string name="main_locker_fw">"NiNa Firmware Version:"</string>
+    <string name="main_locker_stm_ver">"STM Firmware Version:"</string>
+    <string name="main_station_settings">"Geräteeinstellungen"</string>
+    <string name="main_locker_manage_buttons">"Taster Einstellungen"</string>
+    <string name="main_locker_manage_network">"Netzwerk Einstellungen"</string>
+    <string name="main_locker_registration_started">"Registrierung erfolgreich gestartet!"</string>
+    <string name="main_locker_registration_error">"Fehler bei der Registrierung!"</string>
+    <string name="main_locker_force_open_update_error">"Fehler beim Tastentest"</string>
+    <string name="main_locker_debug_set_error">"Fehler bei der Einstellung des Debug-Modus"</string>
+    <string name="main_locker_debug_set_success">"Debug-Modus erfolgreich gestartet"</string>
+    <string name="main_locker_ble_connection_error">"Fehler bei Verbindung des Gerätes"</string>
+    <string name="main_locker_apn_list">"Verfügbare Netzwerke"</string>
+    <string name="app_common_internet_connection">"Bitte überprüfen Sie Ihre Internetverbindung!"</string>
+    <string name="nav_settings_language">"Sprache"</string>
+    <string name="manage_peripherals_inproximity">"In Reichweite"</string>
+    <string name="manage_peripherals_not_inproximity">"Nicht in Reichweite"</string>
+    <string name="nav_home_mpl_title">"SeeUs Geräte"</string>
+    <string name="nav_notifications_warning">"Sind Sie sicher, dass Sie alle Benachrichtigungen löschen möchten? Dies kann nicht rückgängig gemacht werden."</string>
+    <string name="nav_alarms_title">"Alarme"</string>
+    <string name="nav_settings_user_details">"Benutzerdetails"</string>
+    <string name="nav_settings_change_password">"Passwort ändern"</string>
+    <string name="login_submit_title">"Einloggen"</string>
+    <string name="register_submit_title">"Registrieren"</string>
+    <string name="register_in_progress">"Registrierung läuft..."</string>
+    <string name="forgot_password_title">"Haben Sie Ihr Passwort vergessen?"</string>
+    <string name="forgot_password_description_title">"Geben Sie bitte Ihre Email-Adresse ein"</string>
+    <string name="forgot_password_send">"Senden"</string>
+    <string name="key_sharing_delete_key_message">"Sind Sie sicher, dass Sie die Taste vom Stationsgerät entfernen möchten?"</string>
+    <string name="pending">"Ausstehend"</string>
+    <string name="reset_password_title">"Passwort zurücksetzten"</string>
+    <string name="reset_password_description_title">"Bitte geben Sie Ihr neues Passwort ein"</string>
+    <string name="reset_password_new">"Neues Passwort"</string>
+    <string name="reset_password_pin">"PIN Wiederherstellen"</string>
+    <string name="reset_password_confirm">"Passwort bestätigen"</string>
+    <string name="reset_password_done">"Erledigt"</string>
+    <string name="delete_pending">"Löschen ausstehend"</string>
+    <string name="registration_pending">"Registrierung ausstehend"</string>
+    <string name="manage_peripherals_registered">"Registriert"</string>
+    <string name="manage_peripherals_unregistered">"Nicht registriert"</string>
+    <string name="main_gsm_status">"Modem Status:"</string>
+    <string name="main_gsm_rssi">"Modem RSSI:"</string>
+    <string name="main_gsm_modem_queue">"Modem Warteschlange:"</string>
+    <string name="main_gsm_modem_rat">"RAT:"</string>
+    <string name="main_number_of_buttons">"Anzahl Taster:"</string>
+    <string name="manage_peripherals_title">"Taster %s"</string>
+    <string name="nav_settings_app_version">"App Version: %s"</string>
+    <string name="nav_settings_new_password">"Neu"</string>
+    <string name="nav_settings_retype_new">"Erneut eingeben"</string>
+    <string name="locker_settings_error_name_empty_warning">"Bitte geben Sie den Breitengrad ein!"</string>
+    <string name="locker_settings_error_address_empty_warning">"Bitte geben Sie den Längengrad ein!"</string>
+    <string name="locker_settings_error_radius_empty_warning">"Bitte geben Sie den Radius ein!"</string>
+
+    <string name="scu_latitude_dot_first_place">"Station latitude dot can not be on first place"</string>
+    <string name="scu_latitude_dot_does_not_exist">"Station latitude does not contain dot"</string>
+    <string name="scu_latitude_no_characters_after_dot">"Station latitude don't have number after dot."</string>
+    <string name="scu_latitude_value_to_big">"Station latitude to big."</string>
+    <string name="scu_latitude_value_to_small">"Station latitude to small."</string>
+    <string name="scu_latitude_value_to_small_charachters">"Station latitude to small characters."</string>
+    <string name="scu_latitude_value_to_many_charachters">"Station latitude to many characters."</string>
+
+    <string name="scu_longitude_length_to_short">"Station longitude to short"</string>
+    <string name="scu_longitude_dot_first_place">"Station longitude dot can not be on first place"</string>
+    <string name="scu_longitude_dot_does_not_exist">"Station longitude does not contain dot"</string>
+    <string name="scu_longitude_no_characters_after_dot">"Station longitude don't have number after dot."</string>
+    <string name="scu_longitude_value_to_big">"Station longitude to big."</string>
+    <string name="scu_longitude_value_to_small">"Station longitude to small."</string>
+    <string name="scu_longitude_value_to_small_charachters">"Station longitude to small characters."</string>
+    <string name="scu_longitude_value_to_many_charachters">"Station longitude to many characters."</string>
+
+    <string name="stop_the_bus_simulation">"LED Test"</string>
+    <string name="peripheral_settings_reboot">"Neustart"</string>
+    <string name="peripheral_settings_debug_mode">"Debug Modus"</string>
+    <string name="default_notification_channel_name">"Neuigkeiten"</string>
+    <string name="locker_settings_save_changes">"Speichern"</string>
+    <string name="locker_settings_reset_changes">"Zurücksetzen"</string>
+    <string name="edit_user_validation_blank_fields_exist">"Bitte geben Sie alle Benutzerdaten ein."</string>
+    <string name="edit_user_validation_current_password_invalid">"Aktuelles Passwort nicht korrekt!"</string>
+    <string name="edit_user_validation_current_user_invalid">"Der aktuelle Benutzer ist nicht gültig!"</string>
+    <string name="edit_user_validation_passwords_do_not_match">"Passwort falsch"</string>
+    <string name="edit_user_validation_password_min_6_characters">"Das Passwort muss mindestens 6 Zeichen lang sein."</string>
+    <string name="edit_user_validation_username_min_4_characters">"Der Benutzername muss mindestens 4 Zeichen lang sein."</string>
+    <string name="edit_user_validation_terms_and_conditions_not_checked">"Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und die Datenschutzerklärung."</string>
+    <string name="message_email_invalid">"E-Mail-Adresse nicht gültig!"</string>
+    <string name="app_generic_latitude">"Breitengrad des Stationsgerätes"</string>
+    <string name="app_generic_longitude">"Längengrad des Stationsgerätes"</string>
+    <string name="app_generic_radius">"Radius"</string>
+    <string name="app_generic_email">"E-Mail"</string>
+    <string name="app_generic_submit">"Einreichen"</string>
+    <string name="app_generic_clear_all">"Alles löschen"</string>
+    <string name="app_generic_password_recovery">"Passwort vergessen"</string>
+    <string name="app_generic_no_gps_location_service">"Kein Zugriff auf Ihren Standort."</string>
+    <string name="app_generic_no_ble">"Bitte schalten Sie Bluetooth ein"</string>
+    <string name="app_generic_station_unit">"Stationsgerät"</string>
+    <string name="app_generic_confirm">"Bestätigen"</string>
+    <string name="app_generic_cancel">"Abbrechen"</string>
+    <string name="app_generic_sign_in">"Einloggen"</string>
+    <string name="app_generic_password">"Passwort"</string>
+    <string name="app_generic_username">"Benutzername"</string>
+    <string name="app_generic_no_network">"Keine Internet Verbindung."</string>
+    <string name="app_generic_repeat_password">"Passwort wiederholen"</string>
+    <string name="app_generic_server_error">"Fehler bei der Verbindung zum Server. Bitte überprüfen Sie Ihre Internetverbindung."</string>
+    <string name="successfully_saved_data">"Erfolgreich gespeicherte Daten für den Benutzer-ID %s!"</string>
+    <string name="registration_error">"Fehler bei der Registrierung!"</string>
+    <string name="successfull_saved_network_configuration">"Netzwerkkonfiguration erfolgreich eingerichtet!"</string>
+    <string name="successfully_updated">"Erfolgreich aktualisiert"</string>
+    <string name="error_updating_mpl">"Fehler bei der Verbindung zum Backend"</string>
+    <string name="error_polygon_size">"Bitte geben Sie mindestens 4 Punkte ein"</string>
+    <string name="error_station_location">"Bitte geben Sie den Gerätestandort ein"</string>
+    <string name="app_generic_home">"Hauptmenu"</string>
+    <string name="app_generic_alerts">"Alarms"</string>
+    <string name="app_generic_settings">"Einstellungen"</string>
+    <string name="app_generic_distance">"Entfernung: %s m"</string>
+    <string name="app_settings_linked_location">"Verknüpfte Standortkonfiguration"</string>
+    <string name="app_settings_custom_location">"Benutzerdefinierte Standortkonfiguration"</string>
+    <string name="peripheral_settings_reset">"Gerät zurücksetzen"</string>
+    <string name="station_settings_draw_polygon" translatable="true">Zeichen</string>
+    <string name="station_settings_station_name" translatable="true">Stationsname</string>
+    <string name="station_settings_direction" translatable="true">Richtung</string>
+    <string name="station_settings_epd_type" translatable="true">Epd typ:</string>
+
+    <string name="app_generic_name">"Name"</string>
+    <string name="intro_register_show_password">"Passwort anzeigen"</string>
+    <string name="reset_password_match_error">"Die eingegebenen Passwörter stimmen nicht überein"</string>
+    <string name="current_password">"Geben Sie das aktuelle Passwort ein"</string>
+
+    <string name="logout_question">"Sind Sie sicher, dass Sie sich abmelden wollen?"</string>
+    <string name="logout_again">"Sie können sich jederzeit wieder anmelden."</string>
+    <string name="wrong_inserted_text_home_screen">"Nichts passt zu diesem eingefügten Text. Sie können Geräte nach Name oder MAC-Adresse suchen."</string>
+    <string name="hint_search_text_home_screen">"Filter"</string>
+
+    <string name="offline_mode">"Offline-Modus"</string>
+    <string name="sleep_mode">"Schlaf-Modus"</string>
+    <string name="fur_testing_purpose">"Nur zu Testzwecken. Mit äußerster Vorsicht verwenden!!"</string>
+
+    <string name="delete_device_question">"WARNUNG!! Diese Aktion kann nicht rückgängig gemacht werden, Sie werden das Gerät löschen, bitte bestätigen Sie, um mit dem Werksreset fortzufahren."</string>
+    <string name="success_deleting_device">"Löschung des Geräts erfolgreich gestartet."</string>
+    <string name="error_deleting_device">"Fehler beim löschen des Gerät!"</string>
+
+    <string name="select_locker_location_title">"Schliessfachposition auswählen"</string>
+
+</resources>

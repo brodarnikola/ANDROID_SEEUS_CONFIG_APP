@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp">
+
+        <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/app_generic_station_unit"
+            android:textColor="@color/colorWhite"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvMacAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:text="MAC address:"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvMacAddressValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+            app:layout_constraintLeft_toRightOf="@+id/tvMacAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvDeviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/name"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMacAddress" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvDeviceNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+            app:layout_constraintLeft_toRightOf="@+id/tvDeviceName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMacAddress" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvStmVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_locker_stm_ver"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeviceName" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvStmVersionValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+            app:layout_constraintLeft_toRightOf="@+id/tvStmVersion"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeviceName" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvRSSI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_gsm_rssi"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStmVersion" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvRSSIvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toRightOf="@+id/tvRSSI"
+            app:layout_constraintTop_toBottomOf="@+id/tvStmVersion" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvModemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_gsm_status"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRSSI" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvModemStatusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toRightOf="@+id/tvModemStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvRSSI" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvQueue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_gsm_modem_queue"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvModemStatus" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvQueueStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toRightOf="@+id/tvQueue"
+            app:layout_constraintTop_toBottomOf="@+id/tvModemStatus" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvRat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="RAT: "
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQueue" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvRatValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="-"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toRightOf="@+id/tvRat"
+            app:layout_constraintTop_toBottomOf="@+id/tvQueue" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_locker_battery"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRat" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvBatteryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toRightOf="@+id/tvBattery"
+            app:layout_constraintTop_toBottomOf="@+id/tvRat" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvNumberOfLocker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="@string/main_number_of_buttons"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBattery" />
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/tvNumberOfLockerValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text=" -"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
+
+
+            app:layout_constraintLeft_toRightOf="@+id/tvNumberOfLocker"
+            app:layout_constraintTop_toBottomOf="@+id/tvBattery" />
+
+        <View
+            android:id="@+id/viewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumberOfLockerValue" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUnregistereWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparator"
+                android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/llLatitudeLongitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginTop="10dp"
+
+                android:background="@color/transparentColor"
+                android:orientation="vertical"
+                android:paddingRight="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/llMap"
+
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_weight="7.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <!--app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_weight="7.5"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">-->
+
+                <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                    android:id="@+id/tvLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:gravity="left"
+                    android:text="@string/app_generic_latitude"
+
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite"
+
+                    android:textSize="13sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLatitude">
+
+                    <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                        android:id="@+id/etLatitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/edittext_available_bottom_line_color"
+
+                        android:inputType="numberSigned|numberDecimal"
+
+                        android:maxLines="1"
+                        android:paddingRight="60dp"
+
+                        android:singleLine="true"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorBlack"
+                        android:textSize="13sp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                    android:id="@+id/tvLatitudeError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/edit_user_validation_blank_fields_exist"
+                    android:textColor="@color/colorError"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cLatitude" />
+
+
+                <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                    android:id="@+id/tvLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:gravity="left"
+                    android:text="@string/app_generic_longitude"
+
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite"
+
+                    android:textSize="13sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLongitude">
+
+                    <hr.sil.android.seeusadmin.fonts.EdittextWithFont
+                        android:id="@+id/etLongitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/edittext_available_bottom_line_color"
+
+                        android:inputType="numberSigned|numberDecimal"
+
+                        android:maxLines="1"
+                        android:paddingRight="60dp"
+
+                        android:singleLine="true"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorBlack"
+                        android:textSize="13sp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                    android:id="@+id/tvLongitudeError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/edit_user_validation_blank_fields_exist"
+                    android:textColor="@color/colorError"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cLongitude" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llMap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/llLatitudeLongitude"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2.5"
+                app:layout_constraintStart_toEndOf="@+id/llLatitudeLongitude"
+                app:layout_constraintTop_toTopOf="@+id/llLatitudeLongitude">
+
+                <ImageView
+                    android:id="@+id/ivGoogleMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/btn_map" />
+
+            </LinearLayout>
+
+            <!--<LinearLayout
+                    android:id="@+id/llMap"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/llLatitudeLongitude"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintStart_toEndOf="@+id/llLatitudeLongitude"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.712">
+
+                <ImageView
+                        android:id="@+id/ivGoogleMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="?attr/thmOpenGoogleMapsPicture" />
+
+            </LinearLayout>-->
+
+            <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvAvailableNetworks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/main_locker_apn_list"
+                android:textColor="@color/colorWhite"
+
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llLatitudeLongitude" />
+
+            <LinearLayout
+                android:id="@+id/llApnNetwork"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAvailableNetworks">
+
+                <Spinner
+                    android:id="@+id/spinerapnNetworkSelection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@color/colorWhite"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <hr.sil.android.seeusadmin.fonts.ButtonWithFont
+                android:id="@+id/btnRegisterDevice"
+                android:layout_width="210dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_button"
+                android:letterSpacing="0.1"
+                android:text="@string/register_submit_title"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llApnNetwork" />
+
+            <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/tvRegisterInProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/register_in_progress"
+                android:textColor="@color/colorWhite"
+
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llApnNetwork" />
+
+            <ProgressBar
+                android:id="@+id/progressBarRegisterDevice"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegisterInProgress" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/clRegisteredWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparator">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clStationSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivStationSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_locker_settings"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/main_station_settings"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/main_station_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/main_station_settings"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivStationSettings"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clManageButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivPeripheralsSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_peripheral"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvManageButtons"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvManageButtons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/main_locker_manage_buttons"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivPeripheralsSettings"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRebootLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivReboot"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_reboot"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvReboot"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvReboot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/peripheral_settings_reboot"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivReboot"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarReboot"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNetworkLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivManagePeripheals"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_network_settings"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvManagePeripherals"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvManagePeripherals"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/main_locker_manage_network"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivManagePeripheals"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clLedTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivLedTest"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_led_test"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvLedTest"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvLedTest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/stop_the_bus_simulation"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivLedTest"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarLedTest"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clDebugLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivDebug"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_debug"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvDebug"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvDebug"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/peripheral_settings_debug_mode"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivDebug"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarDebug"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clResetLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/ivReset"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvReset"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintHorizontal_weight="2.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                    android:id="@+id/tvReset"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/peripheral_settings_reset"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.0"
+                    app:layout_constraintStart_toEndOf="@+id/ivReset"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarReset"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

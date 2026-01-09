@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+            android:id="@+id/item_netowrk_config_name"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+
+            android:gravity="center_vertical"
+            android:paddingLeft="2dp"
+            android:paddingRight="20dp"
+
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

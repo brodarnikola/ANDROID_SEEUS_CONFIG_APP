@@ -1,0 +1,36 @@
+package hr.sil.android.seeusadmin.cache.status
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
+
+class ActionStatusKey {
+
+    var macAddress: String = ""
+    var statusType: ActionStatusType = ActionStatusType.UNKNOWN
+    var keyId: String = ""
+    var timeOfInstance: Date = Date()
+    var isScheduleDelete: Boolean = false
+    val SCHEDULE_PERIOD: Long = 1000L * 60L
+
+
+    fun scheduleDelete(instanceKey: String, delayReduction: Long = 0L) {
+        GlobalScope.launch(Dispatchers.Default) {
+            delay(SCHEDULE_PERIOD - delayReduction)
+            try {
+                ActionStatusHandler.actionStatusDb.del(instanceKey)
+            } catch (ex: Exception) {
+
+            }
+        }
+    }
+
+    init {
+        if (isScheduleDelete) {
+            scheduleDelete(keyId)
+        }
+    }
+
+}

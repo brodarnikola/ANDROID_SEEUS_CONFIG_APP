@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "435808440844",
+    "project_id": "seeus-35e79",
+    "storage_bucket": "seeus-35e79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435808440844:android:2bdddb879a4959f4521429",
+        "android_client_info": {
+          "package_name": "hr.sil.android.seeusconfig"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLsgbk7uuu_acjCNAXeFtDewpk0t-xNW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

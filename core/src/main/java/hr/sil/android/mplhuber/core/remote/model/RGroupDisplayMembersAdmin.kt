@@ -1,0 +1,17 @@
+package hr.sil.android.mplhuber.core.remote.model
+
+import com.google.gson.annotations.SerializedName
+
+class RGroupDisplayMembersAdmin : ItemRGroupInfo  {
+
+
+    private val ITEM_ADMIN_NAME_ACCESS_SCREEN = 1
+
+    override fun getListItemType(): Int {
+        return ITEM_ADMIN_NAME_ACCESS_SCREEN
+    }
+
+    @SerializedName("group___owner___name")
+    var groupOwnerName: String = ""
+
+}

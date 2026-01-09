@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiLatitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/EdittextErrorStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColorHint="@color/colorDarkAccent" >
+
+        <EditText
+                android:id="@+id/scu_latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_generic_latitude"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="numberSigned|numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+            android:id="@+id/tvLatitudeError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tiLatitude"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="@color/colorError"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilongitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/EdittextErrorStyle"
+            app:layout_constraintTop_toBottomOf="@+id/tvLatitudeError"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColorHint="@color/colorDarkAccent">
+
+        <EditText
+                android:id="@+id/scu_longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/app_generic_longitude"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="numberSigned|numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+            android:id="@+id/tvLongitudeError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tilongitude"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="@color/colorError"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

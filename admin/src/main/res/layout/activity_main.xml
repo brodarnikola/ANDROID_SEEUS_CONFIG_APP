@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_home_screen"
+        tools:context=".view.activity.MainActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarMain"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+
+                android:background="@color/colorWhite"
+                android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
+
+                android:contentInsetEnd="0dp"
+                android:contentInsetRight="0dp"
+                android:gravity="center_horizontal"
+
+                android:paddingLeft="?android:attr/actionBarSize"
+                android:paddingRight="?android:attr/actionBarSize"
+
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                    android:id="@+id/ivToolbarLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:src="@drawable/seeus_black_thin"
+
+                    android:visibility="invisible" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <hr.sil.android.seeusadmin.fonts.TextViewRegularFont
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="?android:attr/actionBarSize"
+                android:layout_marginRight="?android:attr/actionBarSize"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textSize="20sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/ivLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginRight="5dp"
+
+                android:gravity="center"
+                android:src="@drawable/ic_logout"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/toolbar_title"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+            android:id="@+id/viewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clToolbar" />
+
+    <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomMenu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparator">
+
+        <fragment
+                android:id="@+id/navigation_host_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:navGraph="@navigation/nav_graph_main" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparentColor"
+            app:itemIconTint="@color/colorWhite"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintTop_toBottomOf="@+id/llMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/bottom_navigation" />
+
+    <!--    app:itemIconTint="@drawable/bottom_navigation_selector"-->
+
+
+    <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+            android:id="@+id/no_internet_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="@drawable/bg_wifi_internet"
+            android:clickable="true"
+            android:visibility="gone">
+
+        <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="@string/app_generic_no_network"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                 />
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:id="@+id/no_ble_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="@drawable/bg_bluetooth"
+            android:clickable="true"
+            android:visibility="gone">
+
+        <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="@string/app_generic_no_ble"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                 />
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:id="@+id/no_location_gps_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:clickable="true"
+            android:background="@drawable/bg_location"
+            android:visibility="gone">
+
+        <ImageView
+                android:id="@+id/ivNoLocationImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_no_location_services"/>
+
+
+        <hr.sil.android.seeusadmin.fonts.TextViewBoldFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_generic_no_gps_location_service"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
