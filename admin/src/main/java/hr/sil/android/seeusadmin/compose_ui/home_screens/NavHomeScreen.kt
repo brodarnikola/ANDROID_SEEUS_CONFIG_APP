@@ -52,482 +52,248 @@ import kotlin.text.isEmpty
 import kotlin.text.isNotEmpty
 import kotlin.text.uppercase
 
+
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.theme.ColorPrimary
+import hr.sil.android.seeusadmin.compose_ui.theme.ColorTransparent
+import hr.sil.android.seeusadmin.compose_ui.theme.ColorWhite
+import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun NavHomeScreen(
-    viewModel: NavHomeViewModel = viewModel(),
-    onDeviceClick: (macAddress: String, nameOfDevice: String) -> Unit,
-    //onNavigateToLogin: () -> Unit
+    viewModel: NavHomeViewModel,
+    onNavigateToDeviceDetails: (macAddress: String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
+    DisposableEffect(lifecycleOwner) {
+        val eventBusSubscriber = object {
+            @Subscribe(threadMode = ThreadMode.MAIN)
+            fun onDevicesUpdated(event: DevicesUpdatedEvent) {
+                viewModel.onEvent(NavHomeEvent.OnRefresh)
+            }
+        }
+
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    App.ref.eventBus.register(eventBusSubscriber)
+                    viewModel.refreshDevices()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    App.ref.eventBus.unregister(eventBusSubscriber)
+                }
+                else -> {}
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+            try {
+                App.ref.eventBus.unregister(eventBusSubscriber)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvents.collect { event ->
+            when (event) {
+                is NavHomeUiEvent.NavigateToDeviceDetails -> {
+                    onNavigateToDeviceDetails(event.macAddress)
+                }
+            }
+        }
+    }
+
+    Box(modifier = modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_home_screen),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            SearchBar(
+                filterText = state.filterText,
+                onFilterChanged = { viewModel.onEvent(NavHomeEvent.OnFilterChanged(it)) },
+                onClearFilter = { viewModel.onEvent(NavHomeEvent.OnClearFilter) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
+            )
+
+            if (!state.isEmpty) {
+                Text(
+                    text = stringResource(id = R.string.nav_home_mpl_title),
+                    color = ColorWhite,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 7.dp)
+                )
+            }
+
+            if (state.isEmpty) {
+                EmptyState(
+                    messageResId = state.emptyMessageResId,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp)
+                )
+            } else {
+                DeviceList(
+                    devices = state.devices,
+                    onDeviceClick = { device ->
+                        viewModel.onEvent(NavHomeEvent.OnDeviceClicked(device))
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
 }
-//    val context: Context = LocalContext.current
-//    val uiState by viewModel.uiState.collectAsState()
-//
-//    LaunchedEffect(Unit) {
-//        viewModel.loadDevices(context)
-//    }
-//
-//    // Handle unauthorized event
-//    LaunchedEffect(uiState.isUnauthorized) {
-//        if (uiState.isUnauthorized) {
-//            //onNavigateToLogin()
-//        }
-//    }
-//
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            //.background(Color.Black) // Adjust based on your theme
-//    ) {
-//        Column(
-//            modifier = Modifier.fillMaxSize()
-//        ) {
-//
-//            // Header with user info
-//            UserAddressHeader(
-//                userName = uiState.userName,
-//                address = uiState.address,
-//                modifier = Modifier.padding(top = 10.dp, start = 16.dp, end = 16.dp)
-//            )
-//
-//
-//            // Device list or empty state
-//            if (uiState.devices.isEmpty()) {
-//                EmptyDeviceState(
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .padding(30.dp)
-//                )
-//            } else {
-//                DeviceList(
-//                    devices = uiState.devices,
-//                    onDeviceClick = onDeviceClick,
-//                    modifier = Modifier.fillMaxSize()
-//                )
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//private fun UserAddressHeader(
-//    userName: String,
-//    address: String,
-//    modifier: Modifier = Modifier
-//) {
-//    Box(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .height(100.dp),
-//        contentAlignment = Alignment.TopCenter  // Changed from Center to TopCenter
-//    ) {
-//        // Background card with address info
-//        Column(
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center,  // Changed from Bottom to Center
-//            modifier = Modifier
-//                .padding(horizontal = 4.dp)
-//                .padding(top = 35.dp)  // Space for the profile icon
-//                .height(65.dp)
-//                .fillMaxWidth()
-//                .background(
-//                    color = colorResource(R.color.colorWhite),
-//                    shape = RoundedCornerShape(8.dp)
-//                )
-//                .border(
-//                    width = 1.dp,
-//                    color = colorResource(R.color.colorGray),
-//                    shape = RoundedCornerShape(8.dp)
-//                )
-//                .padding(top = 15.dp)  // Internal padding to push text down
-//        ) {
-//            Text(
-//                text = userName,
-//                color = colorResource(R.color.colorBlack),
-//                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
-//                fontWeight = FontWeight.Bold,
-//                fontSize = 12.sp,
-//                lineHeight = 14.sp,
-//                maxLines = 1,  // Maximum 2 lines
-//                overflow = TextOverflow.Ellipsis,
-//                modifier = Modifier.padding(horizontal = 10.dp)
-//            )
-//
-//            Text(
-//                text = address,
-//                color = colorResource(R.color.colorBlack),
-//                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 13.sp,
-//                lineHeight = 14.sp,
-//                maxLines = 1,  // Maximum 2 lines
-//                overflow = TextOverflow.Ellipsis,
-//                modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)
-//            )
-//        }
-//
-//        // Profile icon overlay (on top)
-//        Box(
-//            modifier = Modifier
-//                .size(50.dp)
-//                .clip(CircleShape)
-//                .background(colorResource(R.color.colorDarkAccent)),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_user),
-//                contentDescription = "Profile Icon",
-//                modifier = Modifier.size(24.dp)
-//            )
-//        }
-//    }
-//}
-//
-//@Composable
-//private fun DeviceList(
-//    devices: List<ItemHomeScreen>,
-//    onDeviceClick: (macAddress: String, nameOfDevice: String) -> Unit,
-//    modifier: Modifier = Modifier
-//) {
-//    LazyColumn(
-//        modifier = modifier,
-//        contentPadding = PaddingValues(bottom = 100.dp)
-//    ) {
-//        items(devices) { item ->
-//            when (item) {
-//                is ItemHomeScreen.Header -> {
-//                    DeviceHeaderItem(headerTitle = item.headerTitle)
-//                }
-//                is ItemHomeScreen.Child -> {
-//                    DeviceChildItem(
-//                        device = item,
-//                        onClick = {
-//                            onDeviceClick(item.mplOrSplDevice?.macAddress ?: "", item.mplOrSplDevice?.name ?: "")
-//                        }
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//private fun DeviceHeaderItem(
-//    headerTitle: String,
-//    modifier: Modifier = Modifier
-//) {
-//    Text(
-//        text = headerTitle.uppercase(),
-//        fontSize = 18.sp,
-//        fontWeight = FontWeight.Normal,
-//        color = Color.White,
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(horizontal = 16.dp, vertical = 12.dp)
-//    )
-//}
-//
-//@Composable
-//private fun DeviceChildItem(
-//    device: ItemHomeScreen.Child,
-//    onClick: (macAddress: String) -> Unit,
-//    modifier: Modifier = Modifier
-//) {
-//    val context = LocalContext.current
-//    val parcelLocker = MPLDeviceStore.devices[device.mplOrSplDevice?.macAddress]
-//
-//    if (parcelLocker == null) return
-//
-//    val deviceState = remember(parcelLocker) {
-//        calculateDeviceState(parcelLocker, context)
-//    }
-//
-//    Row(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding( vertical = 5.dp)
-//            .background( colorResource(R.color.colorWhite30PercentTransparency) )
-//            .clickable(
-//                enabled = !deviceState.unavailable,
-//                onClick =
-//                {
-//                    onClick(device.mplOrSplDevice?.macAddress ?: "")
-//                }
-//            ),
-//            //.padding(10.dp),
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        // Device Icon Section with Badge
-//        Box(
-//            modifier = Modifier
-//                .size(55.dp)
-//                .weight(2f),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            // Main device icon
-//            Image(
-//                painter = painterResource(id = deviceState.iconResId),
-//                contentDescription = "Device Icon",
-//                modifier = Modifier.size(45.dp)
-//            )
-//
-//            // Notification badge (circle with count)
-//            if (deviceState.notificationCount > 0) {
-//                Box(
-//                    modifier = Modifier
-//                        .size(20.dp)
-//                        .align(Alignment.TopEnd)
-//                        .offset(x = (-5).dp, y = (-5).dp)
-//                        .background(
-//                            color = Color.Red,
-//                            shape = CircleShape
-//                        ),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    Text(
-//                        text = deviceState.notificationCount.toString(),
-//                        color = colorResource(R.color.colorWhite),
-//                        fontSize = 13.sp,
-//                        fontWeight = FontWeight.Normal,
-//                        modifier = Modifier
-//                            .offset( y = (-3).dp)
-//                    )
-//                }
-//            }
-//        }
-//
-//        // Device Data Section
-//        Column(
-//            modifier = Modifier
-//                .weight(6.5f)
-//                .padding(start = 10.dp)
-//                .padding(vertical = 10.dp),
-//            verticalArrangement = Arrangement.spacedBy(2.dp)
-//        ) {
-//            // Device Name
-//            if (deviceState.showName && deviceState.name.isNotEmpty()) {
-//                Text(
-//                    text = deviceState.name.uppercase(),
-//                    color = colorResource(R.color.colorWhite),
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    fontWeight = FontWeight.Normal,
-//                    fontSize = 13.sp,
-//                    lineHeight = 14.sp,
-//                    maxLines = 2,  // Maximum 2 lines
-//                    overflow = TextOverflow.Ellipsis,
-//                    modifier = Modifier.padding(horizontal = 10.dp)
-//                )
-//            }
-//
-//            // Device Address
-//            if (deviceState.showAddress && deviceState.address.isNotEmpty()) {
-//                Text(
-//                    text = deviceState.address.uppercase(),
-//                    color = colorResource(R.color.colorWhite),
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    fontWeight = FontWeight.Normal,
-//                    fontSize = 13.sp,
-//                    lineHeight = 14.sp,
-//                    maxLines = 2,  // Maximum 2 lines
-//                    overflow = TextOverflow.Ellipsis,
-//                    modifier = Modifier.padding(horizontal = 10.dp)
-//                )
-//            }
-//
-//            // Locker Availability
-//            if (deviceState.showAvailability && deviceState.availabilityText.isNotEmpty()) {
-//                Text(
-//                    text = deviceState.availabilityText.uppercase(),
-//                    color = colorResource(R.color.colorBlack),
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    fontWeight = FontWeight.Normal,
-//                    fontSize = 13.sp,
-//                    lineHeight = 14.sp,
-//                    maxLines = 1,  // Maximum 2 lines
-//                    overflow = TextOverflow.Ellipsis,
-//                    modifier = Modifier.padding(horizontal = 10.dp)
-//                )
-//            }
-//        }
-//
-//        // Arrow Icon
-//        if (deviceState.showArrow) {
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_chevron_right),
-//                contentDescription = "Navigate",
-//                modifier = Modifier
-//                    .weight(1.5f)
-//                    .padding(start = 20.dp)
-//            )
-//        } else {
-//            Spacer(modifier = Modifier.weight(1.5f))
-//        }
-//    }
-//}
-//
-//// Data class to hold device UI state
-//private data class DeviceState(
-//    val iconResId: Int,
-//    val name: String,
-//    val address: String,
-//    val availabilityText: String,
-//    val showName: Boolean,
-//    val showAddress: Boolean,
-//    val showAvailability: Boolean,
-//    val showArrow: Boolean,
-//    val unavailable: Boolean,
-//    val notificationCount: Int
-//)
-//
-//// Calculate device state based on all conditions
-//private fun calculateDeviceState(parcelLocker: MPLDevice, context: Context): DeviceState {
-//    // Calculate notification count
-//    val lockerKeys = parcelLocker.activeKeys.filter {
-//        it.purpose != RLockerKeyPurpose.UNKNOWN && it.purpose != RLockerKeyPurpose.PAH
-//    }
-//    //val usedKeys = DatabaseHandler.deliveryKeyDb.get(parcelLocker.macAddress)?.keyIds ?: listOf()
-//    val notificationCount = lockerKeys.map { it.id } //.subtract(usedKeys.asIterable()).size
-//
-//    var unavailable = false
-//    var showAvailability = false
-//    var availabilityText = ""
-//    var name = parcelLocker.name
-//    var address = parcelLocker.address
-//    var showArrow = true
-//
-//    // Determine icon based on device type and state
-//    val iconResId = when {
-//        // MPL Master Device
-//        (parcelLocker.installationType == InstalationType.DEVICE &&
-//                parcelLocker.masterUnitType == RMasterUnitType.MPL) ||
-//                parcelLocker.type == MPLDeviceType.MASTER -> {
-//            when {
-//                parcelLocker.isInBleProximity &&
-//                        parcelLocker.hasUserRightsOnLocker() &&
-//                        parcelLocker.mplMasterDeviceStatus == MPLDeviceStatus.REGISTERED -> {
-//                    showAvailability = true
-//                    availabilityText = parcelLocker.availableLockers.joinToString(" ") {
-//                        "${it.size}: ${it.count}"
-//                    }
-//                    R.drawable.ic_available_mpl
-//                }
-//                !parcelLocker.isInBleProximity && parcelLocker.hasUserRightsOnLocker() -> {
-//                    showAvailability = true
-//                    availabilityText = parcelLocker.availableLockers.joinToString(" ") {
-//                        "${it.size}: ${it.count}"
-//                    }
-//                    R.drawable.ic_locker_yellow
-//                }
-//                parcelLocker.isInBleProximity && !parcelLocker.hasUserRightsOnLocker() -> {
-//                    R.drawable.ic_unregistered_mpl
-//                }
-//                else -> {
-//                    unavailable = true
-//                    showArrow = false
-//                    address = context.getString(R.string.app_generic_not_activated)
-//                    R.drawable.ic_unavailable_mpl
-//                }
-//            }
-//        }
-//
-//        // Tablet Device
-//        parcelLocker.installationType == InstalationType.TABLET ||
-//                parcelLocker.type == MPLDeviceType.TABLET -> {
-//            when {
-//                parcelLocker.isInBleProximity &&
-//                        parcelLocker.mplMasterDeviceStatus == MPLDeviceStatus.REGISTERED &&
-//                        parcelLocker.masterUnitId != -1 -> {
-//                    R.drawable.ic_t_mpl_green
-//                }
-//                parcelLocker.mplMasterDeviceStatus == MPLDeviceStatus.REGISTERED &&
-//                        parcelLocker.isInBleProximity &&
-//                        parcelLocker.masterUnitId == -1 -> {
-//                    R.drawable.ic_t_mpl_grey
-//                }
-//                !parcelLocker.isInBleProximity -> {
-//                    R.drawable.ic_t_mpl_yellow
-//                }
-//                else -> {
-//                    unavailable = true
-//                    showArrow = false
-//                    R.drawable.ic_t_mpl_red
-//                }
-//            }
-//        }
-//
-//        // SPL Device
-//        else -> {
-//            when {
-//                parcelLocker.isInBleProximity && parcelLocker.hasUserRightsOnLocker() -> {
-//                    if (parcelLocker.name.isEmpty()) {
-//                        name = parcelLocker.macAddress
-//                    }
-//                    R.drawable.ic_available_spl
-//                }
-//                parcelLocker.isInBleProximity &&
-//                        !parcelLocker.isSplActivate &&
-//                        !parcelLocker.hasUserRightsOnLocker() -> {
-//                    if (parcelLocker.address.isEmpty()) {
-//                        name = parcelLocker.macAddress
-//                        address = context.getString(R.string.app_generic_not_activated)
-//                    }
-//                    R.drawable.ic_s_locker_grey
-//                }
-//                !parcelLocker.isInBleProximity && parcelLocker.hasUserRightsOnLocker() -> {
-//                    R.drawable.ic_s_locker_yellow
-//                }
-//                parcelLocker.isInBleProximity && !parcelLocker.hasUserRightsOnLocker() -> {
-//                    unavailable = true
-//                    showArrow = false
-//                    R.drawable.ic_unavailable_spl
-//                }
-//                else -> {
-//                    unavailable = true
-//                    showArrow = false
-//                    address = context.getString(R.string.app_generic_access_forbidden)
-//                    R.drawable.ic_unavailable_spl
-//                }
-//            }
-//        }
-//    }
-//
-//    // Determine what to show based on name and address
-//    val showName = name.isNotEmpty()
-//    val showAddress = address.isNotEmpty()
-//
-//    return DeviceState(
-//        iconResId = iconResId,
-//        name = name,
-//        address = address,
-//        availabilityText = availabilityText,
-//        showName = showName,
-//        showAddress = showAddress,
-//        showAvailability = showAvailability,
-//        showArrow = showArrow,
-//        unavailable = unavailable,
-//        notificationCount = notificationCount.size
-//    )
-//}
-//
-//@Composable
-//private fun EmptyDeviceState(
-//    modifier: Modifier = Modifier
-//) {
-//    Box(
-//        modifier = modifier,
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Text(
-//            text = stringResource(id = R.string.locker_details_registration_body),
-//            fontSize = 16.sp,
-//            fontWeight = FontWeight.Medium,
-//            color = Color.White,
-//            textAlign = TextAlign.Center
-//        )
-//    }
-//}
+
+@Composable
+private fun SearchBar(
+    filterText: String,
+    onFilterChanged: (String) -> Unit,
+    onClearFilter: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val focusManager = LocalFocusManager.current
+    val hasText = filterText.isNotEmpty()
+
+    TextField(
+        value = filterText,
+        onValueChange = onFilterChanged,
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.hint_search_text_home_screen),
+                color = ColorWhite.copy(alpha = 0.7f),
+                fontSize = 13.sp
+            )
+        },
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = ColorWhite,
+            unfocusedTextColor = ColorWhite,
+            cursorColor = ColorPrimary,
+            focusedContainerColor = ColorTransparent,
+            unfocusedContainerColor = ColorTransparent,
+            focusedIndicatorColor = ColorWhite,
+            unfocusedIndicatorColor = ColorWhite.copy(alpha = 0.5f)
+        ),
+        trailingIcon = {
+            IconButton(
+                onClick = {
+                    if (hasText) {
+                        onClearFilter()
+                    }
+                }
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = if (hasText) R.drawable.ic_clear_search else R.drawable.ic_search
+                    ),
+                    contentDescription = if (hasText) "Clear search" else "Search",
+                    tint = ColorWhite
+                )
+            }
+        },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(
+            onDone = { focusManager.clearFocus() }
+        ),
+        singleLine = true,
+        maxLines = 1,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun DeviceList(
+    devices: List<hr.sil.android.seeusadmin.store.model.Device>,
+    onDeviceClick: (hr.sil.android.seeusadmin.store.model.Device) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(vertical = 3.dp)
+    ) {
+        items(
+            items = devices,
+            key = { it.macAddress }
+        ) { device ->
+            DeviceListItem(
+                device = device,
+                onClick = { onDeviceClick(device) }
+            )
+        }
+    }
+}
+
+
+
+@Composable
+private fun EmptyState(
+    messageResId: Int,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = stringResource(id = messageResId),
+            color = ColorWhite,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center
+        )
+    }
+}

@@ -1,165 +1,144 @@
 
 package hr.sil.android.seeusadmin.compose_ui.home_screens
 
-import android.app.Activity
-import android.content.Context
-import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hr.sil.android.mplhuber.core.remote.model.RStationUnit
+import hr.sil.android.mplhuber.core.ble.DeviceStatus
+import hr.sil.android.mplhuber.core.remote.model.RUnitType
 import hr.sil.android.mplhuber.core.util.logger
-import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
-import hr.sil.android.seeusadmin.events.UnauthorizedUserEvent
-import hr.sil.android.seeusadmin.util.BaseViewModel
-import hr.sil.android.seeusadmin.util.UiEvent
-import hr.sil.android.seeusadmin.util.backend.UserUtil
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-
+import hr.sil.android.seeusadmin.store.DeviceStore
+import hr.sil.android.seeusadmin.store.model.Device
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import kotlin.collections.filter
-import kotlin.collections.isNotEmpty
-import kotlin.collections.map
-import kotlin.collections.partition
-import kotlin.text.isBlank
+import java.util.Date
+import java.util.Locale
 
-class NavHomeViewModel : BaseViewModel<NavHomeUiState, HomeScreenEvent>() {
-
-    val log = logger()
-
-    private val _uiState = MutableStateFlow(NavHomeUiState())
-    val uiState: StateFlow<NavHomeUiState> = _uiState.asStateFlow()
-
-    init {
-        App.ref.eventBus.register(this)
-        loadUserInfo()
-    }
-
-    private fun loadUserInfo() {
-        _uiState.value = _uiState.value.copy(
-            userName = UserUtil.user?.name ?: "",
-            address = UserUtil.user?.email ?: ""
-        )
-    }
-
-    fun loadDevices(context: Context) {
-        viewModelScope.launch {
-            //val items = getItemsForRecyclerView(context)
-            //_uiState.value = _uiState.value.copy(devices = items)
-        }
-    }
-
-//    private fun getItemsForRecyclerView(context: Context?): List<ItemHomeScreen> {
-//        val items = mutableListOf<ItemHomeScreen>()
-//
-//        val (splList, mplList) = MPLDeviceStore.devices.values
-//            .filter {
-//                val isThisDeviceAvailable = when {
-//                    UserUtil.user?.testUser == true -> true
-//                    else -> it.isProductionReady == true
-//                }
-//                it.masterUnitType != RMasterUnitType.UNKNOWN && isThisDeviceAvailable
-//            }
-//            .partition {
-//                it.masterUnitType == RMasterUnitType.SPL ||
-//                        it.type == MPLDeviceType.SPL ||
-//                        it.masterUnitType == RMasterUnitType.SPL_PLUS ||
-//                        it.type == MPLDeviceType.SPL_PLUS
-//            }
-//
-//        if (splList.isNotEmpty()) {
-//            val header = ItemHomeScreen.Header()
-//            header.headerTitle =
-//                context?.getString(R.string.nav_home_spl_title) ?: "Single" // Use string resource
-//            items.add(header)
-//            items.addAll(splList.map { ItemHomeScreen.Child(it) })
-//        }
-//
-//        if (mplList.isNotEmpty()) {
-//            val header = ItemHomeScreen.Header()
-//            header.headerTitle = context?.getString(R.string.nav_home_mpl_title) ?: "Multiple" // Use string resource
-//            items.add(header)
-//            items.addAll(mplList.map { ItemHomeScreen.Child(it) })
-//        }
-//
-//        return items
-//    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMplDeviceNotify(event: DevicesUpdatedEvent) {
-        loadDevices(context = App.ref.applicationContext)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onUnauthorizedUser(event: UnauthorizedUserEvent) {
-        _uiState.value = _uiState.value.copy(isUnauthorized = true)
-    }
-    
-    override fun initialState(): NavHomeUiState {
-        return NavHomeUiState()
-    }
-
-    override fun onEvent(event: HomeScreenEvent) {
-        when (event) {
-            is HomeScreenEvent.OnForgotPasswordRequest -> {
-
-                viewModelScope.launch {
-                    _state.update { it.copy(loading = true) }
-                    val response = UserUtil.passwordRecovery(
-                        event.email
-                    )
-                    _state.update { it.copy(loading = false) }
-
-                }
-
-//                viewModelScope.launch {
-//                    _state.update { it.copy(loading = true) }
-//                    login(email = event.email, password = event.password, context = event.context)
-//                    _state.update { it.copy(loading = false) }
-//                }
-            }
-
-        }
-    }
-
-    fun getEmailError(email: String, context: Context): String {
-        var emailError = ""
-        if (email.isBlank()) {
-            emailError = context.getString(R.string.edit_user_validation_blank_fields_exist)
-        }
-
-        return emailError
-    }
-
-}
-
-data class NavHomeUiState(
-    val loading: Boolean = false,
-
-    val userName: String = "",
-    val address: String = "",
-    val devices: List<RStationUnit> = emptyList(),
-    val isUnauthorized: Boolean = false
+data class NavHomeState(
+    val devices: List<Device> = emptyList(),
+    val filterText: String = "",
+    val isLoading: Boolean = false,
+    val isEmpty: Boolean = true,
+    @StringRes val emptyMessageResId: Int = R.string.main_no_stations,
+    val isFilterActive: Boolean = false
 )
 
-sealed class HomeScreenEvent {
-    data class OnForgotPasswordRequest(
-        val email: String,
-        val context: Context,
-        val activity: Activity
-    ) : HomeScreenEvent()
+sealed class NavHomeUiEvent {
+    data class NavigateToDeviceDetails(val macAddress: String) : NavHomeUiEvent()
 }
 
-sealed class HomeScreenUiEvent : UiEvent {
-    data class NavigateToNextScreen(val route: String) : HomeScreenUiEvent()
+sealed class NavHomeEvent {
+    data class OnFilterChanged(val text: String) : NavHomeEvent()
+    data class OnDeviceClicked(val device: Device) : NavHomeEvent()
+    object OnRefresh : NavHomeEvent()
+    object OnClearFilter : NavHomeEvent()
+}
 
-    object NavigateBack : HomeScreenUiEvent()
+class NavHomeViewModel : ViewModel() {
+
+    private val log = logger()
+
+    private val _state = MutableStateFlow(NavHomeState())
+    val state: StateFlow<NavHomeState> = _state.asStateFlow()
+
+    private val _uiEvents = MutableSharedFlow<NavHomeUiEvent>()
+    val uiEvents = _uiEvents.asSharedFlow()
+
+    private var lastRefreshTimestamp = Date(0)
+    private val refreshDebounceMs = 3000L
+
+    init {
+        refreshDevices()
+    }
+
+    fun onEvent(event: NavHomeEvent) {
+        when (event) {
+            is NavHomeEvent.OnFilterChanged -> {
+                _state.update { it.copy(filterText = event.text) }
+                refreshDevices()
+            }
+            is NavHomeEvent.OnDeviceClicked -> {
+                _state.update { it.copy(filterText = "") }
+                viewModelScope.launch {
+                    _uiEvents.emit(NavHomeUiEvent.NavigateToDeviceDetails(event.device.macAddress))
+                }
+            }
+            is NavHomeEvent.OnRefresh -> {
+                refreshDevicesDebounced()
+            }
+            is NavHomeEvent.OnClearFilter -> {
+                _state.update { it.copy(filterText = "") }
+                refreshDevices()
+            }
+        }
+    }
+
+    private fun refreshDevicesDebounced() {
+        val currentTimestamp = Date()
+        if (currentTimestamp.time - lastRefreshTimestamp.time > refreshDebounceMs) {
+            refreshDevices()
+            lastRefreshTimestamp = currentTimestamp
+        }
+    }
+
+    fun refreshDevices() {
+        val allDevices = DeviceStore.devices.values
+            .filter { it.unitType == RUnitType.SEEUS_SCU }
+            .toList()
+
+        val filteredDevices = applyFilter(allDevices)
+        val sortedDevices = sortDevices(filteredDevices)
+
+        val isEmpty = sortedDevices.isEmpty()
+        val isFilterActive = _state.value.filterText.isNotEmpty()
+        val emptyMessageResId = if (isFilterActive) {
+            R.string.wrong_inserted_text_home_screen
+        } else {
+            R.string.main_no_stations
+        }
+
+        _state.update {
+            it.copy(
+                devices = sortedDevices,
+                isEmpty = isEmpty,
+                emptyMessageResId = emptyMessageResId,
+                isFilterActive = isFilterActive
+            )
+        }
+    }
+
+    private fun applyFilter(devices: List<Device>): List<Device> {
+        val filterText = _state.value.filterText
+        return if (filterText.isEmpty()) {
+            devices
+        } else {
+            val filter = filterText.lowercase(Locale.getDefault())
+            devices.filter { device ->
+                device.macAddress.lowercase().contains(filter) ||
+                        device.displayName.lowercase().contains(filter)
+            }
+        }
+    }
+
+    private fun sortDevices(devices: List<Device>): List<Device> {
+        return devices
+            .sortedBy { it.displayName }
+            .sortedBy { it.bleDistance }
+            .sortedBy { getSortIndex(it) }
+    }
+
+    private fun getSortIndex(device: Device): Int {
+        return when {
+            device.isInProximity && device.deviceStatus == DeviceStatus.REGISTERED && device.masterUnitId != -1 -> 1
+            device.deviceStatus == DeviceStatus.UNREGISTERED && device.isInProximity -> 2
+            !device.isInProximity -> 3
+            else -> 4
+        }
+    }
 }

@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
 import kotlin.collections.forEachIndexed
 
 
@@ -45,11 +46,10 @@ fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStack
             goToPickup = { route, macAddress ->
                 appState.goToPickup(route = route, macAddress)
             },
-            goToDeviceDetails = { route, deviceId, nameOfDevice ->
+            goToDeviceDetails = { route, deviceId ->
                 appState.navigateToDeviceDetails(
                     route = route,
-                    deviceId = deviceId,
-                    nameOfDevice = nameOfDevice
+                    deviceId = deviceId
                 )
             },
             goToDeviceDetailsCleanUpScreens = { route, deviceId, nameOfDevice ->
@@ -65,20 +65,20 @@ fun MainComposeApp(appState: MainAppState, navBackStackEntry: State<NavBackStack
 
 fun NavGraphBuilder.mainNavGraph(
     navBackStackEntry: State<NavBackStackEntry?>,
-    goToDeviceDetails: (route: String, deviceId: String, nameOfDevice: String) -> Unit,
+    goToDeviceDetails: (route: String, deviceId: String ) -> Unit,
     goToDeviceDetailsCleanUpScreens: (route: String, deviceId: String, nameOfDevice: String) -> Unit,
     goToPickup: (route: String, macAddress: String) -> Unit,
     navigateUp: () -> Unit
 ) {
     composable(MainDestinations.HOME) {
-//        NavHomeScreen(
-//            viewModel = viewModel(), // viewModel,
-//            onDeviceClick = { deviceId, nameOfDevice ->
-//                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-//                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
-//                }
-//            }
-//        )
+        NavHomeScreen(
+            viewModel = viewModel(), // viewModel,
+            onNavigateToDeviceDetails = { deviceId ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId)
+                }
+            }
+        )
     }
 
 //    composable(MainDestinations.SETTINGS) {
