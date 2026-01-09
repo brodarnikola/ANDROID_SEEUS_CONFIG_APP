@@ -46,7 +46,7 @@ fun DeviceListItem(
             .clip(RoundedCornerShape(8.dp))
             .background(ColorWhite30PercentTransparency)
             .clickable(onClick = onClick)
-            .padding(vertical = 12.dp, horizontal = 8.dp)
+            .padding(vertical = 2.dp, horizontal = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -84,7 +84,7 @@ fun DeviceListItem(
                         fontSize = 12.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(top = 2.dp)
+                        //modifier = Modifier.padding(top = 2.dp)
                     )
                 }
             }
@@ -95,7 +95,7 @@ fun DeviceListItem(
                     contentDescription = "Navigate",
                     tint = ColorWhite,
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(16.dp)
                         .padding(start = 8.dp)
                 )
             }
@@ -132,7 +132,7 @@ private fun DeviceDistanceText(device: Device) {
             fontSize = 12.sp,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(top = 2.dp)
+            //modifier = Modifier.padding(top = 2.dp)
         )
     }
 }

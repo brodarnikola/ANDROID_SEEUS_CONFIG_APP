@@ -165,12 +165,12 @@ fun NavHomeScreen(
                 Text(
                     text = stringResource(id = R.string.nav_home_mpl_title),
                     color = ColorWhite,
-                    fontSize = 16.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 7.dp)
+                        .padding(vertical = 3.dp)
                 )
             }
 

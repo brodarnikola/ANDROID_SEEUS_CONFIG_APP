@@ -50,19 +50,21 @@ fun AlertsScreen(
         mutableStateListOf<RMessageLog>()
     }
 
-    LaunchedEffect(Unit) {
-        scope.launch {
-            val resultBackend = WSSeeUsAdmin.getMessageLog() ?: listOf()
-            alarmMessageList.addAll(resultBackend)
-        }
-    }
-
-    var isLoading by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(false) }
 
     val showDeleteAllDialog = remember { mutableStateOf(false) }
     val showSingleDeleteItemDialog = remember { mutableStateOf(false) }
 
     val messageId = rememberSaveable { mutableStateOf(-1) }
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            isLoading = true
+            val resultBackend = WSSeeUsAdmin.getMessageLog() ?: listOf()
+            alarmMessageList.addAll(resultBackend)
+            isLoading = false
+        }
+    }
 
     if(showDeleteAllDialog.value) {
         DeleteAllAlertsDialog(
