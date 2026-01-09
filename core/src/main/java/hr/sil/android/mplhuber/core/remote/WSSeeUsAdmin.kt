@@ -28,8 +28,9 @@ import hr.sil.android.mplhuber.core.remote.model.*
 import hr.sil.android.mplhuber.core.remote.service.AdminAppService
 import hr.sil.android.mplhuber.core.util.macRealToClean
 import hr.sil.android.rest.core.configuration.ServiceConfig
-import hr.sil.android.util.general.extensions.toHexString
 import retrofit2.Call
+
+import hr.sil.android.rest.core.util.toHexString
 
 /**
  * @author szuzul

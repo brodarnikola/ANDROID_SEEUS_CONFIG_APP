@@ -1,10 +1,10 @@
 package hr.sil.android.seeusadmin.cache.status
 
 import android.content.Context
-import hr.sil.android.datacache.AutoCache
-import hr.sil.android.datacache.TwoLevelCache
-import hr.sil.android.datacache.updatable.CacheSource
-import hr.sil.android.datacache.util.PersistenceClassTracker
+//import hr.sil.android.datacache.AutoCache
+//import hr.sil.android.datacache.TwoLevelCache
+//import hr.sil.android.datacache.updatable.CacheSource
+//import hr.sil.android.datacache.util.PersistenceClassTracker
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ object ActionStatusHandler {
     private val running = AtomicBoolean(false)
 
     fun checkClasses(context: Context) {
-        PersistenceClassTracker.checkClass(context, ActionStatusKey::class)
+        //PersistenceClassTracker.checkClass(context, ActionStatusKey::class)
     }
 
     fun run() {
@@ -47,32 +47,32 @@ object ActionStatusHandler {
     }
 
     suspend fun checkExpired() {
-        val actions = actionStatusDb.getAll()
-        log.info("Checking expired connections ${actions.size}")
-        val currentTime = Date().time
-        val listForDelete = mutableListOf<String>()
-
-        actions.forEach {
-            val timeDifference: Long = currentTime - it.timeOfInstance.time
-            if ((timeDifference) > it.SCHEDULE_PERIOD) {
-                listForDelete.add(it.keyId)
-            } else {
-                it.scheduleDelete(it.keyId, timeDifference)
-            }
-        }
-        for (key in listForDelete) {
-            actionStatusDb.del(key)
-        }
+//        val actions = actionStatusDb.getAll()
+//        log.info("Checking expired connections ${actions.size}")
+//        val currentTime = Date().time
+//        val listForDelete = mutableListOf<String>()
+//
+//        actions.forEach {
+//            val timeDifference: Long = currentTime - it.timeOfInstance.time
+//            if ((timeDifference) > it.SCHEDULE_PERIOD) {
+//                listForDelete.add(it.keyId)
+//            } else {
+//                it.scheduleDelete(it.keyId, timeDifference)
+//            }
+//        }
+//        for (key in listForDelete) {
+//            actionStatusDb.del(key)
+//        }
 
     }
 
     val actionStatusDb by lazy {
-        AutoCache.Builder(TwoLevelCache
-                .Builder(ActionStatusKey::class, ActionStatusKey::keyId)
-                .memoryLruMaxSize(20)
-                .build(App.ref)).setSingleElementSource(CacheSource.ForKey.Suspendable(5, TimeUnit.MINUTES) { _, _ ->
-            null
-        }).build()
+//        AutoCache.Builder(TwoLevelCache
+//                .Builder(ActionStatusKey::class, ActionStatusKey::keyId)
+//                .memoryLruMaxSize(20)
+//                .build(App.ref)).setSingleElementSource(CacheSource.ForKey.Suspendable(5, TimeUnit.MINUTES) { _, _ ->
+//            null
+//        }).build()
     }
 
 }

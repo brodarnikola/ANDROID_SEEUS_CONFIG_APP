@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.lifecycleScope
@@ -38,16 +39,17 @@ import hr.sil.android.seeusadmin.view.activity.MainActivity
 import hr.sil.android.seeusadmin.view.adapter.EpdAdapter
 import hr.sil.android.seeusadmin.view.adapter.StationAdapter
 import hr.sil.android.seeusadmin.view.adapter.StopPointAdapter
-import hr.sil.android.view_util.permission.DroidPermission
 import hr.sil.android.zwicktablet.gps.GpsUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.sdk15.coroutines.onClick
-import org.jetbrains.anko.sdk15.coroutines.onItemSelectedListener
-import org.jetbrains.anko.toast
+//import org.jetbrains.anko.sdk15.coroutines.onClick
+//import org.jetbrains.anko.sdk15.coroutines.onItemSelectedListener
+//import org.jetbrains.anko.toast
 import java.util.*
+
+import hr.sil.android.seeusadmin.util.DroidPermission
 
 
 class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, OnMapClickListener, GoogleMap.OnMapLongClickListener {
@@ -122,7 +124,8 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
             stationMarker = mMap.addMarker(MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bus_stop)))
             enableSaveButton()
         } else {
-            App.ref.toast("Long Press is allowed in Polygon option mode only!")
+            Toast.makeText(context, "Long Press is allowed in Polygon option mode only!", Toast.LENGTH_SHORT).show()
+            //App.ref.toast("Long Press is allowed in Polygon option mode only!")
         }
     }
 
@@ -306,44 +309,44 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
         val mapFragment = childFragmentManager.findFragmentById(R.id.g_map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
-        binding.spinnerStationSelection.onItemSelectedListener {
-             onItemSelected { adapterView, _, position, _ ->
-                selectedItem = adapterView?.getItemAtPosition(position) as RRealStationLocation
-                if (device != null) {
-                    if (binding.spinnerStopPoints.selectedItem != null) {
-                        val stop = (binding.spinnerStopPoints.selectedItem as Pair<String?, String>).first
-                        log.info("Stop Point is: $stop")
-                        setStationPoint(
-                                stopPoint = stop,
-                                referenceId = selectedItem.referenceId
-                        )
-                        enableSaveButton()
-                    } else {
-                        setStationPoint(device.stopPoint, selectedItem.referenceId)
-                    }
-                }
-            }
-        }
+//        binding.spinnerStationSelection.onItemSelectedListener {
+//             onItemSelected { adapterView, _, position, _ ->
+//                selectedItem = adapterView?.getItemAtPosition(position) as RRealStationLocation
+//                if (device != null) {
+//                    if (binding.spinnerStopPoints.selectedItem != null) {
+//                        val stop = (binding.spinnerStopPoints.selectedItem as Pair<String?, String>).first
+//                        log.info("Stop Point is: $stop")
+//                        setStationPoint(
+//                                stopPoint = stop,
+//                                referenceId = selectedItem.referenceId
+//                        )
+//                        enableSaveButton()
+//                    } else {
+//                        setStationPoint(device.stopPoint, selectedItem.referenceId)
+//                    }
+//                }
+//            }
+//        }
 
-        binding.spinnerStopPoints.onItemSelectedListener {
-            onItemSelected { adapterView, item, position, _ ->
-                val selectedPair = adapterView?.getItemAtPosition(position)
-                if (selectedPair != null) {
-                    stopPoint = (selectedPair as Pair<String, String>).first
-                    log.info("Poistion : $item")
-                    if (stopPoint != device?.stopPoint && stopPoint.isNotBlank()) {
-                        enableSaveButton()
-                    } else {
-                        if (binding.polygonRadio.isChecked && selectedItem.id == device?.stationId) {
-                            binding.btnDrawChanges.isEnabled = false
-                            binding.btnSave.isEnabled = false
-
-                        }
-                    }
-                }
-
-            }
-        }
+//        binding.spinnerStopPoints.onItemSelectedListener {
+//            onItemSelected { adapterView, item, position, _ ->
+//                val selectedPair = adapterView?.getItemAtPosition(position)
+//                if (selectedPair != null) {
+//                    stopPoint = (selectedPair as Pair<String, String>).first
+//                    log.info("Poistion : $item")
+//                    if (stopPoint != device?.stopPoint && stopPoint.isNotBlank()) {
+//                        enableSaveButton()
+//                    } else {
+//                        if (binding.polygonRadio.isChecked && selectedItem.id == device?.stationId) {
+//                            binding.btnDrawChanges.isEnabled = false
+//                            binding.btnSave.isEnabled = false
+//
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
 
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (binding.circleRadio.isChecked) {
@@ -385,13 +388,13 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
             }
         }
 
-        binding.spinnerEpdSelection.onItemSelectedListener {
-            onItemSelected { adapterView, _, position, _ ->
-                selectedEpd = adapterView?.getItemAtPosition(position) as RAdminEpdInfo
-            }
-        }
+//        binding.spinnerEpdSelection.onItemSelectedListener {
+//            onItemSelected { adapterView, _, position, _ ->
+//                selectedEpd = adapterView?.getItemAtPosition(position) as RAdminEpdInfo
+//            }
+//        }
 
-        binding.btnResetChanges.onClick {
+        binding.btnResetChanges.setOnClickListener {
             binding.deviceRadius.setText("0")
             radiusNr = 0
             polygonPoints = mutableListOf()
@@ -405,7 +408,7 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
             }
         }
 
-        binding.btnDrawChanges.onClick {
+        binding.btnDrawChanges.setOnClickListener {
             if (polygonPoints.isNotEmpty()) {
                 deleteCircle()
                 val colorStationPolygon = ContextCompat.getColor(requireContext(), R.color.colorPrimary)
@@ -415,30 +418,30 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
             }
         }
 
-        binding.btnSave.onClick {
+        binding.btnSave.setOnClickListener {
             if (AppUtil.isInternetAvailable()) {
                 val request = RStationUnitRequest()
                 if (binding.circleRadio.isChecked) {
                     if (binding.deviceLatitude.text.isNullOrBlank()) {
                         binding.deviceLatitude.error =
                                 this@StationSettingsFragment.getString(R.string.locker_settings_error_name_empty_warning)
-                        return@onClick
+                        return@setOnClickListener
                     }
                     if (binding.deviceLongitude.text.isNullOrBlank()) {
                         binding.deviceLongitude.error =
                                 this@StationSettingsFragment.getString(R.string.locker_settings_error_address_empty_warning)
-                        return@onClick
+                        return@setOnClickListener
                     }
                     if (binding.deviceRadius.text.isNullOrBlank()) {
                         binding.deviceRadius.error =
                                 this@StationSettingsFragment.getString(R.string.locker_settings_error_radius_empty_warning)
-                        return@onClick
+                        return@setOnClickListener
                     }
 
                     if (binding.etDeviceName.text.isNullOrBlank()) {
                         binding.etDeviceName.error =
                                 this@StationSettingsFragment.getString(R.string.locker_settings_error_radius_empty_warning)
-                        return@onClick
+                        return@setOnClickListener
                     }
                     polygonPoints.clear()
                     polyline?.remove()
@@ -458,8 +461,10 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
                         request.longitude = stationPoint?.longitude
                         request.polygon = polygonPoints
                     } else {
-                        App.ref.toast(R.string.error_station_location)
-                        return@onClick
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.error_station_location), Toast.LENGTH_SHORT).show()
+
+                        //App.ref.toast(R.string.error_station_location)
+                        return@setOnClickListener
                     }
                 }
                 if (binding.spinnerStopPoints.selectedItem != null) {
@@ -470,19 +475,39 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
 
                 }
 
-                request.epdTypeId = selectedEpd.id
-                request.name = binding.etDeviceName.text.toString()
-                request.stationId = selectedItem.id
-                request.networkConfigurationId = device?.networkConfigurationId ?: 0
-                request.modemWorkingType = (device?.modemWorkingType ?: RPowerType.BATTERY).name
-                if (WSSeeUsAdmin.modifyStationUnit(macAddress.macRealToClean(), request) != null) {
-                    AppUtil.refreshCache()
-                    App.ref.toast(R.string.successfully_updated)
-                } else {
-                    App.ref.toast(R.string.error_updating_mpl)
+                lifecycleScope.launch {
+                    request.epdTypeId = selectedEpd.id
+                    request.name = binding.etDeviceName.text.toString()
+                    request.stationId = selectedItem.id
+                    request.networkConfigurationId = device?.networkConfigurationId ?: 0
+                    request.modemWorkingType = (device?.modemWorkingType ?: RPowerType.BATTERY).name
+                    if (WSSeeUsAdmin.modifyStationUnit(
+                            macAddress.macRealToClean(),
+                            request
+                        ) != null
+                    ) {
+                        AppUtil.refreshCache()
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().getString(R.string.successfully_updated),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        //App.ref.toast(R.string.successfully_updated)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().getString(R.string.error_updating_mpl),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // App.ref.toast(R.string.error_updating_mpl)
+                    }
                 }
             } else {
-                App.ref.toast(this@StationSettingsFragment.getString(R.string.app_common_internet_connection))
+                Toast.makeText(requireContext(), requireContext().getString(R.string.app_common_internet_connection), Toast.LENGTH_SHORT).show()
+
+                //App.ref.toast(this@StationSettingsFragment.getString(R.string.app_common_internet_connection))
             }
         }
 

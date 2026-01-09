@@ -21,7 +21,6 @@
 
 package hr.sil.android.seeusadmin.util.backend
 
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.sil.android.mplhuber.core.model.RUpdateAdminInfo
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
@@ -29,13 +28,12 @@ import hr.sil.android.mplhuber.core.remote.model.RAdminUserInfo
 import hr.sil.android.mplhuber.core.util.DeviceInfo
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.rest.core.util.UserHashUtil
-import hr.sil.android.seeusadmin.cache.DataCache
+import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.preferences.PreferenceStore
 import hr.sil.android.seeusadmin.remote.WSConfig
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.SettingsHelper
-import hr.sil.android.seeusadmin.util.ui.requestToken
 
 /**
  * @author mfatiga
@@ -74,32 +72,34 @@ object UserUtil {
 
 
     suspend fun login(): Boolean {
-        return if (!PreferenceStore.userHash.isNullOrBlank()) {
+         if (!PreferenceStore.userHash.isNullOrBlank()) {
             val responseUser = WSSeeUsAdmin.getAccountInfo()
             if (responseUser != null) {
                 user = responseUser
                 //invalidate caches on login
                 AppUtil.refreshCache()
 
-                val languagesList = DataCache.getLanguages(true)
+                val languagesList = WSSeeUsAdmin.getLanguages()?.data //DataCache.getLanguages(true)
 
-                val languageData = languagesList.find { it.id == responseUser.languageId }
+                val languageData = languagesList?.find { it.id == responseUser.languageId }
                 SettingsHelper.languageName = "EN"
                 if (languageData != null) {
                     SettingsHelper.languageName = languageData.code
                 }
 
                 log.info("User is logged in updating device and token...")
-                return WSSeeUsAdmin.registerDevice(FirebaseInstanceId.getInstance().requestToken(), DeviceInfo.getJsonInstance())
+                return true
+
+                //return WSSeeUsAdmin.registerDevice(FirebaseInstanceId.getInstance().requestToken(), DeviceInfo.getJsonInstance())
             } else {
                 updateUserHash(null, null)
                 user = null
-                false
+                return false
             }
         } else {
             updateUserHash(null, null)
             user = null
-            false
+             return false
         }
     }
 

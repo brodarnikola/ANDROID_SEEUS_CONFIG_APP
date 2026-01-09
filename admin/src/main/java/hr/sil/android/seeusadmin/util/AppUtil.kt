@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
-import hr.sil.android.seeusadmin.cache.DataCache
+//import hr.sil.android.seeusadmin.cache.DataCache
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.MPLDeviceStoreRemoteUpdater
 
@@ -14,8 +14,8 @@ object AppUtil {
 
     suspend fun refreshCache() {
         //DatabaseHandler.deliveryKeyDb.clear()
-        DataCache.clearCaches()
-        DataCache.preloadCaches()
+        //DataCache.clearCaches()
+        //DataCache.preloadCaches()
         DeviceStore.clear()
         //force update device store
         MPLDeviceStoreRemoteUpdater.forceUpdate()

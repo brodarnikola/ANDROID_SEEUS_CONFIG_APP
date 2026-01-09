@@ -29,9 +29,12 @@ import hr.sil.android.mplhuber.core.remote.model.RNetworkConfiguration
 import hr.sil.android.mplhuber.core.remote.model.RPowerType
 import hr.sil.android.mplhuber.core.util.BLEScannerStateHolder
 import hr.sil.android.mplhuber.core.util.macRealToBytes
-import hr.sil.android.util.general.extensions.toByteArray
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
+
+
+import hr.sil.android.rest.core.util.toByteArray
+//import hr.sil.android.util.general.extensions.toByteArray
 
 /**
  * @author mfatiga

@@ -13,9 +13,6 @@ import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.view.activity.LoginActivity
 import hr.sil.android.seeusadmin.view.activity.MainActivity
 import kotlinx.coroutines.*
-import org.jetbrains.anko.imageView
-import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.relativeLayout
 
 class SplashActivity : AppCompatActivity() {
 
@@ -26,15 +23,15 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        relativeLayout {
-            imageView (R.drawable.bg_splash
-            ){
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }.lparams {
-                width = matchParent
-                height = matchParent
-            }
-        }
+//        relativeLayout {
+//            imageView (R.drawable.bg_splash
+//            ){
+//                scaleType = ImageView.ScaleType.CENTER_CROP
+//            }.lparams {
+//                width = matchParent
+//                height = matchParent
+//            }
+//        }
         preloadAndStartMain()
     }
 

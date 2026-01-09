@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +17,6 @@ import hr.sil.android.seeusadmin.databinding.FragmentPasswordRecoveryBinding
 import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.util.connectivity.NetworkChecker
 import kotlinx.coroutines.*
-import org.jetbrains.anko.toast
 
 class PasswordRecoveryFragment : BaseFragment() {
 
@@ -75,7 +75,9 @@ class PasswordRecoveryFragment : BaseFragment() {
                                 }
                                 else ->  {
                                     log.error("Error while starting to update passsword for user")
-                                    App.ref.toast(R.string.error_updating_mpl)
+                                    Toast.makeText(requireContext(), requireContext().getString(R.string.error_updating_mpl), Toast.LENGTH_SHORT).show()
+
+                                    //App.ref.toast(R.string.error_updating_mpl)
                                 }
                             }
                             binding.progressBar.visibility = View.GONE
@@ -83,7 +85,9 @@ class PasswordRecoveryFragment : BaseFragment() {
 
                     } else {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(R.string.app_generic_no_network)
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.app_generic_no_network), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(R.string.app_generic_no_network)
                             binding.progressBar.visibility = View.GONE
                         }
                     }

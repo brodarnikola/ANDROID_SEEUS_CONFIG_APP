@@ -10,9 +10,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
@@ -25,7 +25,6 @@ import hr.sil.android.seeusadmin.view.activity.LoginActivity
 import hr.sil.android.seeusadmin.view.activity.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.toast
 import rx.internal.operators.BackpressureUtils.validate
 
 
@@ -91,12 +90,16 @@ class LoginFragment : BaseFragment() {
 
                         } else {
                             log.info("Error while login device")
-                            App.ref.toast(R.string.edit_user_validation_current_password_invalid)
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.edit_user_validation_current_password_invalid), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(R.string.edit_user_validation_current_password_invalid)
                         }
                         binding.progressBar.visibility = View.GONE
                     }
                 } else {
-                    App.ref.toast(R.string.app_generic_server_error)
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.app_generic_server_error), Toast.LENGTH_SHORT).show()
+
+                    //App.ref.toast(R.string.app_generic_server_error)
                 }
 
             }

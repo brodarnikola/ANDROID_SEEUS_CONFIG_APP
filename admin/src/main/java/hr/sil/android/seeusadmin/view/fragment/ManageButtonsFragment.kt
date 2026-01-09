@@ -85,34 +85,37 @@ class ManageButtonsFragment : BaseFragment() {
         }
     }
 
+    // TODO: Handle this --> combineButtons
     private suspend fun combineButtons(): MutableList<RButtonDataUiModel> {
+
+        return mutableListOf()
         //Non registered slave units
-        val actions = ActionStatusHandler.actionStatusDb.getAll().map { it.keyId }
-        val unregisteredButtonsInProximity = DeviceStore.getNonRegisteredButtonsInProximity(actions)
-        MPLDeviceStoreRemoteUpdater.forceUpdate(false)
-        val currentlyRegisteredButtons = DeviceStore.devices[macAddress]?.buttonUnits
-                ?: listOf()
-        log.debug("Slave units ${currentlyRegisteredButtons.size}, Stored actions keys :" + actions.joinToString(" - ") { it })
-        val registeredAndPendingButtons = currentlyRegisteredButtons.map {
-            val inProximity = DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity
-                    ?: false
-            if (ActionStatusHandler.actionStatusDb.get(it.mac.macCleanToReal() + ActionStatusType.BUTTON_DEREGISTRATION) != null) {
-                log.debug("Registered - DELETE_PENDING:" + it.mac.macCleanToReal())
-                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.DELETE_PENDING,  inProximity)
-            } else {
-                val key = it.mac.macCleanToReal() + ActionStatusType.BUTTON_REGISTRATION
-                if (actions.contains(key)) {
-                    ActionStatusHandler.actionStatusDb.del(key)
-                }
-                log.debug("Registered " + it.mac.macCleanToReal())
+//        val actions = ActionStatusHandler.actionStatusDb.getAll().map { it.keyId }
+//        val unregisteredButtonsInProximity = DeviceStore.getNonRegisteredButtonsInProximity(actions)
+//        MPLDeviceStoreRemoteUpdater.forceUpdate(false)
+//        val currentlyRegisteredButtons = DeviceStore.devices[macAddress]?.buttonUnits
+//                ?: listOf()
+//        log.debug("Slave units ${currentlyRegisteredButtons.size}, Stored actions keys :" + actions.joinToString(" - ") { it })
+//        val registeredAndPendingButtons = currentlyRegisteredButtons.map {
+//            val inProximity = DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity
+//                    ?: false
+//            if (ActionStatusHandler.actionStatusDb.get(it.mac.macCleanToReal() + ActionStatusType.BUTTON_DEREGISTRATION) != null) {
+//                log.debug("Registered - DELETE_PENDING:" + it.mac.macCleanToReal())
+//                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.DELETE_PENDING,  inProximity)
+//            } else {
+//                val key = it.mac.macCleanToReal() + ActionStatusType.BUTTON_REGISTRATION
+//                if (actions.contains(key)) {
+//                    ActionStatusHandler.actionStatusDb.del(key)
+//                }
+//                log.debug("Registered " + it.mac.macCleanToReal())
+//
+//                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.REGISTERED,   inProximity)
+//            }
+//        }
 
-                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.REGISTERED,   inProximity)
-            }
-        }
-
-        val unregisteredButtons = unregisteredButtonsInProximity.filter { it.mac !in registeredAndPendingButtons.map { it.mac } }
-        //val filteredRegSlaves = registeredButtons.filter { it.mac !in ActionStatusHandler.actionStatusDb.getAll().filter { v -> v.statusType == ActionStatusType.BUTTON_REGISTRATION }.map { g -> g.macAddress } }
-        return (unregisteredButtons + registeredAndPendingButtons).toMutableList()
+//        val unregisteredButtons = unregisteredButtonsInProximity.filter { it.mac !in registeredAndPendingButtons.map { it.mac } }
+//        //val filteredRegSlaves = registeredButtons.filter { it.mac !in ActionStatusHandler.actionStatusDb.getAll().filter { v -> v.statusType == ActionStatusType.BUTTON_REGISTRATION }.map { g -> g.macAddress } }
+//        return (unregisteredButtons + registeredAndPendingButtons).toMutableList()
     }
 
     override fun onResume() {

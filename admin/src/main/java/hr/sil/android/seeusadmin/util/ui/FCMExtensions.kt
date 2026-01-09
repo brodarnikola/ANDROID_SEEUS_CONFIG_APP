@@ -3,7 +3,6 @@ package hr.sil.android.seeusadmin.util.ui
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -34,14 +33,14 @@ suspend fun <T> Task<T>.awaitForResult(): T? {
 /**
  * @author mfatiga
  */
-suspend fun FirebaseInstanceId.requestToken(): String? {
-    return try {
-        val result = this.instanceId.awaitForResult()
-        val token = result?.token
-        Log.i("FCMToken", "Task result.token=$token")
-        token
-    } catch (exc: Exception) {
-        Log.e("FCMToken", "Error while getting FCM token!", exc)
-        null
-    }
-}
+//suspend fun FirebaseInstanceId.requestToken(): String? {
+//    return try {
+//        val result = this.instanceId.awaitForResult()
+//        val token = result?.token
+//        Log.i("FCMToken", "Task result.token=$token")
+//        token
+//    } catch (exc: Exception) {
+//        Log.e("FCMToken", "Error while getting FCM token!", exc)
+//        null
+//    }
+//}

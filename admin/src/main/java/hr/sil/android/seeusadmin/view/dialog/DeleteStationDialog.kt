@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,6 @@ import hr.sil.android.seeusadmin.store.model.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 
 class DeleteStationDialog(
     val masterMac: String,
@@ -59,7 +59,9 @@ class DeleteStationDialog(
                             log.error("Error in reseting device!")
                         withContext(Dispatchers.Main) {
                             if( bleResponse ) {
-                                App.ref.toast(requireContext().getString(R.string.success_deleting_device))
+                                Toast.makeText(requireContext(), requireContext().getString(R.string.success_deleting_device), Toast.LENGTH_SHORT).show()
+
+                                //App.ref.toast(requireContext().getString(R.string.success_deleting_device))
                                 log.info("Erase of the device successfully started $masterMac")
                                 dismiss()
                                 findNavController().navigate(
@@ -67,7 +69,9 @@ class DeleteStationDialog(
                                 )
                             }
                             else {
-                                App.ref.toast(requireContext().getString(R.string.error_deleting_device))
+                                Toast.makeText(requireContext(), requireContext().getString(R.string.error_deleting_device), Toast.LENGTH_SHORT).show()
+
+                                //App.ref.toast(requireContext().getString(R.string.error_deleting_device))
                                 log.error("Error in deleting, reseting device!")
                                 binding.progressBarDeleteDevice.visibility = View.GONE
                                 binding.btnConfirm.visibility = View.VISIBLE
@@ -78,7 +82,9 @@ class DeleteStationDialog(
 
                     } else {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(requireContext().getString(R.string.main_locker_ble_connection_error))
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(requireContext().getString(R.string.main_locker_ble_connection_error))
                             log.error("Error while connecting the device")
                             binding.progressBarDeleteDevice.visibility = View.GONE
                             binding.btnConfirm.visibility = View.VISIBLE

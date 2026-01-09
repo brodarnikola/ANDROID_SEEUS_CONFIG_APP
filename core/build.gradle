@@ -47,16 +47,30 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
     //retrofit2 coroutine extensions
     api 'ru.gildor.coroutines:kotlin-coroutines-retrofit:1.1.0'
-    api('hr.sil.android:view_util:1.1.5')// { changing = true }
 
+    //api('hr.sil.android:view_util:1.1.5')// { changing = true }
+
+
+
+    //api('ble_communicator')
+    implementation project(":ble_communicator")
+
+
+    //api('ble_core')
+    //api('ble_scan_multi')
+    implementation project(":ble_core")
+    implementation project(":ble_scan_multi")
+
+
+    implementation project(":rest_core")
 
     //SIL libraries
-    api('hr.sil.android.ble.scanner:scan_multi:2.6.2')// { changing = true }
-    api('hr.sil.android.blecommunicator:android_blecommunicator:2.8.0')// { changing = true }
-    api('hr.sil.android.rest:core:1.2.30')// { changing = true }
-    api('hr.sil.android:util:1.1.0')// { changing = true }
+//    api('hr.sil.android.ble.scanner:scan_multi:2.6.2')// { changing = true }
+//    api('hr.sil.android.blecommunicator:android_blecommunicator:2.8.0')// { changing = true }
+//    api('hr.sil.android.rest:core:1.2.30')// { changing = true }
+//    api('hr.sil.android:util:1.1.0')// { changing = true }
 
-    api 'com.google.android.gms:play-services-maps:18.1.0'
+    //api 'com.google.android.gms:play-services-maps:18.1.0'
 
     //logging
     api "org.slf4j:slf4j-api:1.7.36"

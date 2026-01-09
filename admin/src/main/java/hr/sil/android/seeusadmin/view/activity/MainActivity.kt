@@ -18,14 +18,11 @@ import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.databinding.ActivityMainBinding
 import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.util.backend.UserUtil.logout
-import hr.sil.android.view_util.extensions.hideKeyboard
-import hr.sil.android.view_util.permission.DroidPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.jetbrains.anko._RelativeLayout
-import org.jetbrains.anko.centerInParent
-import org.jetbrains.anko.progressBar
+
+import hr.sil.android.seeusadmin.util.DroidPermission
 
 class MainActivity : BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout) {
 
@@ -45,13 +42,13 @@ class MainActivity : BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R
         setContentView(binding.root)
 
         if (!UserUtil.isUserLoggedIn()) {
-            setContentView(_RelativeLayout(this).apply {
-                progressBar {
-                    isIndeterminate = true
-                }.lparams {
-                    centerInParent()
-                }
-            })
+//            setContentView(_RelativeLayout(this).apply {
+//                progressBar {
+//                    isIndeterminate = true
+//                }.lparams {
+//                    centerInParent()
+//                }
+//            })
             GlobalScope.launch(Dispatchers.Main) {
                 if (UserUtil.login()) {
                     continueOnCreate(savedInstanceState)
@@ -82,7 +79,7 @@ class MainActivity : BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R
             )
 
             navHostFragment!!.navController.addOnDestinationChangedListener { _, _, _ ->
-                hideKeyboard()
+                //hideKeyboard()
             }
         }
 

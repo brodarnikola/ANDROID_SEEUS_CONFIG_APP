@@ -169,116 +169,57 @@ class SignUpOnboardingActivity : ComponentActivity() {
 
             withContext(Dispatchers.Main) {
                 startApp()
-                finish()
+                //finish()
             }
         }
     }
 
     private suspend fun startApp() {
-        val startupClass: Class<*>
-        startupClass = if (!PreferenceStore.userHash.isNullOrBlank()) {
+        if (!PreferenceStore.userHash.isNullOrBlank()) {
             if (UserUtil.login()) {
-                MainActivity::class.java
-
-            } else {
-                LoginActivity::class.java
+                val startIntent =
+                    Intent(this@SignUpOnboardingActivity, MainActivity::class.java)
+                startActivity(startIntent)
+                finish()
             }
-
-        } else {
-            LoginActivity::class.java
+            else {
+                setupSystemLanguage()
+                setContent {
+                    AppTheme {
+                        SignUpOnboardingApp()
+                    }
+                }
+            }
         }
-        Log.i("SplashActivity", "This is second start")
-
-
-        val startIntent = Intent(this@SignUpOnboardingActivity, startupClass)
-        startActivity(startIntent)
-        finish()
-
+        else {
+            setupSystemLanguage()
+            setContent {
+                AppTheme {
+                    SignUpOnboardingApp()
+                }
+            }
+        }
     }
 
-//    private fun startApp() {
-//
-//        GlobalScope.launch(Dispatchers.Main) {
-//            checkSplashDelay()
-//
-//            delay(SPLASH_DISPLAY_LENGTH)
-//
-//            val startupClass: Class<*>
-//            if (SettingsHelper.firstRun) {
-//                Log.i("SplashActivity", "This is first start")
-//                if (!SettingsHelper.userRegisterOrLogin) {
-//                    setupSystemLanguage()
-//                }
-//                SettingsHelper.firstRun = false
-//                setContent {
-//                    AppTheme {
-//                        SignUpOnboardingApp()
-//                    }
-//                }
-//            } else {
-//
-//                if (!PreferenceStore.userHash.isNullOrBlank() && SettingsHelper.userRegisterOrLogin) {
-//                    if (UserUtil.login(SettingsHelper.usernameLogin.toString())) {
-//
-//                        val startIntent =
-//                            Intent(this@SignUpOnboardingActivity, MainActivity::class.java)
-//                        startIntent.putExtra(SPLASH_START, App.ref.isFirstStart)
-//                        startActivity(startIntent)
-//                        finish()
-//                    } else {
-//                        if (!SettingsHelper.userRegisterOrLogin) {
-//                            setupSystemLanguage()
-//                        }
-//
-//                        setContent {
-//                            AppTheme {
-//                                SignUpOnboardingApp()
-//                            }
-//                        }
-//                    }
-//
-//                } else {
-//                    if (!SettingsHelper.userRegisterOrLogin) {
-//                        setupSystemLanguage()
-//                    }
-//                    setContent {
-//                        AppTheme {
-//                            SignUpOnboardingApp()
-//                        }
-//                    }
-//                }
-//                Log.i("SplashActivity", "This is second start")
-//                App.Companion.ref.isFirstStart = false
-//            }
-//        }
-//    }
-//
-//    private suspend fun checkSplashDelay() {
-//        val duration = System.currentTimeMillis() - startupBeginTimestamp
-//        if (duration < SPLASH_DISPLAY_LENGTH) {
-//            delay(SPLASH_DISPLAY_LENGTH - duration)
-//        }
-//    }
-//
-//    private fun setupSystemLanguage() {
-//        val systemLanguage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            getResources().getConfiguration().getLocales().get(0).language.toString()
-//        } else {
-//            getResources().getConfiguration().locale.language.toString()
-//        }
-//
-//        log.info("System language is: ${systemLanguage}")
-//        log.info("Shared preference language is: ${SettingsHelper.languageName}")
-//
-//        if (systemLanguage == "de") {
-//            SettingsHelper.languageName = "DE"
-//        } else if (systemLanguage == "fr") {
-//            SettingsHelper.languageName = "FR"
-//        } else if (systemLanguage == "it") {
-//            SettingsHelper.languageName = "IT"
-//        } else {
-//            SettingsHelper.languageName = "EN"
-//        }
-//    }
+    private fun setupSystemLanguage() {
+        val systemLanguage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getResources().getConfiguration().getLocales().get(0).language.toString()
+        } else {
+            getResources().getConfiguration().locale.language.toString()
+        }
+
+        log.info("System language is: ${systemLanguage}")
+        log.info("Shared preference language is: ${SettingsHelper.languageName}")
+
+        if (systemLanguage == "de") {
+            SettingsHelper.languageName = "DE"
+        } else if (systemLanguage == "fr") {
+            SettingsHelper.languageName = "FR"
+        } else if (systemLanguage == "it") {
+            SettingsHelper.languageName = "IT"
+        } else {
+            SettingsHelper.languageName = "EN"
+        }
+    }
 
 }

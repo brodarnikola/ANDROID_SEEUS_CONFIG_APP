@@ -23,8 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk15.coroutines.textChangedListener
 
 
 open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationGPSViewId: Int = 0) : AppCompatActivity() {
@@ -32,10 +30,10 @@ open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationG
     private var btCheckerListenerKey: String? = null
     private var networkCheckerListenerKey: String? = null
     private var locationGPSListenerKey: String? = null
-    private val frame by lazy { if (noBleViewId != 0) find<FrameLayout>(noBleViewId) else null }
+    private val frame by lazy { if (noBleViewId != 0) findViewById<FrameLayout>(noBleViewId) else null }
     private val uiHandler by lazy { Handler(Looper.getMainLooper()) }
-    private val noWifiFrame by lazy { if (noWifiViewId != 0) find<FrameLayout>(noWifiViewId) else null }
-    val noLocationGPSFrame by lazy { if (noLocationGPSViewId != 0) find<FrameLayout>(noLocationGPSViewId) else null }
+    private val noWifiFrame by lazy { if (noWifiViewId != 0) findViewById<FrameLayout>(noWifiViewId) else null }
+    val noLocationGPSFrame by lazy { if (noLocationGPSViewId != 0) findViewById<FrameLayout>(noLocationGPSViewId) else null }
 
 
     protected var viewLoaded = false
@@ -94,23 +92,7 @@ open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationG
         locationGPSListenerKey = null
     }
 
-    fun setNoBleOverLay() {
-        val viewGroup = contentView?.overlay as ViewGroupOverlay?
-        val overlayView =
-                _FrameLayout(this).apply {
-                    background = ContextCompat.getDrawable(this@BaseActivity, R.drawable.bg_bluetooth)
-                    alpha = 0.8f
-                    textView(R.string.app_generic_no_ble) {
-                        textColor = Color.WHITE
-                        allCaps = true
-                    }.lparams {
-                        gravity = Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL
-                    }
-                }
 
-        viewGroup?.add(overlayView)
-
-    }
 
 
     open fun onBluetoothStateUpdated(available: Boolean) {}
@@ -165,19 +147,19 @@ open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationG
 
     private fun EditText.afterTextChangeDelay(duration: Long, run: () -> Unit) {
         var job: Job? = null
-        this.textChangedListener {
-            afterTextChanged {
-                job?.cancel()
-                job = launch(Dispatchers.Main) {
-                    try {
-                        delay(duration)
-                        run.invoke()
-                    } catch (e: Exception) {
-                        //ignore
-                    }
-                }
-            }
-        }
+//        this.textChangedListener {
+//            afterTextChanged {
+//                job?.cancel()
+//                job = launch(Dispatchers.Main) {
+//                    try {
+//                        delay(duration)
+//                        run.invoke()
+//                    } catch (e: Exception) {
+//                        //ignore
+//                    }
+//                }
+//            }
+//        }
     }
 
 
@@ -187,19 +169,6 @@ open class BaseActivity(noBleViewId: Int = 0, noWifiViewId: Int = 0, noLocationG
         return result
     }
 
-    fun validateEditText(textInputLayout: TextInputLayout?, editText: EditText, showDialog: Boolean, validate: (value: String) -> ValidationResult): Boolean {
-        val result = validate(editText.text.toString())
-        validateSetError(textInputLayout, result)
 
-        val isValid = result.isValid()
-        if (!isValid && showDialog) validateShowDialog(result)
-        return isValid
-    }
-
-    private fun validateShowDialog(validationResult: ValidationResult) {
-        val messageResource = validationResult.messageResource
-                ?: R.string.edit_user_validation_blank_fields_exist
-        DialogUtil.messageDialogBuilder(this, resources.getString(messageResource), { }).show()
-    }
 
 }

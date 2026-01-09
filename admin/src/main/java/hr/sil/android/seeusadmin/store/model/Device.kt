@@ -36,7 +36,9 @@ import hr.sil.android.mplhuber.core.model.MPLDeviceType
 import hr.sil.android.mplhuber.core.remote.model.*
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
-import hr.sil.android.util.general.extensions.lerpInDomain
+
+import hr.sil.android.rest.core.lerpInDomain
+
 
 /**
  * @author mfatiga

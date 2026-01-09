@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.model.LatLng
@@ -24,7 +25,6 @@ import hr.sil.android.seeusadmin.view.adapter.NetworkConfigurationAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 
 class NetworkSettingsFragment : BaseFragment() {
 
@@ -132,9 +132,13 @@ class NetworkSettingsFragment : BaseFragment() {
                         binding.progressBarNetworkChange.visibility = View.GONE
                         binding.btnSaveChanges.visibility = View.VISIBLE
                         if (networkConfig) {
-                            App.ref.toast(R.string.successfull_saved_network_configuration)
+                            Toast.makeText(context, R.string.successfull_saved_network_configuration,
+                                Toast.LENGTH_SHORT).show()
+                            //App.ref.toast(R.string.successfull_saved_network_configuration)
                         } else {
-                            App.ref.toast(R.string.registration_error)
+                            Toast.makeText(context, R.string.registration_error,
+                                Toast.LENGTH_SHORT).show()
+                            //App.ref.toast(R.string.registration_error)
                         }
                     }
                 } else {

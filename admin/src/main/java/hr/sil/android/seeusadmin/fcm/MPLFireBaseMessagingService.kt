@@ -1,7 +1,6 @@
 package hr.sil.android.seeusadmin.fcm
 
-import com.firebase.jobdispatcher.FirebaseJobDispatcher
-import com.firebase.jobdispatcher.GooglePlayDriver
+import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
@@ -15,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 
 
 open class MPLFireBaseMessagingService : FirebaseMessagingService() {
@@ -50,8 +48,8 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
             if (!sendRegistrationToServer(token)) {
                 withContext(Dispatchers.Main) {
                     log.error("Error in registration to server please check your internet connection")
-                    App.ref.toast(App.ref.getString(R.string.app_generic_no_network))
-
+                    //App.ref.toast(App.ref.getString(R.string.app_generic_no_network))
+                    Toast.makeText(App.ref.applicationContext, App.ref.getString(R.string.app_generic_no_network), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -63,12 +61,12 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
      */
     private fun scheduleJob() {
         // [START dispatch_job]
-        val dispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))
-        val myJob = dispatcher.newJobBuilder()
-                .setService(NotificationJobService::class.java)
-                .setTag("my-job-tag")
-                .build()
-        dispatcher.schedule(myJob)
+//        val dispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))
+//        val myJob = dispatcher.newJobBuilder()
+//                .setService(NotificationJobService::class.java)
+//                .setTag("my-job-tag")
+//                .build()
+//        dispatcher.schedule(myJob)
         // [END dispatch_job]
     }
 

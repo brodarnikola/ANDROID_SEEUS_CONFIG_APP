@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.view.activity.MainActivity
 import kotlinx.coroutines.*
-import org.jetbrains.anko.support.v4.ctx
 import java.lang.Runnable
 
 
@@ -49,7 +48,7 @@ abstract class BaseFragment : Fragment() {
     fun setFragment(navFragment: Fragment, forgetHistory: Boolean = false) {
 
         val pendingRunnable = Runnable {
-            val fragmentTransaction = (ctx as MainActivity).supportFragmentManager.beginTransaction()
+            val fragmentTransaction = (requireContext() as MainActivity).supportFragmentManager.beginTransaction()
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             fragmentTransaction.replace(R.id.main_frame_layout, navFragment, navFragment.tag).addToBackStack(null)
             if (forgetHistory) {

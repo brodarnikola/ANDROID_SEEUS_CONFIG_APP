@@ -13,8 +13,8 @@ import hr.sil.android.seeusadmin.R
 @Composable
 fun GradientBackground(
     modifier: Modifier = Modifier,
-    startColor: Color = colorResource(R.color.colorGradientStart),
-    endColor: Color = colorResource(R.color.colorGradientFinish),
+    startColor: Color = colorResource(R.color.colorCyenTransparent),
+    endColor: Color = colorResource(R.color.colorCyenTransparent),
     angle: Float = 270f,
     content: @Composable () -> Unit
 ) {

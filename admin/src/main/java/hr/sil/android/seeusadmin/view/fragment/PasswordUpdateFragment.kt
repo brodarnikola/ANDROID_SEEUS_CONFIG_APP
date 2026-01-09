@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,6 @@ import hr.sil.android.seeusadmin.util.connectivity.NetworkChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 
 class PasswordUpdateFragment : BaseFragment() {
 
@@ -91,7 +91,9 @@ class PasswordUpdateFragment : BaseFragment() {
                             binding.progressBar.visibility = View.GONE
                         } else {
                             withContext(Dispatchers.Main) {
-                                App.ref.toast(R.string.error_updating_mpl)
+                                Toast.makeText(context, R.string.error_updating_mpl,
+                                    Toast.LENGTH_SHORT).show()
+                                //App.ref.toast(R.string.error_updating_mpl)
                                 binding.progressBar.visibility = View.GONE
                                 log.error("Error while updating passsword from the user")
                             }
@@ -99,7 +101,9 @@ class PasswordUpdateFragment : BaseFragment() {
 
                     } else {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(this@PasswordUpdateFragment.getString(R.string.app_common_internet_connection))
+                            Toast.makeText(context, R.string.app_common_internet_connection,
+                                Toast.LENGTH_SHORT).show()
+                            //App.ref.toast(this@PasswordUpdateFragment.getString(R.string.app_common_internet_connection))
                             binding.progressBar.visibility = View.GONE
                         }
                     }

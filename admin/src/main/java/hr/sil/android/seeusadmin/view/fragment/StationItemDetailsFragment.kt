@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +22,6 @@ import hr.sil.android.mplhuber.core.util.macRealToClean
 import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.BuildConfig
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.cache.DataCache
 import hr.sil.android.seeusadmin.cache.dto.CRegistration
 import hr.sil.android.seeusadmin.cache.status.ActionStatusHandler
 import hr.sil.android.seeusadmin.cache.status.ActionStatusKey
@@ -41,9 +41,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.sdk15.coroutines.onClick
-import org.jetbrains.anko.sdk15.coroutines.onItemSelectedListener
-import org.jetbrains.anko.toast
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -102,7 +99,7 @@ class StationItemDetailsFragment : BaseFragment() {
         val arrowBackImage: ImageView? = this@StationItemDetailsFragment.activity?.findViewById(hr.sil.android.seeusadmin.R.id.mainactivity_toolbar_arrow)
         arrowBackImage?.visibility = View.VISIBLE
 
-        arrowBackImage?.onClick {
+        arrowBackImage?.setOnClickListener {
             if (fragmentManager?.backStackEntryCount ?: 1 > 0) {
                 fragmentManager?.popBackStack()
             }
@@ -110,60 +107,104 @@ class StationItemDetailsFragment : BaseFragment() {
 
         val huberLogo: ImageView? = this@StationItemDetailsFragment.activity?.findViewById(hr.sil.android.seeusadmin.R.id.mainactivity_toolbar_huber_picture)
         huberLogo?.visibility = View.GONE
-        binding.spinerapnNetworkSelection.onItemSelectedListener {
-            onItemSelected { adapterView, view, position, id ->
-                selectedItem = adapterView?.getItemAtPosition(position) as RNetworkConfiguration
-            }
+//        binding.spinerapnNetworkSelection.onItemSelectedListener {
+//            onItemSelected { adapterView, view, position, id ->
+//                selectedItem = adapterView?.getItemAtPosition(position) as RNetworkConfiguration
+//            }
+//
+//            onNothingSelected {
+//
+//            }
+//        }
 
-            onNothingSelected {
-
-            }
-        }
-
-        binding.btnRegisterDevice.onClick {
-            val ctx = context ?: return@onClick
+        binding.btnRegisterDevice.setOnClickListener {
+            val ctx = context ?: return@setOnClickListener
             val device = device
-            if (validate() && binding.spinerapnNetworkSelection.selectedItem != null && device?.isInProximity == true) {
-                connecting.set(true)
-                val customerId = UserUtil.user?.customerId
+            lifecycleScope.launch {
+                if (validate() && binding.spinerapnNetworkSelection.selectedItem != null && device?.isInProximity == true) {
+                    connecting.set(true)
+                    val customerId = UserUtil.user?.customerId
 
-                if (customerId != null) {
-                    binding.progressBarRegisterDevice.visibility = View.VISIBLE
-                    binding.btnRegisterDevice.visibility = View.GONE
-                    val communicator = device.createBLECommunicator(this@StationItemDetailsFragment.activity as Context)
-                    if (communicator.connect()) {
-                        log.info("Successfully connected $customerId ,${selectedItem.apnUrl}, $macAddress  ")
+                    if (customerId != null) {
+                        binding.progressBarRegisterDevice.visibility = View.VISIBLE
+                        binding.btnRegisterDevice.visibility = View.GONE
+                        val communicator =
+                            device.createBLECommunicator(this@StationItemDetailsFragment.activity as Context)
+                        if (communicator.connect()) {
+                            log.info("Successfully connected $customerId ,${selectedItem.apnUrl}, $macAddress  ")
 
-                        if (!communicator.registerMaster(customerId, selectedItem, null, 60L, false)) {
-                            App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
-                            log.error("Error in registration!")
-                            handleRegistrationLoadingUI(false)
+                            if (!communicator.registerMaster(
+                                    customerId,
+                                    selectedItem,
+                                    null,
+                                    60L,
+                                    false
+                                )
+                            ) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    requireContext().getString(R.string.main_locker_registration_error),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                //App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
+                                log.error("Error in registration!")
+                                handleRegistrationLoadingUI(false)
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    requireContext().getString(R.string.main_locker_registration_started),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                //App.ref.toast(ctx.getString(R.string.main_locker_registration_started))
+                                binding.progressBarRegisterDevice.visibility = View.GONE
+                                handleRegistrationProcessUI(true)
+                                val statusKey = ActionStatusKey()
+                                statusKey.macAddress = macAddress
+                                statusKey.statusType = ActionStatusType.MASTER_REGISTRATION
+                                statusKey.keyId =
+                                    macAddress + ActionStatusType.MASTER_REGISTRATION.name
+                                //ActionStatusHandler.actionStatusDb.put(statusKey)
+
+                                log.info("Added: ${macAddress + PREF_LATITUDE} ${binding.etLatitude.text}")
+                                log.info("Added: ${macAddress + PREF_LONGITUDE} ${binding.etLongitude.text}")
+                                val lat = binding.etLatitude.text.toString().toDouble()
+                                val long = binding.etLongitude.text.toString().toDouble()
+//                                DataCache.setRegistrationStatus(
+//                                    CRegistration(
+//                                        macAddress,
+//                                        macAddress,
+//                                        "",
+//                                        lat,
+//                                        long,
+//                                        selectedItem.id
+//                                    )
+//                                )
+                            }
+                            communicator.disconnect()
                         } else {
-                            App.ref.toast(ctx.getString(R.string.main_locker_registration_started))
-                            binding.progressBarRegisterDevice.visibility = View.GONE
-                            handleRegistrationProcessUI(true)
-                            val statusKey = ActionStatusKey()
-                            statusKey.macAddress = macAddress
-                            statusKey.statusType = ActionStatusType.MASTER_REGISTRATION
-                            statusKey.keyId = macAddress + ActionStatusType.MASTER_REGISTRATION.name
-                            ActionStatusHandler.actionStatusDb.put(statusKey)
+                            handleRegistrationLoadingUI(false)
+                            Toast.makeText(
+                                requireContext(),
+                                requireContext().getString(R.string.main_locker_registration_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                            log.info("Added: ${macAddress + PREF_LATITUDE} ${binding.etLatitude.text}")
-                            log.info("Added: ${macAddress + PREF_LONGITUDE} ${binding.etLongitude.text}")
-                            val lat = binding.etLatitude.text.toString().toDouble()
-                            val long = binding.etLongitude.text.toString().toDouble()
-                            DataCache.setRegistrationStatus(CRegistration(macAddress, macAddress, "", lat, long, selectedItem.id))
+                            //App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
+                            log.error("Error while connecting!!")
                         }
-                        communicator.disconnect()
-                    } else {
-                        handleRegistrationLoadingUI(false)
-                        App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
-                        log.error("Error while connecting!!")
                     }
+                    connecting.set(false)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().getString(R.string.main_locker_registration_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    //App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
                 }
-                connecting.set(false)
-            } else {
-                App.ref.toast(ctx.getString(R.string.main_locker_registration_error))
             }
 
         }
@@ -182,7 +223,9 @@ class StationItemDetailsFragment : BaseFragment() {
                         val bleResponseStopTheBusTest = communicator.stopTheBusTest()
                         if (!bleResponseStopTheBusTest) {
                             withContext(Dispatchers.Main) {
-                                App.ref.toast(ctx.getString(R.string.main_locker_force_open_update_error))
+                                Toast.makeText(requireContext(), ctx.getString(R.string.main_locker_force_open_update_error), Toast.LENGTH_SHORT).show()
+
+                                //App.ref.toast(ctx.getString(R.string.main_locker_force_open_update_error))
                                 log.error("Error in force open!")
                             }
                         } else {
@@ -192,7 +235,9 @@ class StationItemDetailsFragment : BaseFragment() {
                         val bleResponseAssistanceTest = communicator.assistanceTest()
                         if (!bleResponseAssistanceTest) {
                             withContext(Dispatchers.Main) {
-                                App.ref.toast("Assistance error")
+                                Toast.makeText(requireContext(), "Assistance error", Toast.LENGTH_SHORT).show()
+
+                                //App.ref.toast("Assistance error")
                                 log.error("Error in assistance!")
                             }
                         } else {
@@ -206,7 +251,9 @@ class StationItemDetailsFragment : BaseFragment() {
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
+                            Toast.makeText(requireContext(), ctx.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
                             log.error("Error while connecting the device")
                             communicator.disconnect()
                         }
@@ -243,7 +290,9 @@ class StationItemDetailsFragment : BaseFragment() {
                     val bleResponse = communicator.rebootSystem()
                     if (!bleResponse) {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(ctx.getString(R.string.main_locker_force_open_update_error))
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_force_open_update_error), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(ctx.getString(R.string.main_locker_force_open_update_error))
                             log.error("Error in force open!")
                         }
                     } else {
@@ -258,7 +307,9 @@ class StationItemDetailsFragment : BaseFragment() {
 
                 } else {
                     withContext(Dispatchers.Main) {
-                        App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+
+                        //App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
                         log.error("Error while connecting the device")
                     }
                 }
@@ -278,12 +329,16 @@ class StationItemDetailsFragment : BaseFragment() {
                     val bleResponse = communicator.setSystemInDebugMode()
                     if (!bleResponse) {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(ctx.getString(R.string.main_locker_debug_set_error))
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_debug_set_error), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(ctx.getString(R.string.main_locker_debug_set_error))
                             log.error("Error in seting debug mode open!")
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(ctx.getString(R.string.main_locker_debug_set_success))
+                            Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_debug_set_success), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(ctx.getString(R.string.main_locker_debug_set_success))
                             log.info("Debug mode successfully activated $macAddress")
                         }
                     }
@@ -293,7 +348,9 @@ class StationItemDetailsFragment : BaseFragment() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+
+                        //App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
                         log.error("Error while connecting the device")
                     }
                 }
@@ -301,14 +358,14 @@ class StationItemDetailsFragment : BaseFragment() {
             }
         }
 
-        binding.clResetLayout.onClick {
+        binding.clResetLayout.setOnClickListener {
             val deleteStationDialog = DeleteStationDialog(macAddress, device)
             deleteStationDialog.show(
                 (requireContext() as MainActivity).supportFragmentManager, ""
             )
         }
 
-        binding.clStationSettings.onClick {
+        binding.clStationSettings.setOnClickListener {
             val bundle = bundleOf("masterMac" to macAddress)
             log.info("Sended masterMacAddress to station settings is: " + bundle + " to String: " + bundle.toString())
             findNavController().navigate(
@@ -317,7 +374,7 @@ class StationItemDetailsFragment : BaseFragment() {
             )
         }
 
-        binding.clManageButtons.onClick {
+        binding.clManageButtons.setOnClickListener {
             val bundle = bundleOf("masterMac" to macAddress)
             log.info("Sended masterMacAddress to manage button is: " + bundle + " to String: " + bundle.toString())
             findNavController().navigate(
@@ -326,7 +383,7 @@ class StationItemDetailsFragment : BaseFragment() {
             )
         }
 
-        binding.clNetworkLayout.onClick {
+        binding.clNetworkLayout.setOnClickListener {
             val bundle = bundleOf("masterMac" to macAddress)
             log.info("Sended masterMacAddress to locker settings is: " + bundle + " to String: " + bundle.toString())
             findNavController().navigate(
@@ -440,11 +497,12 @@ class StationItemDetailsFragment : BaseFragment() {
                 if (device != null) {
                     binding.btnRegisterDevice.isEnabled = true
                     GlobalScope.launch {
-                        val mplActionStatus = ActionStatusHandler.actionStatusDb.get(device?.macAddress + ActionStatusType.MASTER_REGISTRATION)
-                        withContext(Dispatchers.Main) {
-                            if (!connecting.get())
-                                handleRegistrationProcessUI(mplActionStatus != null)
-                        }
+                        // TODO: Handle this -> val mplActionStatus = ActionStatusHandler.actionStat
+//                        val mplActionStatus = ActionStatusHandler.actionStatusDb.get(device?.macAddress + ActionStatusType.MASTER_REGISTRATION)
+//                        withContext(Dispatchers.Main) {
+//                            if (!connecting.get())
+//                                handleRegistrationProcessUI(mplActionStatus != null)
+//                        }
                     }
                     openGoogleMapForRegisteringDevice()
                 } else {
@@ -456,28 +514,28 @@ class StationItemDetailsFragment : BaseFragment() {
                 binding.clUnregistereWrapper.visibility = View.GONE
                 binding.clRegisteredWrapper.visibility = View.VISIBLE
 
-                val registrationDb = DataCache.getRegistrationStatusDB().find { it.masterUnitMac == macAddress }
-                if (registrationDb != null) {
-                    log.info("REGISTERING PENDING")
-                    GlobalScope.launch {
-                        val request = RStationUnitRequest()
-                        request.latitude = registrationDb.lat
-                        request.longitude = registrationDb.long
-                        request.networkConfigurationId = registrationDb.networkConfigurationId
-
-                        if (WSSeeUsAdmin.modifyStationUnit(macAddress.macRealToClean(), request) != null) {
-                            AppUtil.refreshCache()
-                            DataCache.removeRegistrationStatus(macAddress)
-                            withContext(Dispatchers.Main) {
-                                App.ref.toast(R.string.successfully_updated)
-                            }
-                        } else {
-                            withContext(Dispatchers.Main) {
-                                App.ref.toast(R.string.error_updating_mpl)
-                            }
-                        }
-                    }
-                }
+//                val registrationDb = DataCache.getRegistrationStatusDB().find { it.masterUnitMac == macAddress }
+//                if (registrationDb != null) {
+//                    log.info("REGISTERING PENDING")
+//                    GlobalScope.launch {
+//                        val request = RStationUnitRequest()
+//                        request.latitude = registrationDb.lat
+//                        request.longitude = registrationDb.long
+//                        request.networkConfigurationId = registrationDb.networkConfigurationId
+//
+//                        if (WSSeeUsAdmin.modifyStationUnit(macAddress.macRealToClean(), request) != null) {
+//                            AppUtil.refreshCache()
+//                            //DataCache.removeRegistrationStatus(macAddress)
+//                            withContext(Dispatchers.Main) {
+//                                //App.ref.toast(R.string.successfully_updated)
+//                            }
+//                        } else {
+//                            withContext(Dispatchers.Main) {
+//                                //App.ref.toast(R.string.error_updating_mpl)
+//                            }
+//                        }
+//                    }
+//                }
 
 
             }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import hr.sil.android.mplhuber.core.model.RUpdateAdminInfo
@@ -18,7 +19,6 @@ import hr.sil.android.mplhuber.core.remote.model.RLanguage
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.cache.DataCache
 import hr.sil.android.seeusadmin.databinding.FragmentSettingsBinding
 import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.util.backend.UserUtil
@@ -28,7 +28,6 @@ import hr.sil.android.seeusadmin.view.dialog.LogoutDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 
 class NavSettingsFragment : BaseFragment() {
 
@@ -56,18 +55,18 @@ class NavSettingsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            val list = DataCache.getLanguages().toList()
-            withContext(Dispatchers.Main) {
-                binding.spinerLanguageSelection.adapter = LanguageAdapter(list)
-                if (context != null) {
-
-                    val languageName = SettingsHelper.languageName
-                    val languagesList = DataCache.getLanguages()
-                    binding.spinerLanguageSelection.setSelection(languagesList.indexOfFirst { it.code == languageName })
-
-
-                }
-            }
+//            val list = DataCache.getLanguages().toList()
+//            withContext(Dispatchers.Main) {
+//                binding.spinerLanguageSelection.adapter = LanguageAdapter(list)
+//                if (context != null) {
+//
+//                    val languageName = SettingsHelper.languageName
+//                    val languagesList = DataCache.getLanguages()
+//                    binding.spinerLanguageSelection.setSelection(languagesList.indexOfFirst { it.code == languageName })
+//
+//
+//                }
+//            }
         }
 
         binding.nameEditText.setText(UserUtil.user?.name)
@@ -140,7 +139,9 @@ class NavSettingsFragment : BaseFragment() {
                                     R.string.successfully_saved_data,
                                     UserUtil.user?.id.toString()
                                 )
-                                App.ref.toast(successNotice)
+                                Toast.makeText(requireContext(), successNotice, Toast.LENGTH_SHORT).show()
+
+                                //App.ref.toast(successNotice)
                             } else {
 
                             }

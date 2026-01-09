@@ -27,7 +27,6 @@ import android.content.Context
 import android.content.IntentSender
 import android.location.LocationManager
 import android.widget.Toast
-import com.esotericsoftware.minlog.Log
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -55,7 +54,7 @@ class LocationGPSChecker (context: Context)  {
         //lastResult?.let { listener.invoke(it) }
 
         if (listeners.size == 1) {
-            Log.info("Checking if location, gps service is available")
+            println("Checking if location, gps service is available")
             runChecker()
         }
         return key
@@ -139,7 +138,7 @@ class LocationGPSChecker (context: Context)  {
 
     private fun doCheck() {
         val now = System.currentTimeMillis()
-        Log.info("Time passed in seconds: ${now - lastCheck}")
+        println("Time passed in seconds: ${now - lastCheck}")
         if( (now - lastCheck > checkPeriod) ) {
             if (turnGPSOn()) {
                 notifyListeners(true)

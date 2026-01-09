@@ -21,10 +21,9 @@
 
 package hr.sil.android.seeusadmin.util.connectivity
 
-import com.esotericsoftware.minlog.Log
 import hr.sil.android.mplhuber.core.util.logger
+import hr.sil.android.rest.core.NetworkConnectivity
 import hr.sil.android.seeusadmin.App
-import hr.sil.android.util.network.NetworkConnectivity
 import kotlinx.coroutines.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,7 +46,7 @@ object NetworkChecker {
         lastResult?.let { listener.invoke(it) }
 
         if (listeners.size == 1) {
-            Log.info("Checking if the network is available")
+            println("Checking if the network is available")
             runChecker()
         }
         return key

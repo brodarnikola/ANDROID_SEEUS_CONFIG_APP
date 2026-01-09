@@ -33,10 +33,11 @@ import hr.sil.android.seeusadmin.databinding.FragmentLoginBinding
 import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.view.activity.MainActivity
-import hr.sil.android.view_util.permission.DroidPermission
 import hr.sil.android.zwicktablet.gps.GpsUtils
 import kotlinx.coroutines.*
 import java.util.*
+
+import hr.sil.android.seeusadmin.util.DroidPermission
 
 class GoogleMapsLatLongFragment : BaseFragment(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {

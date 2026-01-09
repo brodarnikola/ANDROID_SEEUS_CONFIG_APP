@@ -36,9 +36,12 @@ import hr.sil.android.mplhuber.core.ble.telemetry.BLEDynamicPropertyUtil.PROP_NU
 import hr.sil.android.mplhuber.core.ble.telemetry.BLEDynamicPropertyUtil.PROP_STM_FW_VERSION
 import hr.sil.android.mplhuber.core.ble.telemetry.BLEDynamicPropertyUtil.dynamicProp
 import hr.sil.android.mplhuber.core.util.logger
-import hr.sil.android.util.general.extensions.format
-import hr.sil.android.util.general.extensions.toHexString
 import java.util.*
+
+
+import hr.sil.android.rest.core.util.toHexString
+import hr.sil.android.rest.core.format
+//import hr.sil.android.util.general.extensions.toByteArray
 
 /**
  * @author mfatiga

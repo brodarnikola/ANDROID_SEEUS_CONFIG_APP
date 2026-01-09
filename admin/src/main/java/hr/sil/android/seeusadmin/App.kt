@@ -25,10 +25,12 @@ package hr.sil.android.seeusadmin
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
-import com.esotericsoftware.minlog.Log
+import android.widget.Toast
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+
+//import com.google.firebase.iid.FirebaseInstanceId
 
 import hr.sil.android.ble.scanner.BLEDeviceScanner
 import hr.sil.android.ble.scanner.exception.BLEScanException
@@ -44,18 +46,22 @@ import hr.sil.android.seeusadmin.remote.WSConfig
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.MPLDeviceStoreRemoteUpdater
 import hr.sil.android.seeusadmin.util.SettingsHelper
-import hr.sil.android.seeusadmin.util.ui.requestToken
-import hr.sil.android.util.bluetooth.BluetoothAdapterMonitor
-import hr.sil.android.util.general.delegates.synchronizedDelegate
-import hr.sil.android.util.general.extensions.format
+//import hr.sil.android.util.bluetooth.BluetoothAdapterMonitor
+//import hr.sil.android.util.general.delegates.synchronizedDelegate
+//import hr.sil.android.util.general.extensions.format
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.runOnUiThread
-import org.jetbrains.anko.toast
+//import org.jetbrains.anko.runOnUiThread
+//import org.jetbrains.anko.toast
 import java.util.*
+
+import hr.sil.android.rest.core.synchronizedDelegate
+import hr.sil.android.rest.core.format
+import hr.sil.android.rest.core.BluetoothAdapterMonitor
+import hr.sil.android.seeusadmin.util.ui.awaitForResult
 
 /**
  * @author mfatiga
@@ -86,7 +92,7 @@ class App : Application(), BLEScannerStateHolder {
     var languageCode: RLanguage = RLanguage()
 
     override fun attachBaseContext(base: Context) {
-        Log.info("Attaching base context in APP!!")
+        println("Attaching base context in APP!!")
 
         SettingsHelper.init(base)
         super.attachBaseContext(SettingsHelper.setLocale(base))
@@ -125,13 +131,14 @@ class App : Application(), BLEScannerStateHolder {
                     }
 
                     if (showError) {
-                        runOnUiThread {
-                            val now = System.currentTimeMillis()
-                            if (now - errorLastShownAt >= 10000L) {
-                                App.ref.toast("Error: ${it.errorCode}")
-                                errorLastShownAt = now
-                            }
-                        }
+//                        runOnUiThread {
+//                            val now = System.currentTimeMillis()
+//                            if (now - errorLastShownAt >= 10000L) {
+//                                Toast.makeText(App.ref.applicationContext, "Error: ${it.errorCode}, Toast.LENGTH_SHORT).show()
+//                                //App.ref.("Error: ${it.errorCode}")
+//                                errorLastShownAt = now
+//                            }
+//                        }
                     }
                 },
                 BLEGenericDeviceDataFactory()
@@ -185,8 +192,7 @@ class App : Application(), BLEScannerStateHolder {
         log.info("Starting BLE scan...")
         startScanner()
         GlobalScope.launch {
-
-            val token = FirebaseInstanceId.getInstance().requestToken()
+            val token = FirebaseMessaging.getInstance().token.awaitForResult() // FirebaseInstanceId.getInstance().requestToken()
 
             if (token != null) {
                 log.info("FCM token: $token")
@@ -194,8 +200,6 @@ class App : Application(), BLEScannerStateHolder {
             } else {
                 log.error("Error while fetching the FCM token!")
             }
-
-
         }
     }
 

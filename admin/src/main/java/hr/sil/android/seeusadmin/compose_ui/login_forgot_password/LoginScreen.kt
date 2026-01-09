@@ -3,6 +3,7 @@ package hr.sil.android.seeusadmin.compose_ui.login_forgot_password
 import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -156,7 +157,12 @@ fun LoginScreen(
         }
     }
 
-    GradientBackground(
+    Image(
+        painter = painterResource(R.drawable.bg_home_screen),
+        contentDescription = "",
+        modifier = Modifier.fillMaxSize()
+    )
+    Column(
         modifier = Modifier.fillMaxSize()
     ) {
         // Main container is ConstraintLayout to replicate XML's behavior
@@ -164,7 +170,7 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            val (appBar, clEmail, rlPassword, tvForgotPassword, progressBar, btnLogin, llRegister) = createRefs()
+            val (appBar, clEmail, rlPassword, tvForgotPassword, progressBar, btnLogin) = createRefs()
 
             // 1. AppBarLayout (appBarLayout)
             // Replicated using a Column/Box within the ConstraintLayout
@@ -182,7 +188,8 @@ fun LoginScreen(
                         .wrapContentHeight()
                         //.background(ThmToolbarBackgroundColor)
                         .windowInsetsPadding(WindowInsets.statusBars) // Simulates fitsSystemWindows="true"
-                        .padding(vertical = 0.dp) // Simulates app:elevation="0dp"
+                        .padding(vertical = 0.dp), // Simulates app:elevation="0dp",
+                    contentAlignment = Alignment.Center
                 ) {
                     // RelativeLayout (rlTopLayout)
                     Box(
@@ -199,11 +206,14 @@ fun LoginScreen(
                         ) // ?attr/actionBarSize
 
                         // ImageView (Header Image)
-                        Icon(
-                            painter = painterResource(id = R.drawable.seeus_black_thin),
-                            contentDescription = null,
-                            tint = Color.Unspecified,
-                            modifier = Modifier.align(Alignment.Center) // layout_centerInParent="true"
+                        TextViewWithFont(
+                            text = stringResource(id = R.string.app_generic_sign_in).uppercase(),
+                            //color = ThmLoginDescriptionTextColor,
+                            fontWeight = FontWeight.Normal, // ?attr/thmMainFontTypeRegular
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 10.dp) 
                         )
                     }
                 }
@@ -389,7 +399,7 @@ fun LoginScreen(
 
             // 5. Forgot Password (tvForgotPassword)
             TextViewWithFont(
-                text = stringResource(id = R.string.forgot_password_title),
+                text = stringResource(id = R.string.intro_register_show_password),
                 //color = ThmLoginDescriptionTextColor,
                 fontWeight = FontWeight.Normal, // ?attr/thmMainFontTypeRegular
                 textAlign = TextAlign.Center,
@@ -442,7 +452,8 @@ fun LoginScreen(
                         )
                     }
                 },
-                backgroundColor = ThmMainButtonBackgroundColor,
+                backgroundColor = colorResource(R.color.colorCyenTransparent),
+                //backgroundColor = ThmMainButtonBackgroundColor,
                 textColor = ThmLoginButtonTextColor,
                 fontSize = ThmButtonTextSize,
                 fontWeight = FontWeight.Medium,
@@ -452,45 +463,11 @@ fun LoginScreen(
                     .constrainAs(btnLogin) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom, margin = 12.dp)
+                        bottom.linkTo(parent.bottom , margin = 30.dp)
                         //bottom.linkTo(llRegister.top, margin = 12.dp)
                     },
                 enabled = isButtonEnabled
             )
-
-            // 8. Register Link (llRegister - LinearLayout)
-//            Row( // Replaced LinearLayout with Row
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(bottom = 20.dp)
-//                    .clickable(
-//                        onClick = {
-//                            nextScreen(SignUpOnboardingSections.ONBOARDING_TERMS_CONDITION_SCREEN.route)
-//                        }
-//                    )
-//                    .constrainAs(llRegister) {
-//                        bottom.linkTo(parent.bottom)
-//                    },
-//                horizontalArrangement = Arrangement.Center, // gravity="center_horizontal"
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                // TextViewWithFont (part 1)
-//                TextViewWithFont(
-//                    text = stringResource(id = R.string.nav_login_missing_account),
-//                    color = ThmLoginDescriptionTextColor,
-//                    fontWeight = FontWeight.Normal,
-//                )
-//                // TextViewWithFont (tvRegister)
-//                TextViewWithFont(
-//                    text = stringResource(id = R.string.register_submit_title),
-//                    color = ThmLoginDescriptionTextColor,
-//                    fontWeight = FontWeight.Normal,
-//                    modifier = Modifier.padding(start = 8.dp) // layout_marginLeft="8dp"
-//                )
-//            }
-
         }
     }
-
-
 }

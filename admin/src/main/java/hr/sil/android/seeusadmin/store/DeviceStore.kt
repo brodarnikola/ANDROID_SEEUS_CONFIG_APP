@@ -36,7 +36,8 @@ import hr.sil.android.seeusadmin.cache.status.ActionStatusType
 import hr.sil.android.seeusadmin.data.RButtonDataUiModel
 import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
 import hr.sil.android.seeusadmin.store.model.Device
-import hr.sil.android.util.general.delegates.synchronizedDelegate
+
+import hr.sil.android.rest.core.synchronizedDelegate
 
 /**
  * @author mfatiga
@@ -64,31 +65,35 @@ object DeviceStore {
 
     val log = logger()
 
+    // TODO: HANDLE THIS --> getNonRegisteredButtonsInProximity
     suspend fun getNonRegisteredButtonsInProximity(actions: Collection<String>): List<RButtonDataUiModel> {
-        val buttons = WSSeeUsAdmin.getAllButtons() ?: listOf()
+        return listOf()
 
-            val allRegisteredButtonsMacs = buttons.map { it.mac.macCleanToReal() }
-            log.debug("Cached buttons registered on backend:" + allRegisteredButtonsMacs.joinToString("-") { it + " " })
-
-            val nonRegisteredButtonsInBleProximity = bleData.values.filter {
-                isMappedCorrectly(it, allRegisteredButtonsMacs)
-            }
-
-            return nonRegisteredButtonsInBleProximity.map {
-                val instanceKey = it.deviceAddress + ActionStatusType.BUTTON_REGISTRATION
-                val cachedAction = ActionStatusHandler.actionStatusDb.get(instanceKey)
-                if (DeviceStore.mDevices.containsKey(it.deviceAddress) && cachedAction != null) {
-                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.REGISTRATION_PENDING, isInProximity = true)
-                } else {
-                    val key = it.deviceAddress + ActionStatusType.BUTTON_DEREGISTRATION
-                    if (actions.contains(key)) {
-                        ActionStatusHandler.actionStatusDb.del(key)
-                    }
-                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.UNREGISTERED, isInProximity = true)
-                }
-
-            }.toList()
-
+        // TODO: HANDLE THIS --> getNonRegisteredButtonsInProximity
+//        val buttons = WSSeeUsAdmin.getAllButtons() ?: listOf()
+//
+//            val allRegisteredButtonsMacs = buttons.map { it.mac.macCleanToReal() }
+//            log.debug("Cached buttons registered on backend:" + allRegisteredButtonsMacs.joinToString("-") { it + " " })
+//
+//            val nonRegisteredButtonsInBleProximity = bleData.values.filter {
+//                isMappedCorrectly(it, allRegisteredButtonsMacs)
+//            }
+//
+//            return nonRegisteredButtonsInBleProximity.map {
+//                val instanceKey = it.deviceAddress + ActionStatusType.BUTTON_REGISTRATION
+//                val cachedAction = ActionStatusHandler.actionStatusDb.get(instanceKey)
+//                if (DeviceStore.mDevices.containsKey(it.deviceAddress) && cachedAction != null) {
+//                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.REGISTRATION_PENDING, isInProximity = true)
+//                } else {
+//                    val key = it.deviceAddress + ActionStatusType.BUTTON_DEREGISTRATION
+//                    if (actions.contains(key)) {
+//                        ActionStatusHandler.actionStatusDb.del(key)
+//                    }
+//                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.UNREGISTERED, isInProximity = true)
+//                }
+//
+//            }.toList()
+//
 
 
     }

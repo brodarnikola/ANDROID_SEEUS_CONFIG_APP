@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hr.sil.android.mplhuber.core.ble.DeviceStatus
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
@@ -30,7 +31,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -166,7 +166,8 @@ class ButtonAdapter(peripherals: List<RButtonDataUiModel>, val masterMac: String
                     bleDeletePeripheral(device, ctx, parcelLocker, itemView as ViewGroup)
                 }
             } else {
-                App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
+                Toast.makeText(ctx, ctx.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+                //App.ref.toast(ctx.getString(R.string.main_locker_ble_connection_error))
             }
         }
 
@@ -209,7 +210,9 @@ class ButtonAdapter(peripherals: List<RButtonDataUiModel>, val masterMac: String
 
                     if (WSSeeUsAdmin.deleteButtonFromStation(button.mac.macRealToClean())) {
                         withContext(Dispatchers.Main) {
-                            App.ref.toast(ctx.getString(R.string.successfully_saved_data, button.mac))
+                            Toast.makeText(ctx, ctx.getString(R.string.successfully_saved_data, button.mac), Toast.LENGTH_SHORT).show()
+
+                            //App.ref.toast(ctx.getString(R.string.successfully_saved_data, button.mac))
                         }
                     }
                 }
@@ -228,7 +231,9 @@ class ButtonAdapter(peripherals: List<RButtonDataUiModel>, val masterMac: String
 
         private fun addItemPeripheral(ctx: Context, button: RButtonDataUiModel, progressBar: ProgressBar) {
             if (!button.isInProximity) {
-                itemView.context.toast(R.string.main_locker_ble_connection_error)
+                Toast.makeText(ctx, ctx.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+
+                //itemView.context.toast(R.string.main_locker_ble_connection_error)
                 return
             }
 
@@ -262,11 +267,15 @@ class ButtonAdapter(peripherals: List<RButtonDataUiModel>, val masterMac: String
                 if (WSSeeUsAdmin.addButtonToStation(masterMac.macRealToClean(), button.mac.macRealToClean())) {
 
                     withContext(Dispatchers.Main) {
-                        App.ref.toast(ctx.getString(R.string.successfully_saved_data, button.mac))
+                        Toast.makeText(ctx, ctx.getString(R.string.successfully_saved_data, button.mac), Toast.LENGTH_SHORT).show()
+
+                        //App.ref.toast(ctx.getString(R.string.successfully_saved_data, button.mac))
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        App.ref.toast("Error with button communication ")
+                        Toast.makeText(ctx, "Error with button communication ", Toast.LENGTH_SHORT).show()
+
+                        //App.ref.toast("Error with button communication ")
                     }
                 }
             }

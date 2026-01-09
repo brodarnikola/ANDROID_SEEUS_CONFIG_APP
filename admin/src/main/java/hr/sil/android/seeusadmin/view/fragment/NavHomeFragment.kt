@@ -24,7 +24,6 @@ import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.model.Device
 import hr.sil.android.seeusadmin.view.adapter.ScuAdapter
-import hr.sil.android.view_util.extensions.hideKeyboard
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
@@ -155,7 +154,7 @@ class NavHomeFragment : BaseFragment() {
 
         binding.ivRemoveFilterText.setOnClickListener {
             clearFilter()
-            requireActivity().hideKeyboard()
+            //requireActivity().hideKeyboard()
         }
 
         App.ref.eventBus.register(this)

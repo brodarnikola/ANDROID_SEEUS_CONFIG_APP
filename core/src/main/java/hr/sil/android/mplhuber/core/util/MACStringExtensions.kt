@@ -21,7 +21,8 @@
 
 package hr.sil.android.mplhuber.core.util
 
-import hr.sil.android.util.general.extensions.hexToByteArray
+
+import hr.sil.android.rest.core.util.hexToByteArray
 
 /**
  * @author mfatiga

@@ -3,10 +3,10 @@ package hr.sil.android.seeusadmin.beacons
 import android.content.Context
 import hr.sil.android.ble.scanner.scan_multi.dynamic.BLEDynamicParser
 import hr.sil.android.ble.scanner.scan_multi.dynamic.model.*
-import hr.sil.android.datacache.AutoCache
-import hr.sil.android.datacache.TwoLevelCache
-import hr.sil.android.datacache.updatable.CacheSource
-import hr.sil.android.datacache.util.PersistenceClassTracker
+//import hr.sil.android.datacache.AutoCache
+//import hr.sil.android.datacache.TwoLevelCache
+//import hr.sil.android.datacache.updatable.CacheSource
+//import hr.sil.android.datacache.util.PersistenceClassTracker
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
 import kotlinx.coroutines.Dispatchers
@@ -79,11 +79,11 @@ object BLEDynamicDefinitionHandler  {
     private val UPDATE_TIME_UNIT = TimeUnit.MINUTES
 
     fun checkClasses(context: Context) {
-        PersistenceClassTracker.checkClass(context, DynamicParserDefinition::class)
-        PersistenceClassTracker.checkClass(context, DynamicParserTxPower::class)
-        PersistenceClassTracker.checkClass(context, DynamicParserField::class)
-        PersistenceClassTracker.checkClass(context, DynamicParserFieldType::class)
-        PersistenceClassTracker.checkClass(context, DynamicParserFieldEnum::class)
+//        PersistenceClassTracker.checkClass(context, DynamicParserDefinition::class)
+//        PersistenceClassTracker.checkClass(context, DynamicParserTxPower::class)
+//        PersistenceClassTracker.checkClass(context, DynamicParserField::class)
+//        PersistenceClassTracker.checkClass(context, DynamicParserFieldType::class)
+//        PersistenceClassTracker.checkClass(context, DynamicParserFieldEnum::class)
     }
 
     private const val URL_ROOT = "https://dynamicparser.swissinnolab.com/"
@@ -107,53 +107,54 @@ object BLEDynamicDefinitionHandler  {
     @Volatile
     private var definitionsUpdateTimestamp: Long = 0L
     private val dynamicParserDefinitionCache by lazy {
-        AutoCache.Builder(
-                TwoLevelCache
-                        .Builder(DynamicParserDefinition::class, DynamicParserDefinition::key)
-                        .memoryLruMaxSize(100)
-                        .build(App.ref))
-                .enableNetworkChecking(App.ref)
-                .setFullSource(CacheSource.ForCache.Suspendable(UPDATE_TIME_PERIOD, UPDATE_TIME_UNIT) { _ ->
-                    log.info("Running cache fetch...")
-                    val definitionNames = try {
-                        definitionsService.getDefinitionNamesList().await()
-                    } catch (exc: Exception) {
-                        log.error("Failed to fetch definition file names!", exc)
-                        null
-                    }
-                    log.info("Got definition file names: ${definitionNames?.joinToString(", ") { it }
-                            ?: "NULL"}")
-
-                    val result = mutableListOf<DynamicParserDefinition>()
-                    if (definitionNames != null) {
-                        for (definitionName in definitionNames) {
-                            val definition = try {
-                                definitionsService.getDefinition(definitionName).await()
-                            } catch (exc: Exception) {
-                                log.error("Failed to fetch definition \"$definitionName\"!", exc)
-                                null
-                            }
-                            if (definition != null) {
-                                result.add(definition)
-                            }
-                        }
-                    }
-                    log.info("Fetched: ${result.size} definitions...")
-
-                    val now = System.currentTimeMillis()
-                    definitionsUpdateTimestamp = now
-                    val updated = BLEDynamicParser.updateDefinitions(result, now)
-                    log.info("Accepted: ${updated.size} definitions...")
-                    updated
-                })
-                .build()
+//        AutoCache.Builder(
+//                TwoLevelCache
+//                        .Builder(DynamicParserDefinition::class, DynamicParserDefinition::key)
+//                        .memoryLruMaxSize(100)
+//                        .build(App.ref))
+//                .enableNetworkChecking(App.ref)
+//                .setFullSource(CacheSource.ForCache.Suspendable(UPDATE_TIME_PERIOD, UPDATE_TIME_UNIT) { _ ->
+//                    log.info("Running cache fetch...")
+//                    val definitionNames = try {
+//                        definitionsService.getDefinitionNamesList().await()
+//                    } catch (exc: Exception) {
+//                        log.error("Failed to fetch definition file names!", exc)
+//                        null
+//                    }
+//                    log.info("Got definition file names: ${definitionNames?.joinToString(", ") { it }
+//                            ?: "NULL"}")
+//
+//                    val result = mutableListOf<DynamicParserDefinition>()
+//                    if (definitionNames != null) {
+//                        for (definitionName in definitionNames) {
+//                            val definition = try {
+//                                definitionsService.getDefinition(definitionName).await()
+//                            } catch (exc: Exception) {
+//                                log.error("Failed to fetch definition \"$definitionName\"!", exc)
+//                                null
+//                            }
+//                            if (definition != null) {
+//                                result.add(definition)
+//                            }
+//                        }
+//                    }
+//                    log.info("Fetched: ${result.size} definitions...")
+//
+//                    val now = System.currentTimeMillis()
+//                    definitionsUpdateTimestamp = now
+//                    val updated = BLEDynamicParser.updateDefinitions(result, now)
+//                    log.info("Accepted: ${updated.size} definitions...")
+//                    updated
+//                })
+//                .build()
     }
 
     private suspend fun tryGetDefinitions(awaitUpdate: Boolean): List<DynamicParserDefinition> {
         return try {
-            dynamicParserDefinitionCache.getAll(awaitUpdate).toList()
+            //dynamicParserDefinitionCache.getAll(awaitUpdate).toList()
+            listOf()
         } catch (exc: Exception) {
-            dynamicParserDefinitionCache.clear()
+            //dynamicParserDefinitionCache.clear()
             listOf()
         }
     }

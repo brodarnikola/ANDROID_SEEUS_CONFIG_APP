@@ -1,0 +1,100 @@
+//apply plugin: 'com.android.library'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'maven-publish'
+
+plugins {
+    //id 'com.android.application'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+//    id 'kotlin-kapt'
+//    id 'kotlin-parcelize'
+//    id 'com.google.dagger.hilt.android'
+    id 'kotlin-android'
+    id 'com.google.devtools.ksp'
+//    id 'com.google.gsm:google-services'
+}
+
+android {
+
+    namespace 'hr.sil.android.android.myappbox.ble_communicator'
+    compileSdkVersion 35
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 35
+        versionCode 1
+        versionName project.version
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+//afterEvaluate {
+//    publishing {
+//        repositories {
+//            maven {
+//                def releasesRepoUrl = "${nexusUrl}/repository/${rootProject.ext.libDoPublish ? "sil" : "maven"}-releases/"
+//                def snapshotsRepoUrl = "${nexusUrl}/repository/maven-snapshots/"
+//                url = rootProject.ext.libVersion.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//                allowInsecureProtocol = true
+//
+//                credentials {
+//                    it.username = nexusUsername
+//                    it.password = nexusPassword
+//                }
+//            }
+//        }
+//        publications {
+//            libPublication(MavenPublication) {
+//                from components.release
+//
+//                groupId = "hr.sil.android.blecommunicator"
+//                artifactId = "android_blecommunicator"
+//                version = rootProject.ext.libVersion
+//            }
+//        }
+//    }
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation 'junit:junit:4.13.2'
+
+    //kotlin support
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22"
+
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
+
+    //SIL libraries
+    //implementation('hr.sil.android:util:1.0.11')// { changing = true }
+    //implementation('hr.sil.android:util:1.1.0')// { changing = true }
+
+    implementation project(":rest_core")
+
+    //GSON - for NRF DFU archive reading
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    //scanner lib for DFU buttonless bootloader scanning
+    implementation 'no.nordicsemi.android.support.v18:scanner:1.0.0'
+}
