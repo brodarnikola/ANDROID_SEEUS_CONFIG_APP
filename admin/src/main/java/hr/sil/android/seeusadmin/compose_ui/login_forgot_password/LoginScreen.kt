@@ -133,7 +133,7 @@ fun LoginScreen(
             when (event) {
 
                 is LoginScreenUiEvent.NavigateToMainActivityScreen -> {
-                    val startIntent = Intent(context, MainActivity::class.java)
+                    val startIntent = Intent(context, MainActivity1::class.java)
                     context.startActivity(startIntent)
                     activity.finish()
                 }
