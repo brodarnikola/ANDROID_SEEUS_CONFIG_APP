@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -155,14 +156,16 @@ fun LoginScreen(
         }
     }
 
-    Image(
-        painter = painterResource(R.drawable.bg_home_screen),
-        contentDescription = "",
-        modifier = Modifier.fillMaxSize()
-    )
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(R.drawable.bg_home_screen),
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
         // Main container is ConstraintLayout to replicate XML's behavior
         ConstraintLayout(
             modifier = Modifier
@@ -466,6 +469,7 @@ fun LoginScreen(
                     },
                 enabled = isButtonEnabled
             )
+        }
         }
     }
 }
