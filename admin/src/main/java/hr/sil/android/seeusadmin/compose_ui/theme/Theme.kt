@@ -2,7 +2,6 @@ package hr.sil.android.seeusadmin.compose_ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-
 import androidx.compose.material3.MaterialTheme as Material3
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -22,191 +21,198 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-
-
-// Light color scheme with Zwick Branding
+// ==========================================
+// SEEUS LIGHT COLOR SCHEME
+// ==========================================
 val LightColorScheme = lightColorScheme(
-    primary = ZwickColorPrimaryDark,
-    onPrimary = White,
-    primaryContainer = ZwickColorPrimaryTransparent,
-    onPrimaryContainer = ZwickColorPrimaryDark,
-    secondary = ZwickColorAccent,
-    onSecondary = White,
-    secondaryContainer = ZwickColorSettings2,
-    onSecondaryContainer = ZwickColorPrimaryDark,
-    tertiary = ZwickColorYellow,
-    onTertiary = Black,
-    background = ZwickColorGradientStart,
-    onBackground = ZwickColorBlackText,
-    surface = ZwickColorGradientStart,
-    onSurface = ZwickColorBlackText,
-    surfaceVariant = ZwickColorGradientFinish,
-    onSurfaceVariant = ZwickColorBlackText,
-    error = ZwickColorError,
-    onError = White,
-    outline = ZwickColorDarkGray
+    primary = ColorPrimary,                      // Orange #F79101
+    onPrimary = ColorWhite,
+    primaryContainer = ColorPrimaryTransparent,
+    onPrimaryContainer = ColorBlack,
+    secondary = ColorDarkAccent,                 // #c79c00
+    onSecondary = ColorWhite,
+    secondaryContainer = ColorPrimaryDisabled,
+    onSecondaryContainer = ColorBlack,
+    tertiary = ColorCyanTransparent,
+    onTertiary = ColorBlack,
+    background = ColorWhite,
+    onBackground = ColorBlack,
+    surface = ColorWhite,
+    onSurface = ColorBlack,
+    surfaceVariant = ColorSmallIntensityGray,
+    onSurfaceVariant = ColorStrongerGray,
+    error = ColorError,
+    onError = ColorWhite,
+    outline = ColorLightGray,
+    outlineVariant = ColorPinkishGray
 )
 
-// Dark color scheme
+// ==========================================
+// SEEUS DARK COLOR SCHEME
+// ==========================================
 val DarkColorScheme = darkColorScheme(
-    primary = ZwickColorPrimaryTransparent,
-    onPrimary = ZwickColorPrimaryDark,
-    primaryContainer = ZwickColorPrimaryDark,
-    onPrimaryContainer = ZwickColorPrimaryTransparent,
-    secondary = ZwickColorAccent,
-    onSecondary = White,
-    tertiary = ZwickColorYellow,
-    background = Neutral0,
-    onBackground = Neutral99,
-    surface = Neutral0,
-    onSurface = Neutral100,
-    error = ZwickColorError,
-    onError = White,
-    outline = Neutral60
+    primary = ColorPrimary,                      // Orange #F79101
+    onPrimary = ColorBlack,
+    primaryContainer = ColorDarkAccent,
+    onPrimaryContainer = ColorWhite,
+    secondary = ColorDarkAccent,
+    onSecondary = ColorBlack,
+    tertiary = ColorCyanTransparent,
+    background = ColorBlack,
+    onBackground = ColorWhite,
+    surface = Color(0xFF1C1C1C),
+    onSurface = ColorWhite,
+    surfaceVariant = ColorStrongerGray,
+    onSurfaceVariant = ColorSmallIntensityGray,
+    error = ColorError,
+    onError = ColorBlack,
+    outline = ColorGray,
+    outlineVariant = ColorStrongerGray
 )
 
+// ==========================================
+// SEEUS APP COLORS (Custom palette for app-specific needs)
+// ==========================================
 private val LightColorPalette =
     AppColors(
-        brandPrimary = ZwickColorPrimaryDark,
-        brandSecondary = ZwickColorPrimaryTransparent,
-        brandThird = ZwickColorAccent,
-
-        // Bubbles
-        sendBubbleColor = ZwickColorSettings5,
-        sendBubbleColoriMessage = ZwickColorAccent,
-        receiveBubbleColor = White,
+        brandPrimary = ColorPrimary,
+        brandSecondary = ColorDarkAccent,
+        brandThird = ColorCyanTransparent,
 
         // Backgrounds
-        uiBackground = ZwickColorGradientStart,
-        uiBackground2 = ZwickColorGradientFinish,
-        uiBackground3 = White,
-        shadowedBackground = ZwickColorGrayLight,
-        shadowedBackground2 = ZwickColorSettings7,
-        highlightedBackground = ZwickColorSettings1,
+        uiBackground = ColorWhite,
+        uiBackground2 = ColorSmallIntensityGray,
+        uiBackground3 = ColorGrayLight,
+        shadowedBackground = ColorGrayLight,
+        shadowedBackground2 = ColorPinkishGray,
+        highlightedBackground = ColorPrimaryTransparent,
 
         // Swipe
-        uiSwipeBackground1 = ZwickColorAccent,
-        uiSwipeBackground2 = ZwickColorPrimaryTransparent,
+        uiSwipeBackground1 = ColorPrimary,
+        uiSwipeBackground2 = ColorDarkAccent,
 
         // Text
-        textPrimary = ZwickColorBlackText,
-        textSecondary = ZwickColorGray40Percent,
-        textThird = ButtonTextColor,
-        textInteractive = ZwickColorPrimaryDark,
-        textColorGoldBubble = ZwickColorBlackText,
-
-        dialogText = ZwickColorBlackText,
-        introductionBackgroundColor = ZwickColorPrimaryDark,
+        textPrimary = ColorBlack,
+        textSecondary = ColorGray,
+        textThird = ColorLightGray,
+        textInteractive = ColorPrimary,
+        textColorGoldBubble = ColorBlack,
+        dialogText = ColorBlack,
+        introductionBackgroundColor = ColorPrimary,
 
         // Fields
-        textFieldBackground = White,
-        textFieldBorder = ZwickColorDarkGray,
-        uiBorder = ZwickColorGrayLight,
+        textFieldBackground = ColorWhite,
+        textFieldBorder = ColorLightGray,
+        uiBorder = ColorSmallIntensityGray,
 
         // Buttons / Controls
-        backButton = ZwickColorPrimaryDark,
-        buttonDisconnect = ZwickColorError,
-        buttonDisabled = ZwickColorGrayLight,
-        radioButtonSelected = ZwickColorPrimaryDark,
-        radioButtonUnselected = ZwickColorDarkGray,
+        backButton = ColorPrimary,
+        buttonDisconnect = ColorError,
+        buttonDisabled = ColorPrimaryDisabled,
+        radioButtonSelected = ColorPrimary,
+        radioButtonUnselected = ColorLightGray,
 
         // Dialogs
-        dialogBackground = White,
-        dialogBackground2 = ZwickColorGradientStart,
-        divider = ZwickColorGrayLight,
-        uiFloated = ZwickColorPrimaryDark,
+        dialogBackground = ColorWhite,
+        dialogBackground2 = ColorSmallIntensityGray,
+        divider = ColorSmallIntensityGray,
+        uiFloated = ColorPrimary,
 
-        textHelp = ZwickColorDarkGray,
-        textLink = ZwickColorAccent,
-        iconSecondary = ZwickColorDarkGray,
-        iconInteractive = ZwickColorPrimaryDark,
-        iconInteractiveInactive = ZwickColorGray40Percent,
-        errorDelete = ZwickColorError,
+        textHelp = ColorLightGray,
+        textLink = ColorPrimary,
+        iconSecondary = ColorLightGray,
+        iconInteractive = ColorPrimary,
+        iconInteractiveInactive = ColorPrimaryDisabled,
+        errorDelete = ColorError,
 
         // Gradients
-        gradient6_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent, ZwickColorPrimaryTransparent),
-        gradient3_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent, ZwickColorPrimaryTransparent),
-        gradient2_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent),
-        tornado1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent),
+        gradient6_1 = listOf(ColorPrimary, ColorDarkAccent, ColorPrimaryTransparent),
+        gradient3_1 = listOf(ColorPrimary, ColorDarkAccent, ColorPrimaryTransparent),
+        gradient2_1 = listOf(ColorPrimary, ColorDarkAccent),
+        tornado1 = listOf(ColorPrimary, ColorDarkAccent),
 
-        statusBar = ZwickColorGradientStart,
-        unpinBackground = ZwickColorSettings6,
-        swipeDelete = ZwickColorError,
-        dialogDeleteChat = ZwickColorError,
-        dividerDialog = ZwickColorGrayLight,
+        statusBar = ColorGrayLight,
+        unpinBackground = ColorPinkishGray,
+        swipeDelete = ColorError,
+        dialogDeleteChat = ColorError,
+        dividerDialog = ColorSmallIntensityGray,
         isDark = false,
+
+        // Bubbles (for chat if needed)
+        sendBubbleColor = ColorPrimaryTransparent,
+        sendBubbleColoriMessage = ColorCyanTransparent,
+        receiveBubbleColor = ColorWhite,
     )
 
 private val DarkColorPalette =
     AppColors(
-        brandPrimary = ZwickColorPrimaryDark,
-        brandSecondary = ZwickColorPrimaryTransparent,
-        brandThird = ZwickColorAccent,
-
-        // Bubbles
-        sendBubbleColor = ZwickColorSettings5,
-        sendBubbleColoriMessage = ZwickColorAccent,
-        receiveBubbleColor = White,
+        brandPrimary = ColorPrimary,
+        brandSecondary = ColorDarkAccent,
+        brandThird = ColorCyanTransparent,
 
         // Backgrounds
-        uiBackground = ZwickColorGradientStart,
-        uiBackground2 = ZwickColorGradientFinish,
-        uiBackground3 = White,
-        shadowedBackground = ZwickColorGrayLight,
-        shadowedBackground2 = ZwickColorSettings7,
-        highlightedBackground = ZwickColorSettings1,
+        uiBackground = ColorBlack,
+        uiBackground2 = ColorStrongerGray,
+        uiBackground3 = Color(0xFF1C1C1C),
+        shadowedBackground = ColorStrongerGray,
+        shadowedBackground2 = ColorGray,
+        highlightedBackground = ColorPrimaryTransparent,
 
         // Swipe
-        uiSwipeBackground1 = ZwickColorAccent,
-        uiSwipeBackground2 = ZwickColorPrimaryTransparent,
+        uiSwipeBackground1 = ColorPrimary,
+        uiSwipeBackground2 = ColorDarkAccent,
 
         // Text
-        textPrimary = ZwickColorBlackText,
-        textSecondary = ZwickColorGray40Percent,
-        textThird = ButtonTextColor,
-        textInteractive = ZwickColorPrimaryDark,
-        textColorGoldBubble = ZwickColorBlackText,
-
-        dialogText = ZwickColorBlackText,
-        introductionBackgroundColor = ZwickColorPrimaryDark,
+        textPrimary = ColorWhite,
+        textSecondary = ColorLightGray,
+        textThird = ColorGray,
+        textInteractive = ColorPrimary,
+        textColorGoldBubble = ColorWhite,
+        dialogText = ColorWhite,
+        introductionBackgroundColor = ColorPrimary,
 
         // Fields
-        textFieldBackground = White,
-        textFieldBorder = ZwickColorDarkGray,
-        uiBorder = ZwickColorGrayLight,
+        textFieldBackground = ColorStrongerGray,
+        textFieldBorder = ColorGray,
+        uiBorder = ColorStrongerGray,
 
         // Buttons / Controls
-        backButton = ZwickColorPrimaryDark,
-        buttonDisconnect = ZwickColorError,
-        buttonDisabled = ZwickColorGrayLight,
-        radioButtonSelected = ZwickColorPrimaryDark,
-        radioButtonUnselected = ZwickColorDarkGray,
+        backButton = ColorPrimary,
+        buttonDisconnect = ColorError,
+        buttonDisabled = ColorGray,
+        radioButtonSelected = ColorPrimary,
+        radioButtonUnselected = ColorGray,
 
         // Dialogs
-        dialogBackground = White,
-        dialogBackground2 = ZwickColorGradientStart,
-        divider = ZwickColorGrayLight,
-        uiFloated = ZwickColorPrimaryDark,
+        dialogBackground = Color(0xFF1C1C1C),
+        dialogBackground2 = ColorStrongerGray,
+        divider = ColorStrongerGray,
+        uiFloated = ColorPrimary,
 
-        textHelp = ZwickColorDarkGray,
-        textLink = ZwickColorAccent,
-        iconSecondary = ZwickColorDarkGray,
-        iconInteractive = ZwickColorPrimaryDark,
-        iconInteractiveInactive = ZwickColorGray40Percent,
-        errorDelete = ZwickColorError,
+        textHelp = ColorLightGray,
+        textLink = ColorPrimary,
+        iconSecondary = ColorLightGray,
+        iconInteractive = ColorPrimary,
+        iconInteractiveInactive = ColorGray,
+        errorDelete = ColorError,
 
         // Gradients
-        gradient6_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent, ZwickColorPrimaryTransparent),
-        gradient3_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent, ZwickColorPrimaryTransparent),
-        gradient2_1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent),
-        tornado1 = listOf(ZwickColorPrimaryDark, ZwickColorAccent),
+        gradient6_1 = listOf(ColorPrimary, ColorDarkAccent, ColorPrimaryTransparent),
+        gradient3_1 = listOf(ColorPrimary, ColorDarkAccent, ColorPrimaryTransparent),
+        gradient2_1 = listOf(ColorPrimary, ColorDarkAccent),
+        tornado1 = listOf(ColorPrimary, ColorDarkAccent),
 
-        statusBar = ZwickColorGradientStart,
-        unpinBackground = ZwickColorSettings6,
-        swipeDelete = ZwickColorError,
-        dialogDeleteChat = ZwickColorError,
-        dividerDialog = ZwickColorGrayLight,
+        statusBar = ColorBlack,
+        unpinBackground = ColorStrongerGray,
+        swipeDelete = ColorError,
+        dialogDeleteChat = ColorError,
+        dividerDialog = ColorStrongerGray,
         isDark = true,
+
+        // Bubbles
+        sendBubbleColor = ColorPrimaryTransparent,
+        sendBubbleColoriMessage = ColorCyanTransparent,
+        receiveBubbleColor = ColorStrongerGray,
     )
 
 
@@ -492,8 +498,6 @@ class AppColors(
 @Composable
 fun ProvideAppColors(colors: AppColors, content: @Composable () -> Unit) {
     val colorPalette = remember {
-        // Explicitly creating a new object here so we don't mutate the initial [colors]
-        // provided, and overwrite the values set in it.
         colors.copy()
     }
     colorPalette.update(colors)
@@ -503,9 +507,7 @@ fun ProvideAppColors(colors: AppColors, content: @Composable () -> Unit) {
 private val LocalAppColors =
     staticCompositionLocalOf<AppColors> { error("No LocalColorsPalette provided") }
 
-
 val IsAppInDarkTheme = compositionLocalOf<Boolean> { error("No IsAppInDarkTheme provided") }
-
 
 @Composable
 fun AppTheme(
@@ -513,23 +515,13 @@ fun AppTheme(
     isDynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-
-    val colors =
-        if (isDarkTheme) {
-            LightColorPalette
-        } else {
-            LightColorPalette
-        }
+    val colors = if (isDarkTheme) DarkColorPalette else LightColorPalette
 
     val dynamicColor = isDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val colorScheme = when {
-        dynamicColor && isDarkTheme -> {
-            dynamicDarkColorScheme(LocalContext.current)
-        }
-        dynamicColor && !isDarkTheme -> {
-            dynamicLightColorScheme(LocalContext.current)
-        }
-        isDarkTheme -> LightColorScheme
+        dynamicColor && isDarkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !isDarkTheme -> dynamicLightColorScheme(LocalContext.current)
+        isDarkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
@@ -539,12 +531,6 @@ fun AppTheme(
         sysUiController.setSystemBarsColor(color = colorScheme.background)
     }
 
-//    MaterialTheme(
-//        colorScheme = colorScheme,
-//        typography = Typography,
-//        content = content
-//    )
-
     ProvideAppColors(colors) {
         Material3(
             colorScheme = colorScheme,
@@ -553,5 +539,4 @@ fun AppTheme(
             content = content
         )
     }
-
 }
