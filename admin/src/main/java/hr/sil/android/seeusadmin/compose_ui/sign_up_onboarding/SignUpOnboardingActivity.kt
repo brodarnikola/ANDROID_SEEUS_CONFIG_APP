@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.main.MainActivity
 import hr.sil.android.seeusadmin.compose_ui.theme.AppTheme
 import hr.sil.android.seeusadmin.preferences.PreferenceStore
 import hr.sil.android.seeusadmin.util.SettingsHelper
@@ -160,7 +161,7 @@ class SignUpOnboardingActivity : ComponentActivity() {
         if (!PreferenceStore.userHash.isNullOrBlank()) {
             if (UserUtil.login()) {
                 val startIntent =
-                    Intent(this@SignUpOnboardingActivity, MainActivity1::class.java)
+                    Intent(this@SignUpOnboardingActivity, MainActivity::class.java)
                 startActivity(startIntent)
                 finish()
             }

@@ -71,14 +71,14 @@ fun NavGraphBuilder.mainNavGraph(
     navigateUp: () -> Unit
 ) {
     composable(MainDestinations.HOME) {
-        NavHomeScreen(
-            viewModel = viewModel(), // viewModel,
-            onDeviceClick = { deviceId, nameOfDevice ->
-                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
-                }
-            }
-        )
+//        NavHomeScreen(
+//            viewModel = viewModel(), // viewModel,
+//            onDeviceClick = { deviceId, nameOfDevice ->
+//                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+//                    goToDeviceDetails(MainDestinations.DEVICE_DETAILS, deviceId, nameOfDevice)
+//                }
+//            }
+//        )
     }
 
 //    composable(MainDestinations.SETTINGS) {

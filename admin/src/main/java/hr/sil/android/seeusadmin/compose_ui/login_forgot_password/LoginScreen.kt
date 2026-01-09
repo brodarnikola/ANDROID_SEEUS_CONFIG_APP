@@ -72,7 +72,6 @@ import hr.sil.android.seeusadmin.compose_ui.main.MainActivity
 import hr.sil.android.seeusadmin.compose_ui.sign_up_onboarding.SignUpOnboardingSections
 import hr.sil.android.seeusadmin.compose_ui.theme.AppTypography
 import hr.sil.android.seeusadmin.util.UiEvent
-import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import androidx.compose.material3.MaterialTheme as Material3
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -133,7 +132,7 @@ fun LoginScreen(
             when (event) {
 
                 is LoginScreenUiEvent.NavigateToMainActivityScreen -> {
-                    val startIntent = Intent(context, MainActivity1::class.java)
+                    val startIntent = Intent(context, MainActivity::class.java)
                     context.startActivity(startIntent)
                     activity.finish()
                 }

@@ -2,6 +2,7 @@ package hr.sil.android.seeusadmin.compose_ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+
 import androidx.compose.material3.MaterialTheme as Material3
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -21,10 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/feature/move_to_jetpack_compose
 // ==========================================
 // SEEUS LIGHT COLOR SCHEME
 // ==========================================
@@ -543,8 +541,4 @@ fun AppTheme(
             content = content
         )
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> refs/remotes/origin/feature/move_to_jetpack_compose
