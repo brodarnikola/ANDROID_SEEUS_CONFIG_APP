@@ -1,5 +1,6 @@
 package hr.sil.android.seeusadmin.compose_ui.components
 
+import android.R.attr.colorPrimary
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
@@ -21,21 +22,8 @@ import androidx.compose.ui.unit.sp
 import hr.sil.android.seeusadmin.R
 
 // --- Placeholder Colors/Styles (You need to define these based on your theme attributes) ---
-val ColorPrimaryDark = Color(0xFF4c4372) // Assuming this is the color for @color/colorPrimaryDark
-val ThmMainButtonBackgroundColor = ColorPrimaryDark // ?attr/thmMainButtonBackgroundColor now points to the shape
-val ThmLoginButtonTextColor = Color(0xFFFFFFFF) // ?attr/thmLoginButtonTextColor
+val ThmLoginButtonTextColor = Color(0xFF000000) // ?attr/thmLoginButtonTextColor
 val ThmButtonTextSize = 18.sp // ?attr/thmButtonTextSize
-val ThmButtonLetterSpacing = 0.05.sp // ?attr/thmButtonLetterSpacing
-val ThmMainFontTypeMedium = FontWeight.Medium
-
-val ThmButtonTextSizeInsideDialog = 16.sp
-
-// <color name="colorPrimary40Percent">#66D3C18C</color>
-val ThmCPTelemetryBackgroundColor = Color(0xFFD3C18C)
-val ThmShareKeyAdapterTextColor = Color(0xFFFFFFFF)
-// 664a4a4a
-val ThmCPShareKeyOddBC = Color(0xFF4A4A4A)
-val ThmCPShareKeyEvenBC = Color(0xFF4A4A4A)
 
 
 // -----------------------------------------------------------------------------------------
@@ -56,17 +44,17 @@ fun ButtonWithFont(
     enabled: Boolean
 ) {
     // 1. Define the Button Style based on the XML Shape
-    val cornerRadius = 5.dp // <corners android:radius="5dp"/>
+    val cornerRadius = 20.dp // <corners android:radius="5dp"/>
     val shape = RoundedCornerShape(cornerRadius)
 
     // <stroke android:width="3dp" android:color="@color/colorPrimaryDark"/>
-    val buttonBorder = BorderStroke(width = 3.dp, color = ColorPrimaryDark)
+    //val buttonBorder = BorderStroke(width = 3.dp, color = colorResource(R.color.colorPrimary))
 
     // <solid android:color="@color/colorPrimaryDark"/> -> containerColor
     val colors = ButtonDefaults.buttonColors(
         containerColor = backgroundColor,
         contentColor = textColor, // Use text color for the content
-        disabledContainerColor = textColor.copy(alpha = 0.5f)
+        disabledContainerColor = backgroundColor.copy(alpha = 0.7f)
     )
 
     Button(
@@ -78,7 +66,7 @@ fun ButtonWithFont(
 
         // Apply styling from the XML Shape Drawable
         shape = shape,
-        border = buttonBorder,
+        //border = buttonBorder,
         colors = colors,
         contentPadding = PaddingValues(0.dp), // Minimal padding to match exact height
         enabled = enabled
