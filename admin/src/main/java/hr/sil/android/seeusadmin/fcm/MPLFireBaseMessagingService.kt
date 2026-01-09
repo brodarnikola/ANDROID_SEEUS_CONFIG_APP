@@ -9,7 +9,7 @@ import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.NotificationHelper
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -71,7 +71,7 @@ open class MPLFireBaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleNow(result: Map<String, String>) {
-        NotificationHelper(App.ref).createNotification(result["subject"], result["body"], MainActivity::class.java)
+        NotificationHelper(App.ref).createNotification(result["subject"], result["body"], MainActivity1::class.java)
         GlobalScope.launch {
             AppUtil.refreshCache()
         }

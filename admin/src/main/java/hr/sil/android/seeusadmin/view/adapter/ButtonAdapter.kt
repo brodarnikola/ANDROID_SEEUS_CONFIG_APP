@@ -6,7 +6,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,10 +13,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hr.sil.android.mplhuber.core.ble.DeviceStatus
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
-import hr.sil.android.mplhuber.core.remote.model.RLockerSize
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.mplhuber.core.util.macRealToClean
-import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.cache.status.ActionStatusType
 import hr.sil.android.seeusadmin.data.DeleteButtonInterface
@@ -25,7 +22,7 @@ import hr.sil.android.seeusadmin.data.RButtonDataUiModel
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.model.Device
 import hr.sil.android.seeusadmin.util.ListDiffer
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import hr.sil.android.seeusadmin.view.dialog.DeleteButtonFromStation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -128,7 +125,7 @@ class ButtonAdapter(peripherals: List<RButtonDataUiModel>, val masterMac: String
                                     delete,
                                     this@PeripheralItemViewHolder
                                 )
-                            deleteButtonFromStation.show((ctx as MainActivity).supportFragmentManager, "")
+                            deleteButtonFromStation.show((ctx as MainActivity1).supportFragmentManager, "")
                         }
                         buttonPicture.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_peripheral_registered))
                     }

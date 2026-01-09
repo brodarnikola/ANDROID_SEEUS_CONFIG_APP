@@ -7,26 +7,16 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,25 +25,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.lifecycleScope
 import hr.sil.android.mplhuber.core.util.logger
-import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.compose_ui.theme.AppTheme
 import hr.sil.android.seeusadmin.preferences.PreferenceStore
 import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.util.backend.UserUtil
-import hr.sil.android.seeusadmin.view.activity.LoginActivity
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -61,10 +46,7 @@ import kotlinx.coroutines.launch
 import kotlin.jvm.java
 import kotlin.text.isNullOrBlank
 
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.jvm.java
-import kotlin.text.isNullOrBlank
 
 class SignUpOnboardingActivity : ComponentActivity() {
 
@@ -178,7 +160,7 @@ class SignUpOnboardingActivity : ComponentActivity() {
         if (!PreferenceStore.userHash.isNullOrBlank()) {
             if (UserUtil.login()) {
                 val startIntent =
-                    Intent(this@SignUpOnboardingActivity, MainActivity::class.java)
+                    Intent(this@SignUpOnboardingActivity, MainActivity1::class.java)
                 startActivity(startIntent)
                 finish()
             }

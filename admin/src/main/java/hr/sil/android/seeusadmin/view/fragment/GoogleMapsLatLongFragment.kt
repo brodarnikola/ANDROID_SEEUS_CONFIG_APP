@@ -29,10 +29,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.databinding.FragmentGoogleMapsBinding
-import hr.sil.android.seeusadmin.databinding.FragmentLoginBinding
 import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.SettingsHelper
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import hr.sil.android.zwicktablet.gps.GpsUtils
 import kotlinx.coroutines.*
 import java.util.*
@@ -121,7 +120,7 @@ class GoogleMapsLatLongFragment : BaseFragment(), OnMapReadyCallback,
         log.info("da li ce tu uci: OOOO")
 
         if (ContextCompat.checkSelfPermission(
-                activity as MainActivity,
+                activity as MainActivity1,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -175,7 +174,7 @@ class GoogleMapsLatLongFragment : BaseFragment(), OnMapReadyCallback,
         }
     }
 
-    private val droidPermission by lazy { DroidPermission.init(activity as MainActivity) }
+    private val droidPermission by lazy { DroidPermission.init(activity as MainActivity1) }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -281,9 +280,9 @@ class GoogleMapsLatLongFragment : BaseFragment(), OnMapReadyCallback,
     @Override
     override fun onStop() {
         val mapFragment =
-            (requireContext() as MainActivity).supportFragmentManager.findFragmentById(R.id.g_map) as SupportMapFragment?
+            (requireContext() as MainActivity1).supportFragmentManager.findFragmentById(R.id.g_map) as SupportMapFragment?
         if (mapFragment != null) {
-            (requireContext() as MainActivity).supportFragmentManager.beginTransaction()
+            (requireContext() as MainActivity1).supportFragmentManager.beginTransaction()
                 .remove(mapFragment)
                 .commit()
         }

@@ -15,17 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import hr.sil.android.mplhuber.core.util.logger
-import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.databinding.FragmentLoginBinding
 import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.view.activity.LoginActivity
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import rx.internal.operators.BackpressureUtils.validate
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -83,7 +81,7 @@ class LoginFragment : BaseFragment() {
                             SettingsHelper.usernameLogin = binding.etEmail.text.toString()
                             SettingsHelper.userPasswordWithoutEncryption = binding.etPassword.text.toString()
                             val startIntent =
-                                Intent(activity as LoginActivity, MainActivity::class.java)
+                                Intent(activity as LoginActivity, MainActivity1::class.java)
                             startActivity(startIntent)
                             requireActivity().finish()
                             binding.progressBar.visibility = View.GONE

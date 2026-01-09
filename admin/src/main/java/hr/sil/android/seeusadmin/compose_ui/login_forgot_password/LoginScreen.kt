@@ -6,11 +6,9 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +25,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -72,10 +68,11 @@ import hr.sil.android.seeusadmin.compose_ui.components.ThmButtonTextSize
 import hr.sil.android.seeusadmin.compose_ui.components.ThmErrorTextColor
 import hr.sil.android.seeusadmin.compose_ui.components.ThmLoginButtonTextColor
 import hr.sil.android.seeusadmin.compose_ui.components.ThmLoginDescriptionTextColor
+import hr.sil.android.seeusadmin.compose_ui.main.MainActivity
 import hr.sil.android.seeusadmin.compose_ui.sign_up_onboarding.SignUpOnboardingSections
 import hr.sil.android.seeusadmin.compose_ui.theme.AppTypography
 import hr.sil.android.seeusadmin.util.UiEvent
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import androidx.compose.material3.MaterialTheme as Material3
 
 @OptIn(ExperimentalComposeUiApi::class)

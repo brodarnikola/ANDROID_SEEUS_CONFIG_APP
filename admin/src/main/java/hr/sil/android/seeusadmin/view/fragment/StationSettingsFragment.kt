@@ -27,15 +27,13 @@ import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
 import hr.sil.android.mplhuber.core.remote.model.*
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.mplhuber.core.util.macRealToClean
-import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.data.RadiusPolygon
-import hr.sil.android.seeusadmin.databinding.FragmentLoginBinding
 import hr.sil.android.seeusadmin.databinding.MapFragmentBinding
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.model.Device
 import hr.sil.android.seeusadmin.util.AppUtil
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import hr.sil.android.seeusadmin.view.adapter.EpdAdapter
 import hr.sil.android.seeusadmin.view.adapter.StationAdapter
 import hr.sil.android.seeusadmin.view.adapter.StopPointAdapter
@@ -83,7 +81,7 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
     private var stopPoint: String = ""
     private var macAddress: String = ""
 
-    private val droidPermission by lazy { DroidPermission.init(activity as MainActivity) }
+    private val droidPermission by lazy { DroidPermission.init(activity as MainActivity1) }
 
     private var radiusNr: Int = 0
     private val markers = mutableListOf<Marker>()
@@ -511,7 +509,7 @@ class StationSettingsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.On
             }
         }
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as MainActivity)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as MainActivity1)
     }
 
     private fun getStationsUnitsReal(device: Device?) {

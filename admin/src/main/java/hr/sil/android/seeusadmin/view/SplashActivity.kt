@@ -4,14 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import hr.sil.android.mplhuber.core.util.logger
-import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.preferences.PreferenceStore
 import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.view.activity.LoginActivity
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import kotlinx.coroutines.*
 
 class SplashActivity : AppCompatActivity() {
@@ -55,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
         val startupClass: Class<*>
         startupClass = if (!PreferenceStore.userHash.isNullOrBlank()) {
             if (UserUtil.login()) {
-                MainActivity::class.java
+                MainActivity1::class.java
 
             } else {
                 LoginActivity::class.java

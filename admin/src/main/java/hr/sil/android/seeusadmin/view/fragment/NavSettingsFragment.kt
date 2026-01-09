@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import hr.sil.android.mplhuber.core.model.RUpdateAdminInfo
-import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
 import hr.sil.android.mplhuber.core.remote.model.RLanguage
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.App
@@ -22,8 +21,7 @@ import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.databinding.FragmentSettingsBinding
 import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.util.backend.UserUtil
-import hr.sil.android.seeusadmin.view.activity.MainActivity
-import hr.sil.android.seeusadmin.view.adapter.LanguageAdapter
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import hr.sil.android.seeusadmin.view.dialog.LogoutDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -101,7 +99,7 @@ class NavSettingsFragment : BaseFragment() {
         ivLogout?.setOnClickListener {
             val logoutDialog = LogoutDialog()
             logoutDialog.show(
-                (requireContext() as MainActivity).supportFragmentManager, ""
+                (requireContext() as MainActivity1).supportFragmentManager, ""
             )
         }
 
@@ -130,7 +128,7 @@ class NavSettingsFragment : BaseFragment() {
 
                                 App.ref.languageCode = selectedLanguage
                                 SettingsHelper.languageName = selectedLanguage.code
-                                val intent = Intent(context, MainActivity::class.java)
+                                val intent = Intent(context, MainActivity1::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                                 this@NavSettingsFragment.activity?.finish()
                                 this@NavSettingsFragment.activity?.overridePendingTransition(0, 0)

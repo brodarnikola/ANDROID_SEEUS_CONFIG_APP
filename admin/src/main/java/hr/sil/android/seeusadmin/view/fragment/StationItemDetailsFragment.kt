@@ -16,23 +16,19 @@ import androidx.navigation.fragment.findNavController
 import hr.sil.android.mplhuber.core.ble.DeviceStatus
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
 import hr.sil.android.mplhuber.core.remote.model.RNetworkConfiguration
-import hr.sil.android.mplhuber.core.remote.model.RStationUnitRequest
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.mplhuber.core.util.macRealToClean
 import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.BuildConfig
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.cache.dto.CRegistration
-import hr.sil.android.seeusadmin.cache.status.ActionStatusHandler
 import hr.sil.android.seeusadmin.cache.status.ActionStatusKey
 import hr.sil.android.seeusadmin.cache.status.ActionStatusType
 import hr.sil.android.seeusadmin.databinding.FragmentDeviceDetailsBinding
 import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
 import hr.sil.android.seeusadmin.store.DeviceStore
 import hr.sil.android.seeusadmin.store.model.Device
-import hr.sil.android.seeusadmin.util.AppUtil
 import hr.sil.android.seeusadmin.util.backend.UserUtil
-import hr.sil.android.seeusadmin.view.activity.MainActivity
+import hr.sil.android.seeusadmin.view.activity.MainActivity1
 import hr.sil.android.seeusadmin.view.adapter.NetworkConfigurationAdapter
 import hr.sil.android.seeusadmin.view.dialog.DeleteStationDialog
 import kotlinx.coroutines.Dispatchers
@@ -361,7 +357,7 @@ class StationItemDetailsFragment : BaseFragment() {
         binding.clResetLayout.setOnClickListener {
             val deleteStationDialog = DeleteStationDialog(macAddress, device)
             deleteStationDialog.show(
-                (requireContext() as MainActivity).supportFragmentManager, ""
+                (requireContext() as MainActivity1).supportFragmentManager, ""
             )
         }
 

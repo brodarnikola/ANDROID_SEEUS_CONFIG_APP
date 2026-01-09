@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 import hr.sil.android.seeusadmin.util.DroidPermission
 
-class MainActivity : BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout) {
+class MainActivity1 : BaseActivity(R.id.no_ble_layout, R.id.no_internet_layout, R.id.no_location_gps_layout) {
 
     private val log = logger()
 
