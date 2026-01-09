@@ -71,6 +71,15 @@ fun Date.add(field: Int, amount: Int): Date{
     return this
 }
 
+/**
+ * Pattern: dd/MM/yyyy HH:mm:ss
+ */
+fun String.formatFromStringToDate(): Date{
+    val sdf= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+    return sdf.parse(this)
+}
+
+
 fun Date.addYears(years: Int): Date{
     return add(Calendar.YEAR, years)
 }

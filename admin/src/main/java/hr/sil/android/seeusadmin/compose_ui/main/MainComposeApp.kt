@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.home_screens.AlertsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
 import kotlin.collections.forEachIndexed
@@ -86,6 +87,10 @@ fun NavGraphBuilder.mainNavGraph(
         SettingsScreen(
             viewModel = viewModel()
         )
+    }
+
+    composable(MainDestinations.ALERTS) {
+        AlertsScreen(  )
     }
 
 }

@@ -62,7 +62,7 @@ fun bottomNavigationItems(): List<BottomNavigationBarItem> {
         icon = R.drawable.ic_bottom_home
     )
     val tcTab = BottomNavigationBarItem(
-        route = MainDestinations.TERMS_AND_CONDITION_SCREEN,
+        route = MainDestinations.ALERTS,
         icon = R.drawable.ic_bottom_tc
     )
     val settingsTab = BottomNavigationBarItem(
@@ -101,7 +101,7 @@ fun MainActivityContent(
     val deviceMacAddress = rememberSaveable { mutableStateOf("") }
     val showLogoutDialog = remember { mutableStateOf(false) }
 
-    if( showLogoutDialog.value ) {
+    if (showLogoutDialog.value) {
         LogoutDialog(
             onDismiss = { showLogoutDialog.value = false },
             onConfirm = {
@@ -119,35 +119,39 @@ fun MainActivityContent(
     showBottomBar.value = when {
         currentRoute == null -> true
         navBackStackEntry.value?.destination?.route?.contains(MainDestinations.HOME) == true ||
-        navBackStackEntry.value?.destination?.route?.contains(MainDestinations.TERMS_AND_CONDITION_SCREEN) == true ||
-        navBackStackEntry.value?.destination?.route?.contains(MainDestinations.SETTINGS) == true  -> true
+                navBackStackEntry.value?.destination?.route?.contains(MainDestinations.ALERTS) == true ||
+                navBackStackEntry.value?.destination?.route?.contains(MainDestinations.SETTINGS) == true -> true
+
         else -> false
     }
 
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 actions = {
-                if (navBackStackEntry.value?.destination?.route == MainDestinations.SETTINGS) {
-                    IconButton(
-                        onClick = {
-                            showLogoutDialog.value = true
+                    if (navBackStackEntry.value?.destination?.route == MainDestinations.SETTINGS) {
+                        IconButton(
+                            onClick = {
+                                showLogoutDialog.value = true
+                            }
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.ic_logout),
+                                contentDescription = "Logout",
+                                modifier = Modifier.height(28.dp)
+                            )
                         }
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_logout),
-                            contentDescription = "Logout",
-                            modifier = Modifier.height(28.dp)
-                        )
                     }
-                }
-            },
+                },
                 title = {
-                    if( showBottomBar.value && navBackStackEntry.value?.destination?.route?.contains(MainDestinations.SETTINGS) != true ) {
+                    if (showBottomBar.value && navBackStackEntry.value?.destination?.route?.contains(
+                            MainDestinations.HOME
+                        ) == true
+                    ) {
                         Row(
                             Modifier
-                                .fillMaxWidth() ,
+                                .fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -157,9 +161,11 @@ fun MainActivityContent(
                                 modifier = Modifier.height(40.dp)
                             )
                         }
-                    }
-                    else {
-                        ShowTitleScreen(navBackStackEntry.value?.destination?.route, deviceMacAddress)
+                    } else {
+                        ShowTitleScreen(
+                            navBackStackEntry.value?.destination?.route,
+                            deviceMacAddress
+                        )
                     }
                 },
                 navigationIcon = {
@@ -181,10 +187,11 @@ fun MainActivityContent(
             )
         },
         bottomBar = {
-            if(showBottomBar.value)
+            if (showBottomBar.value)
                 TabView(
                     bottomNavigationItems,
-                    navBackStackEntry)
+                    navBackStackEntry
+                )
                 { route ->
                     Log.d("MENU", "route is: $route")
                     appState.navigateToRoute(route)
@@ -237,23 +244,23 @@ fun ShowTitleScreen(
     route: String?,
     deviceMacAddress: MutableState<String>
 ) {
-    val routeTitle =  if(route?.contains(MainDestinations.DEVICE_DETAILS) == true) {
-        val maxLength = if((DeviceStore.devices[deviceMacAddress.value]?.unitName?.length
+    val routeTitle = if (route?.contains(MainDestinations.DEVICE_DETAILS) == true) {
+        val maxLength = if ((DeviceStore.devices[deviceMacAddress.value]?.unitName?.length
                 ?: 0) > 60
         ) 60 else DeviceStore.devices[deviceMacAddress.value]?.unitName?.length ?: 0
-        val masterUnitName = DeviceStore.devices[deviceMacAddress.value]?.unitName?.substring(0, maxLength)
+        val masterUnitName =
+            DeviceStore.devices[deviceMacAddress.value]?.unitName?.substring(0, maxLength)
         masterUnitName ?: stringResource(R.string.mpl_locker_details_title)
-    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
+    } else if (route?.contains(MainDestinations.SETTINGS) == true) {
         stringResource(R.string.app_generic_settings)
-    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
-        stringResource(R.string.select_locker_location_title)
-    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
+    } else if (route?.contains(MainDestinations.ALERTS) == true) {
+        stringResource(R.string.app_generic_alerts)
+    } else if (route?.contains(MainDestinations.SETTINGS) == true) {
         stringResource(R.string.main_locker_manage_network)
-    }
-    else
+    } else
         stringResource(R.string.app_name).uppercase()
 
-    val maxLines = if( route?.contains(MainDestinations.DEVICE_DETAILS) == true ) 2 else 1
+    val maxLines = if (route?.contains(MainDestinations.DEVICE_DETAILS) == true) 2 else 1
 
     Text(
         modifier = Modifier.fillMaxWidth(),
