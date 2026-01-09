@@ -1,1 +1,40 @@
-include   ':core', ':admin'
+//include ':app', ':core'
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        // Add your custom repositories here
+        maven {
+            url "${nexusUrl}/repository/maven-releases/"
+            allowInsecureProtocol = true
+            credentials {
+                username "${nexusUsername}"
+                password "${nexusPassword}"
+            }
+        }
+        maven {
+            url "${nexusUrl}/repository/maven-snapshots/"
+            allowInsecureProtocol = true
+            credentials {
+                username "${nexusUsername}"
+                password "${nexusPassword}"
+            }
+        }
+    }
+}
+
+
+include   ':core', ':admin' //,  ':ble_core', ':ble_scan_multi', ':ble_communicator', ':rest_core' //, ':datacache'
+
+//include ':app', ':core', ':android_blescanner-master'//':ble_core', ':ble_scan_multi'
+//rootProject.name='MPL_SPL'
+//include ':ble_communicator'
+//include ':rest_core'

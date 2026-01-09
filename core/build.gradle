@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'hr.sil.android.seeusadmin.core'
-    compileSdkVersion 33
+    compileSdkVersion 35
     defaultConfig {
         minSdkVersion 26
-        targetSdkVersion 33
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -41,10 +41,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
 
     //kotlin stdlib
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22"
     //coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
     //retrofit2 coroutine extensions
     api 'ru.gildor.coroutines:kotlin-coroutines-retrofit:1.1.0'
     api('hr.sil.android:view_util:1.1.5')// { changing = true }
@@ -59,8 +59,8 @@ dependencies {
     api 'com.google.android.gms:play-services-maps:18.1.0'
 
     //logging
-    api "org.slf4j:slf4j-api:$slf4jVersion"
-    api "org.slf4j:slf4j-android:$slf4jVersion"
+    api "org.slf4j:slf4j-api:1.7.36"
+    api "org.slf4j:slf4j-android:1.7.36"
 
 
 
