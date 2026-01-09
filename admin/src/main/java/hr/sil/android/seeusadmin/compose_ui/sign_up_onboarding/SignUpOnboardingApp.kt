@@ -53,11 +53,6 @@ fun SignUpOnboardingApp(
             Box(
                 //modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.bg_home_screen),
-                    contentDescription = "",
-                    modifier = Modifier.fillMaxSize()
-                )
                 NavigationStack(SignUpOnboardingSections.LOGIN_SCREEN.route, modifier)
             }
         }

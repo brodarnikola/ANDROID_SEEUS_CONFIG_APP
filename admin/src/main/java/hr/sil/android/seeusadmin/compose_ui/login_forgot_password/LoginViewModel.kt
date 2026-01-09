@@ -11,8 +11,7 @@ import hr.sil.android.seeusadmin.util.SettingsHelper
 import hr.sil.android.seeusadmin.util.UiEvent
 import hr.sil.android.seeusadmin.util.backend.UserUtil
 import hr.sil.android.seeusadmin.util.isEmailValid
-//import hr.sil.android.schlauebox.cache.DataCache
-//import hr.sil.android.schlauebox.cache.status.InstallationKeyHandler
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.text.isBlank
@@ -35,6 +34,9 @@ class LoginViewModel : BaseViewModel<LoginScreenUiState, LoginScreenEvent>() {
 
                 viewModelScope.launch {
                     _state.update { it.copy(loading = true) }
+
+                    delay(3000)
+
                     val userStatus = UserUtil.login(
                         event.email,
                         event.password
@@ -42,16 +44,12 @@ class LoginViewModel : BaseViewModel<LoginScreenUiState, LoginScreenEvent>() {
                     log.info("userStatus is: $userStatus")
                     _state.update { it.copy(loading = false) }
                     if (userStatus) {
-                        //InstallationKeyHandler.key.clear()
                         log.info("UserUtil.user?.hasAcceptedTerms is: ${UserUtil.user?.name}")
 
                             log.info("event.password is: ${event.password}")
                             SettingsHelper.userPasswordWithoutEncryption = event.password
 
                             SettingsHelper.usernameLogin = event.email
-//                            val startIntent = Intent(event.context, MainActivity1::class.java)
-//                            event.context.startActivity(startIntent)
-//                            event.activity.finish()
                             sendUiEvent(LoginScreenUiEvent.NavigateToMainActivityScreen)
                     }  else {
                         sendUiEvent(
@@ -79,8 +77,6 @@ class LoginViewModel : BaseViewModel<LoginScreenUiState, LoginScreenEvent>() {
         var emailError = ""
         if (email.isBlank()) {
             emailError = context.getString(R.string.edit_user_validation_blank_fields_exist)
-        } else if (!email.isEmailValid()) {
-            emailError = context.getString(R.string.message_email_invalid)
         }
 
         return emailError

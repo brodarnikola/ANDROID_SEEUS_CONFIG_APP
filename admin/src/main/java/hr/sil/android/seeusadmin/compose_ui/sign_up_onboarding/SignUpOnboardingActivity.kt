@@ -183,7 +183,7 @@ class SignUpOnboardingActivity : ComponentActivity() {
                 finish()
             }
             else {
-                setupSystemLanguage()
+                //setupSystemLanguage()
                 setContent {
                     AppTheme {
                         SignUpOnboardingApp()
@@ -192,7 +192,7 @@ class SignUpOnboardingActivity : ComponentActivity() {
             }
         }
         else {
-            setupSystemLanguage()
+            //setupSystemLanguage()
             setContent {
                 AppTheme {
                     SignUpOnboardingApp()

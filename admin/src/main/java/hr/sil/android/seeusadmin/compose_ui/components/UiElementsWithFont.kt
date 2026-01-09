@@ -19,22 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import hr.sil.android.seeusadmin.compose_ui.theme.ColorWhite
 
-// Placeholder colors and sizes to simulate theme attributes
-val ThmLoginBackground = Color(0xFFf7ecdd) // ?attr/thmLoginBackground
-val ThmToolbarBackgroundColor = Color(0x00ffffff) // ?attr/thmToolbarBackgroundColor
-val ThmTitleTextColor = Color(0xFF000000) // ?attr/thmTitleTextColor
 
-val ThmNavigationDrawerMenuTextColor = Color(0xFFFFFFFF) // ?attr/thmTitleTextColor
-
-val ThmSubTitleTextColor = Color(0xFF2b2a29)
-val ThmDescriptionTextColor =  Color(0xFF2b2a29) // 2b2a2
-
+val ThmLoginDescriptionTextColor = ColorWhite
 val ThmErrorTextColor = Color(0xFFca0000)
-val ThmEdittextHintColor = Color(0xFF2b2a29) // ?attr/thmEdittextHintColor
-val ThmEdittextColor = Color(0xFF2b2a29) // ?attr/thmEdittextColor
-val ThmLoggedInBottomLineEditTextColor = Color(0xFFE0E0E0) // ?attr/thmLoggedInBottomLineEditTextColor (Simulated as background)
-val ThmLoginDescriptionTextColor = Color(0xFF666666) // ?attr/thmLoginDescriptionTextColor
+val ThmEdittextHintColor = ColorWhite // ?attr/thmEdittextHintColor
 val ThmTitleTextSize = 19.sp // ?attr/thmTitleTextSize
 val ThmEdittextTextSize = 12.sp // ?attr/thmEdittextTextSize
 

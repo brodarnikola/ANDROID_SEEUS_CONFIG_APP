@@ -21,6 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/feature/move_to_jetpack_compose
 // ==========================================
 // SEEUS LIGHT COLOR SCHEME
 // ==========================================
@@ -539,4 +543,8 @@ fun AppTheme(
             content = content
         )
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/origin/feature/move_to_jetpack_compose
