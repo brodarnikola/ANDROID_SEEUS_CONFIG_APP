@@ -148,12 +148,6 @@ fun NavHomeScreen(
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.bg_home_screen),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
 
         Column(
             modifier = Modifier.fillMaxSize()

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 
 import hr.sil.android.seeusadmin.R
@@ -24,6 +25,9 @@ import hr.sil.android.seeusadmin.R
 // --- Placeholder Colors/Styles (You need to define these based on your theme attributes) ---
 val ThmLoginButtonTextColor = Color(0xFF000000) // ?attr/thmLoginButtonTextColor
 val ThmButtonTextSize = 18.sp // ?attr/thmButtonTextSize
+val ThmButtonLetterSpacing = 0.2.em // ?attr/thmButtonTextSize
+val ThmButtonDialogTextSize = 15.sp // ?attr/thmButtonTextSize
+val ThmButtonDialogLetterSpacing = 0.1.em // ?attr/thmButtonTextSize
 
 
 // -----------------------------------------------------------------------------------------

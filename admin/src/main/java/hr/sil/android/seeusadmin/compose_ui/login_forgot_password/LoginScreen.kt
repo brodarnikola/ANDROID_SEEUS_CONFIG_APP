@@ -64,6 +64,7 @@ import hr.sil.android.seeusadmin.compose_ui.components.ButtonWithFont
 import hr.sil.android.seeusadmin.compose_ui.components.ProgressIndicatorSize
 import hr.sil.android.seeusadmin.compose_ui.components.RotatingRingIndicator
 import hr.sil.android.seeusadmin.compose_ui.components.TextViewWithFont
+import hr.sil.android.seeusadmin.compose_ui.components.ThmButtonLetterSpacing
 import hr.sil.android.seeusadmin.compose_ui.components.ThmButtonTextSize
 import hr.sil.android.seeusadmin.compose_ui.components.ThmErrorTextColor
 import hr.sil.android.seeusadmin.compose_ui.components.ThmLoginButtonTextColor
@@ -449,7 +450,7 @@ fun LoginScreen(
                     textColor = ThmLoginButtonTextColor,
                     fontSize = ThmButtonTextSize,
                     fontWeight = FontWeight.Medium,
-                    letterSpacing = 0.2.em, // ?attr/thmButtonLetterSpacing (Placeholder)
+                    letterSpacing = ThmButtonLetterSpacing, // ?attr/thmButtonLetterSpacing (Placeholder)
                     modifier = Modifier
                         .width(210.dp)
                         .height(50.dp)

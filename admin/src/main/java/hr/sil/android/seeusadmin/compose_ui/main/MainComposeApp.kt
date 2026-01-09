@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
+import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
 import kotlin.collections.forEachIndexed
 
 
@@ -81,11 +82,11 @@ fun NavGraphBuilder.mainNavGraph(
         )
     }
 
-//    composable(MainDestinations.SETTINGS) {
-//        SettingsScreen(
-//            viewModel = viewModel()
-//        )
-//    }
+    composable(MainDestinations.SETTINGS) {
+        SettingsScreen(
+            viewModel = viewModel()
+        )
+    }
 
 }
 

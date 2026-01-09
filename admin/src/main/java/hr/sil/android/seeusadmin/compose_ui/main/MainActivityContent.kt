@@ -1,6 +1,8 @@
 package hr.sil.android.seeusadmin.compose_ui.main
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -28,6 +30,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +41,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.dialogs.LogoutDialog
+import hr.sil.android.seeusadmin.compose_ui.sign_up_onboarding.SignUpOnboardingActivity
+import hr.sil.android.seeusadmin.store.DeviceStore
+import hr.sil.android.seeusadmin.util.SettingsHelper
+import hr.sil.android.seeusadmin.util.backend.UserUtil
 
 
 data class BottomNavigationBarItem(
@@ -77,6 +85,9 @@ fun MainActivityContent(
 ) {
     val systemState by systemStateViewModel.systemState.collectAsState()
 
+    val context = LocalContext.current
+    val activity = LocalContext.current as Activity
+
     val appState = rememberMainAppState()
 
     val bottomNavigationItems = bottomNavigationItems()
@@ -86,6 +97,24 @@ fun MainActivityContent(
         appState.navController.currentBackStackEntryAsState() // navController.currentBackStackEntryAsState()
 
     val currentRoute = navBackStackEntry.value?.destination?.route
+
+    val deviceMacAddress = rememberSaveable { mutableStateOf("") }
+    val showLogoutDialog = remember { mutableStateOf(false) }
+
+    if( showLogoutDialog.value ) {
+        LogoutDialog(
+            onDismiss = { showLogoutDialog.value = false },
+            onConfirm = {
+                showLogoutDialog.value = false
+                SettingsHelper.userPasswordWithoutEncryption = ""
+                UserUtil.logout()
+                val intent = Intent(context, SignUpOnboardingActivity::class.java)
+                activity.startActivity(intent)
+                activity.finish()
+            },
+            onCancel = { showLogoutDialog.value = false }
+        )
+    }
 
     showBottomBar.value = when {
         currentRoute == null -> true
@@ -99,21 +128,38 @@ fun MainActivityContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    val imageLogoPadding = if( !showBottomBar.value ) {
-                        50.dp
-                    } else {
-                        20.dp
-                    }
-                    Box(
-                        modifier = Modifier.fillMaxWidth().padding(end = imageLogoPadding),
-                        contentAlignment = Alignment.Center
+                actions = {
+                if (navBackStackEntry.value?.destination?.route == MainDestinations.SETTINGS) {
+                    IconButton(
+                        onClick = {
+                            showLogoutDialog.value = true
+                        }
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.seeus_black_thin),
-                            contentDescription = "Logo",
-                            modifier = Modifier.height(40.dp)
+                            painter = painterResource(R.drawable.ic_logout),
+                            contentDescription = "Logout",
+                            modifier = Modifier.height(28.dp)
                         )
+                    }
+                }
+            },
+                title = {
+                    if( showBottomBar.value && navBackStackEntry.value?.destination?.route?.contains(MainDestinations.SETTINGS) != true ) {
+                        Row(
+                            Modifier
+                                .fillMaxWidth() ,
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.seeus_black_thin),
+                                contentDescription = "Logo",
+                                modifier = Modifier.height(40.dp)
+                            )
+                        }
+                    }
+                    else {
+                        ShowTitleScreen(navBackStackEntry.value?.destination?.route, deviceMacAddress)
                     }
                 },
                 navigationIcon = {
@@ -152,7 +198,7 @@ fun MainActivityContent(
         ) {
 
             Image(
-                painter = painterResource(id = R.drawable.bg_home),
+                painter = painterResource(id = R.drawable.bg_home_screen),
                 contentDescription = "Background",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -184,6 +230,41 @@ fun MainActivityContent(
         }
     }
 }
+
+
+@Composable
+fun ShowTitleScreen(
+    route: String?,
+    deviceMacAddress: MutableState<String>
+) {
+    val routeTitle =  if(route?.contains(MainDestinations.DEVICE_DETAILS) == true) {
+        val maxLength = if((DeviceStore.devices[deviceMacAddress.value]?.unitName?.length
+                ?: 0) > 60
+        ) 60 else DeviceStore.devices[deviceMacAddress.value]?.unitName?.length ?: 0
+        val masterUnitName = DeviceStore.devices[deviceMacAddress.value]?.unitName?.substring(0, maxLength)
+        masterUnitName ?: stringResource(R.string.mpl_locker_details_title)
+    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
+        stringResource(R.string.mpl_locker_details_title)
+    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
+        stringResource(R.string.select_locker_location_title)
+    } else if(route?.contains(MainDestinations.SETTINGS) == true) {
+        stringResource(R.string.main_locker_manage_network)
+    }
+    else
+        stringResource(R.string.app_name).uppercase()
+
+    val maxLines = if( route?.contains(MainDestinations.DEVICE_DETAILS) == true ) 2 else 1
+
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center,
+        text = routeTitle,
+        fontSize = 17.sp,
+        letterSpacing = 1.sp,
+        maxLines = maxLines
+    )
+}
+
 
 @Composable
 fun SystemOverlay(

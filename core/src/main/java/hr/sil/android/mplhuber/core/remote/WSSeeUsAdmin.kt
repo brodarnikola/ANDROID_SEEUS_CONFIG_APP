@@ -218,8 +218,6 @@ object WSSeeUsAdmin : WSBase() {
     suspend fun updateUserProfile(
             user: RUpdateAdminInfo
     ): RAdminUserInfo? {
-
-
         return WSSeeUsAdmin.wrapAwaitData(
                 call = AdminAppService.service.updateUserProfile(user),
                 methodName = "updateUserProfile()"
