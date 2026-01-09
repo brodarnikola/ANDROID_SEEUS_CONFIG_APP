@@ -62,15 +62,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.compose_ui.components.ButtonWithFont
-import hr.sil.android.seeusadmin.compose_ui.components.GradientBackground
+import hr.sil.android.seeusadmin.compose_ui.components.ButtonWithFont 
 import hr.sil.android.seeusadmin.compose_ui.components.ProgressIndicatorSize
 import hr.sil.android.seeusadmin.compose_ui.components.RotatingRingIndicator
 import hr.sil.android.seeusadmin.compose_ui.components.TextViewWithFont
 import hr.sil.android.seeusadmin.compose_ui.components.ThmButtonTextSize
 import hr.sil.android.seeusadmin.compose_ui.components.ThmErrorTextColor
 import hr.sil.android.seeusadmin.compose_ui.components.ThmLoginButtonTextColor
-import hr.sil.android.seeusadmin.compose_ui.components.ThmMainButtonBackgroundColor
 import hr.sil.android.seeusadmin.compose_ui.sign_up_onboarding.SignUpOnboardingSections
 import hr.sil.android.seeusadmin.compose_ui.theme.AppTypography
 import hr.sil.android.seeusadmin.util.UiEvent
@@ -213,7 +211,7 @@ fun LoginScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 10.dp) 
+                                .padding(top = 10.dp)
                         )
                     }
                 }
