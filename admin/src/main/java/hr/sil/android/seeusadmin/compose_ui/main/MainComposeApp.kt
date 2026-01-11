@@ -30,7 +30,7 @@ import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NetworkSettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.StationItemDetailsScreen
-import hr.sil.android.seeusadmin.compose_ui.manage_buttons.ManageButtonsScreen
+import hr.sil.android.seeusadmin.compose_ui.buttons.ManageButtonsScreen
 import kotlin.collections.forEachIndexed
 
 

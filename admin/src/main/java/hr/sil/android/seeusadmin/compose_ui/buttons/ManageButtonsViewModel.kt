@@ -1,4 +1,4 @@
-package hr.sil.android.seeusadmin.compose_ui.manage_buttons
+package hr.sil.android.seeusadmin.compose_ui.buttons
 
 import android.content.Context
 import android.widget.Toast
@@ -9,7 +9,6 @@ import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
 import hr.sil.android.mplhuber.core.util.logger
 import hr.sil.android.mplhuber.core.util.macRealToClean
 import hr.sil.android.seeusadmin.R
-import hr.sil.android.seeusadmin.cache.status.ActionStatusHandler
 import hr.sil.android.seeusadmin.cache.status.ActionStatusType
 import hr.sil.android.seeusadmin.data.RButtonDataUiModel
 import hr.sil.android.seeusadmin.store.DeviceStore
