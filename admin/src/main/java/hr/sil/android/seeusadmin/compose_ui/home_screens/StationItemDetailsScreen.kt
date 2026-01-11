@@ -447,7 +447,7 @@ private fun RegisteredSection(
             onClick = onManageButtonsClicked
         )
 
-        if (state.showActionsForProximity) {
+        //if (state.showActionsForProximity) {
             ActionButtonWithLoading(
                 iconRes = R.drawable.ic_reboot,
                 text = stringResource(R.string.peripheral_settings_reboot),
@@ -460,7 +460,7 @@ private fun RegisteredSection(
                 text = stringResource(R.string.main_locker_manage_network),
                 onClick = onNetworkSettingsClicked
             )
-        }
+        //}
 
         if (state.showLedTest) {
             ActionButtonWithLoading(

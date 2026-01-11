@@ -27,6 +27,7 @@ import androidx.navigation.navArgument
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.compose_ui.home_screens.AlertsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
+import hr.sil.android.seeusadmin.compose_ui.home_screens.NetworkSettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.StationItemDetailsScreen
 import kotlin.collections.forEachIndexed
@@ -100,6 +101,25 @@ fun NavGraphBuilder.mainNavGraph(
         )
     ) {
         StationItemDetailsScreen(
+            viewModel = viewModel(), // viewModel,
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
+            onNavigateToNetworkSettings = { macAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("${MainDestinations.NETWORK_SETTINGS}/$macAddress")
+                }
+            }
+        )
+    }
+
+    composable(
+        "${MainDestinations.NETWORK_SETTINGS}/{${NavArguments.MAC_ADDRESS}}",
+        arguments = listOf(
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        NetworkSettingsScreen(
             viewModel = viewModel(), // viewModel,
             macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
         )
