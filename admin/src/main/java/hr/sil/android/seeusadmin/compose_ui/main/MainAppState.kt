@@ -10,19 +10,13 @@ import kotlin.let
 
 object MainDestinations {
     const val HOME = "Home"
-    const val TERMS_AND_CONDITION_SCREEN = "TermsAndConditionScreen"
-    const val HELP_SCREEN = "HelpScreen"
-    const val SELECT_PARCEL_SIZE = "SelectParcelSize"
-    const val SEND_PARCEL_SIZE = "SendParcelSize"
-    const val SELECT_PARCEL_OVERVIEW = "SelectParcelOverview"
-    const val ACCESS_SHARING_SCREEN = "AccessSharingScreen"
-    const val ACCESS_SHARING_ADD_USER_SCREEN = "AccessSharingAddUserScreen"
-    const val HELP_CONTENT_SCREEN = "HelpContentScreen"
+    const val GOOGLE_MAPS_SCREEN = "GOOGLE_MAPS_SCREEN"
     const val SETTINGS = "Settings"
     const val NETWORK_SETTINGS = "NETWORK_SETTINGS"
+    const val MANAGE_BUTTONS = "MANAGE_BUTTONS"
     const val ALERTS = "ALERTS"
     const val DEVICE_DETAILS = "DeviceDetails"
-    const val PARCEL_PICKUP = "ParcelPickup"
+    const val DEVICE_STATION_SETTINGS = "DEVICE_STATION_SETTINGS"
 }
 
 object NavArguments {

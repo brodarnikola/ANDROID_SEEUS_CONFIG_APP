@@ -246,6 +246,8 @@ fun ShowTitleScreen(
         stringResource(R.string.app_generic_alerts)
     } else if (route?.contains(MainDestinations.NETWORK_SETTINGS) == true) {
         stringResource(R.string.main_locker_manage_network)
+    } else if (route?.contains(MainDestinations.MANAGE_BUTTONS) == true) {
+        stringResource(R.string.main_locker_manage_buttons)
     } else
         stringResource(R.string.app_name).uppercase()
 

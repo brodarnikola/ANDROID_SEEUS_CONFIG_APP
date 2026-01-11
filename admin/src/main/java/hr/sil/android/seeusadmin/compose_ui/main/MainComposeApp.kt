@@ -30,6 +30,7 @@ import hr.sil.android.seeusadmin.compose_ui.home_screens.NavHomeScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.NetworkSettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.SettingsScreen
 import hr.sil.android.seeusadmin.compose_ui.home_screens.StationItemDetailsScreen
+import hr.sil.android.seeusadmin.compose_ui.manage_buttons.ManageButtonsScreen
 import kotlin.collections.forEachIndexed
 
 
@@ -107,7 +108,26 @@ fun NavGraphBuilder.mainNavGraph(
                 if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
                     navController.navigate("${MainDestinations.NETWORK_SETTINGS}/$macAddress")
                 }
+            },
+            onNavigateToManageButtons = { macAddress ->
+                if (navBackStackEntry.value?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+                    navController.navigate("${MainDestinations.MANAGE_BUTTONS}/$macAddress")
+                }
             }
+        )
+    }
+
+    composable(
+        "${MainDestinations.MANAGE_BUTTONS}/{${NavArguments.MAC_ADDRESS}}",
+        arguments = listOf(
+            navArgument(NavArguments.MAC_ADDRESS) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        ManageButtonsScreen(
+            viewModel = viewModel(), // viewModel,
+            macAddress = it.arguments?.getString(NavArguments.MAC_ADDRESS) ?: "",
         )
     }
 
