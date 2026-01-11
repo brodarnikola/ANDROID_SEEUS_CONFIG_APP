@@ -45,6 +45,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import hr.sil.android.mplhuber.core.ble.DeviceStatus
 import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
+import hr.sil.android.seeusadmin.compose_ui.dialogs.DeleteButtonDialog
 import hr.sil.android.seeusadmin.data.RButtonDataUiModel
 import hr.sil.android.seeusadmin.events.DevicesUpdatedEvent
 import org.greenrobot.eventbus.Subscribe
@@ -57,7 +58,7 @@ fun ManageButtonsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
         viewModel.initialize(macAddress)
@@ -94,6 +95,14 @@ fun ManageButtonsScreen(
         }
     }
 
+    if (uiState.showDeleteDialog) {
+        DeleteButtonDialog(
+            onConfirm = { viewModel.onDeleteConfirmed(context) },
+            onDismiss = { viewModel.onDeleteDialogDismissed() },
+            onCancel = { viewModel.onDeleteDialogDismissed() }
+        )
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
@@ -110,13 +119,6 @@ fun ManageButtonsScreen(
                 )
                 Spacer(modifier = Modifier.height(5.dp))
             }
-        }
-
-        if (uiState.showDeleteDialog) {
-            DeleteButtonDialog(
-                onConfirm = { viewModel.onDeleteConfirmed(context) },
-                onDismiss = { viewModel.onDeleteDialogDismissed() }
-            )
         }
     }
 }
@@ -240,54 +242,4 @@ fun ButtonListItem(
         }
     }
 }
-
-@Composable
-fun DeleteButtonDialog(
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        containerColor = Color.White,
-        title = null,
-        text = {
-            Text(
-                text = stringResource(R.string.key_sharing_delete_key_message),
-                color = colorResource(R.color.colorBlack),
-                fontSize = 13.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        confirmButton = {
-            Button(
-                onClick = onConfirm,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(R.color.colorPrimary)
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.app_generic_confirm),
-                    color = colorResource(R.color.colorBlack),
-                    fontSize = 15.sp
-                )
-            }
-        },
-        dismissButton = {
-            Button(
-                onClick = onDismiss,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(R.color.colorPrimary)
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.app_generic_cancel),
-                    color = colorResource(R.color.colorBlack),
-                    fontSize = 15.sp
-                )
-            }
-        }
-    )
-}
+ 
