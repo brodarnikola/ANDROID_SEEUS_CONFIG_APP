@@ -9,7 +9,6 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.sil.android.mplhuber.core.remote.model.RNetworkConfiguration
-import hr.sil.android.seeusadmin.compose_ui.dialogs.DisableUserActionsDialog
 import kotlin.collections.forEach
 import kotlin.text.uppercase
 
@@ -33,14 +31,10 @@ import hr.sil.android.seeusadmin.compose_ui.components.ThmButtonTextSize
 import hr.sil.android.seeusadmin.compose_ui.components.ThmLoginButtonTextColor
 
 
-import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.*
 import hr.sil.android.seeusadmin.compose_ui.components.ProgressIndicatorSize
 import hr.sil.android.seeusadmin.compose_ui.components.RotatingRingIndicator
-
-import androidx.compose.material3.MaterialTheme as Material3
 
 @Composable
 fun NetworkSettingsScreen(
@@ -158,6 +152,7 @@ fun NetworkSettingsScreen(
 
             val success = stringResource(R.string.successfull_saved_network_configuration)
             val error = stringResource(R.string.registration_error)
+            val connectionError = stringResource(R.string.main_locker_ble_connection_error)
 
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -177,6 +172,7 @@ fun NetworkSettingsScreen(
                                 context,
                                 success,
                                 error,
+                                connectionError,
                                 uiState.isOfflineMode,
                                 uiState.isPsmEnabled
                             )

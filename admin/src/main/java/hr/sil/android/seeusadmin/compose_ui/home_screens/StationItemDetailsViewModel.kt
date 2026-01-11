@@ -415,11 +415,14 @@ class StationItemDetailsViewModel : ViewModel() {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(context, "Assistance error", Toast.LENGTH_SHORT).show()
                             }
+                        } else {
+                            log.info("Successfully stop the bus activated ${_state.value.macAddress}")
                         }
                         communicator.disconnect()
                     } else {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(context, context.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+                            communicator.disconnect()
                         }
                     }
                 } else {
@@ -452,6 +455,11 @@ class StationItemDetailsViewModel : ViewModel() {
                     if (!result) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(context, context.getString(R.string.main_locker_force_open_update_error), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else {
+                        withContext(Dispatchers.Main) {
+                            log.info("Successfully reboot the device")
                         }
                     }
                 } else {

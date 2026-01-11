@@ -89,6 +89,7 @@ class NetworkSettingsViewModel  : ViewModel() {
         context: Context,
         success: String,
         error: String,
+        connectionError: String,
         offlineMode: Boolean,
         psmEnabled: Boolean
     ) {
@@ -129,11 +130,19 @@ class NetworkSettingsViewModel  : ViewModel() {
                                 .show()
                             AppUtil.refreshCache()
                         }
+                        else {
+                            Toast.makeText(context, error, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    else {
+                        Toast.makeText(context, connectionError, Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             } catch (e: Exception) {
                 log.error("Network update failed", e)
-                Toast.makeText(context, error, Toast.LENGTH_SHORT)
+                Toast.makeText(context,  e.message, Toast.LENGTH_SHORT)
                 .show()
                 _uiState.update { it.copy(isLoading = false) }
             } finally {
