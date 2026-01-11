@@ -147,7 +147,7 @@ class NavHomeFragment : BaseFragment() {
         renderDeviceItems()
 
         binding.filterEdittext.afterTextChangeDelay(250) { text ->
-            filterText = text.trim().toUpperCase(Locale.getDefault())
+            filterText = text.trim().uppercase(Locale.getDefault())
             renderDeviceItems()
         }
         binding.filterEdittext.setImeOptions(EditorInfo.IME_ACTION_DONE)

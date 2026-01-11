@@ -62,13 +62,13 @@ class ManageButtonsViewModel : ViewModel() {
         // Non registered slave units
         val actions = App.ref.stationDb.buttonKeyDao().getAllButtons().map { it.keyId } //ActionStatusHandler.actionStatusDb.getAll().map { it.keyId }
         val unregisteredButtonsInProximity = DeviceStore.getNonRegisteredButtonsInProximity(actions)
-        MPLDeviceStoreRemoteUpdater.forceUpdate(false)
-        val currentlyRegisteredButtons = DeviceStore.devices[_uiState.value.masterMac]?.buttonUnits
+        MPLDeviceStoreRemoteUpdater.forceUpdate(true)
+        val currentlyRegisteredButtons = device?.buttonUnits
                 ?: listOf()
         log.debug("Slave units ${currentlyRegisteredButtons.size}, Stored actions keys :" + actions.joinToString(" - ") { it })
         val registeredAndPendingButtons = currentlyRegisteredButtons.map {
-            val inProximity = DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity
-                    ?: false
+            val inProximity = device?.isInProximity ?: false //DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity  ?: false
+
             if (App.ref.stationDb.buttonKeyDao().getButtonByKeyId(it.mac.macCleanToReal() + ActionStatusType.BUTTON_DEREGISTRATION) != null) {
                 log.debug("Registered - DELETE_PENDING:" + it.mac.macCleanToReal())
                 RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.DELETE_PENDING, inProximity)
@@ -113,7 +113,7 @@ class ManageButtonsViewModel : ViewModel() {
 
         viewModelScope.launch {
             val masterMac = _uiState.value.masterMac
-            val communicator = DeviceStore.devices[masterMac]?.createBLECommunicator(context)
+            val communicator = device?.createBLECommunicator(context)
 
             if (communicator != null && communicator.connect()) {
                 if (communicator.registerButton(button.mac)) {
@@ -131,11 +131,12 @@ class ManageButtonsViewModel : ViewModel() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(context, context.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.app_generic_server_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
                 log.error("Error while connecting the peripheral ${button.mac}")
+                Toast.makeText(context, context.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
             }
 
             _uiState.update { it.copy(processingButtonMac = null) }
@@ -155,7 +156,7 @@ class ManageButtonsViewModel : ViewModel() {
         val buttonToDelete = _uiState.value.buttonToDelete ?: return
         val masterMac = _uiState.value.masterMac
 
-        val masterDevice = DeviceStore.devices[masterMac]
+        val masterDevice = device
         if (masterDevice?.isInProximity != true) {
             Toast.makeText(context, context.getString(R.string.main_locker_ble_connection_error), Toast.LENGTH_SHORT).show()
             onDeleteDialogDismissed()

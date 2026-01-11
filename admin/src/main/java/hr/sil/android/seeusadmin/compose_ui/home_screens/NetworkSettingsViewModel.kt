@@ -108,9 +108,7 @@ class NetworkSettingsViewModel  : ViewModel() {
                     println("Selected network configuration DD: ${selectedItem?.apnUrl}")
                     println("Selected network configuration EE: ${selectedItem?.apnUser}")
 
-                    val communicator =
-                        DeviceStore.devices[macAddress]
-                            ?.createBLECommunicator(context)
+                    val communicator = device?.createBLECommunicator(context)
 
                     if (communicator?.connect() == true) {
                         val nrOfSeconds = if (offlineMode) 60L else 21600L

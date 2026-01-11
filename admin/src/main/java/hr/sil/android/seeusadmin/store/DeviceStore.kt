@@ -50,9 +50,9 @@ object DeviceStore {
 
     private var bleData by synchronizedDelegate(mapOf<String, BLEDevice<BLEDeviceData>>())
     fun updateFromBLE(bleDevices: List<BLEDevice<BLEDeviceData>>) {
-        bleData = bleDevices.associateBy { it.deviceAddress.toUpperCase() }
+        bleData = bleDevices.associateBy { it.deviceAddress.uppercase() }
         mergeData()
-        notifyEvents(bleDevices.map { it.deviceAddress.toUpperCase() })
+        notifyEvents(bleDevices.map { it.deviceAddress.uppercase() })
     }
 
     private var remoteData by synchronizedDelegate(mapOf<String, RStationUnit>())
@@ -60,7 +60,7 @@ object DeviceStore {
         remoteData = remoteDevices.associateBy { it.mac.macCleanToReal() }
         mergeData()
         if (propagateEvent)
-            notifyEvents(remoteDevices.map { it.mac.toUpperCase() })
+            notifyEvents(remoteDevices.map { it.mac.uppercase() })
     }
 
     val log = logger()

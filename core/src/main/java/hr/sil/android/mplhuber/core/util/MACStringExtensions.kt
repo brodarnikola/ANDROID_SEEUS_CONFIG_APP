@@ -28,10 +28,10 @@ import hr.sil.android.rest.core.util.hexToByteArray
  * @author mfatiga
  */
 fun String.macCleanToReal(): String =
-        this.chunked(2).joinToString(":").toUpperCase()
+        this.chunked(2).joinToString(":").uppercase()
 
 fun String.macRealToClean(): String =
-        this.replace(":", "").toUpperCase()
+        this.replace(":", "").uppercase()
 
 fun String.macRealToBytes(): ByteArray =
         this.macRealToClean().hexToByteArray()
