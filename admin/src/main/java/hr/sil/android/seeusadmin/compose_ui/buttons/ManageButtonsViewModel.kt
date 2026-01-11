@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import hr.sil.android.mplhuber.core.ble.DeviceStatus
 import hr.sil.android.mplhuber.core.remote.WSSeeUsAdmin
 import hr.sil.android.mplhuber.core.util.logger
+import hr.sil.android.mplhuber.core.util.macCleanToReal
 import hr.sil.android.mplhuber.core.util.macRealToClean
+import hr.sil.android.seeusadmin.App
 import hr.sil.android.seeusadmin.R
 import hr.sil.android.seeusadmin.cache.status.ActionStatusType
 import hr.sil.android.seeusadmin.data.RButtonDataUiModel
 import hr.sil.android.seeusadmin.store.DeviceStore
+import hr.sil.android.seeusadmin.store.MPLDeviceStoreRemoteUpdater
 import hr.sil.android.seeusadmin.store.model.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -45,7 +48,9 @@ class ManageButtonsViewModel : ViewModel() {
     fun refreshButtonList() {
         viewModelScope.launch(Dispatchers.Default) {
             val buttons = combineButtons()
+            println("manage button refresh 22 ${buttons.size}")
             val sortedButtons = buttons.sortedBy { !it.isInProximity }.sortedBy { it.status }
+            println("manage button refresh 33 ${buttons.size}")
             _uiState.update { it.copy(buttons = sortedButtons) }
         }
     }
@@ -53,33 +58,33 @@ class ManageButtonsViewModel : ViewModel() {
     // TODO: Handle this --> combineButtons
     private suspend fun combineButtons(): MutableList<RButtonDataUiModel> {
 
-        return mutableListOf()
+        //return mutableListOf()
         // Non registered slave units
-//        val actions = ActionStatusHandler.actionStatusDb.getAll().map { it.keyId }
-//        val unregisteredButtonsInProximity = DeviceStore.getNonRegisteredButtonsInProximity(actions)
-//        MPLDeviceStoreRemoteUpdater.forceUpdate(false)
-//        val currentlyRegisteredButtons = DeviceStore.devices[_uiState.value.masterMac]?.buttonUnits
-//                ?: listOf()
-//        log.debug("Slave units ${currentlyRegisteredButtons.size}, Stored actions keys :" + actions.joinToString(" - ") { it })
-//        val registeredAndPendingButtons = currentlyRegisteredButtons.map {
-//            val inProximity = DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity
-//                    ?: false
-//            if (ActionStatusHandler.actionStatusDb.get(it.mac.macCleanToReal() + ActionStatusType.BUTTON_DEREGISTRATION) != null) {
-//                log.debug("Registered - DELETE_PENDING:" + it.mac.macCleanToReal())
-//                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.DELETE_PENDING, inProximity)
-//            } else {
-//                val key = it.mac.macCleanToReal() + ActionStatusType.BUTTON_REGISTRATION
-//                if (actions.contains(key)) {
-//                    ActionStatusHandler.actionStatusDb.del(key)
-//                }
-//                log.debug("Registered " + it.mac.macCleanToReal())
-//
-//                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.REGISTERED, inProximity)
-//            }
-//        }
+        val actions = App.ref.stationDb.buttonKeyDao().getAllButtons().map { it.keyId } //ActionStatusHandler.actionStatusDb.getAll().map { it.keyId }
+        val unregisteredButtonsInProximity = DeviceStore.getNonRegisteredButtonsInProximity(actions)
+        MPLDeviceStoreRemoteUpdater.forceUpdate(false)
+        val currentlyRegisteredButtons = DeviceStore.devices[_uiState.value.masterMac]?.buttonUnits
+                ?: listOf()
+        log.debug("Slave units ${currentlyRegisteredButtons.size}, Stored actions keys :" + actions.joinToString(" - ") { it })
+        val registeredAndPendingButtons = currentlyRegisteredButtons.map {
+            val inProximity = DeviceStore.devices[it.mac.macCleanToReal()]?.isInProximity
+                    ?: false
+            if (App.ref.stationDb.buttonKeyDao().getButtonByKeyId(it.mac.macCleanToReal() + ActionStatusType.BUTTON_DEREGISTRATION) != null) {
+                log.debug("Registered - DELETE_PENDING:" + it.mac.macCleanToReal())
+                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.DELETE_PENDING, inProximity)
+            } else {
+                val key = it.mac.macCleanToReal() + ActionStatusType.BUTTON_REGISTRATION
+                if (actions.contains(key)) {
+                    App.ref.stationDb.buttonKeyDao().removeButtonByKeyId(key)
+                }
+                log.debug("Registered " + it.mac.macCleanToReal())
 
-//        val unregisteredButtons = unregisteredButtonsInProximity.filter { it.mac !in registeredAndPendingButtons.map { it.mac } }
-//        return (unregisteredButtons + registeredAndPendingButtons).toMutableList()
+                RButtonDataUiModel(it.id, it.mac.macCleanToReal(), it.deviceStationId, DeviceStatus.REGISTERED, inProximity)
+            }
+        }
+
+        val unregisteredButtons = unregisteredButtonsInProximity.filter { it.mac !in registeredAndPendingButtons.map { it.mac } }
+        return (unregisteredButtons + registeredAndPendingButtons).toMutableList()
     }
 
     fun onAddButtonClicked(button: RButtonDataUiModel, context: Context) {

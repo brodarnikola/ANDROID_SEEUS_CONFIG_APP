@@ -67,39 +67,35 @@ object DeviceStore {
 
     // TODO: HANDLE THIS --> getNonRegisteredButtonsInProximity
     suspend fun getNonRegisteredButtonsInProximity(actions: Collection<String>): List<RButtonDataUiModel> {
-        return listOf()
+        //return listOf()
 
         // TODO: HANDLE THIS --> getNonRegisteredButtonsInProximity
-//        val buttons = WSSeeUsAdmin.getAllButtons() ?: listOf()
-//
-//            val allRegisteredButtonsMacs = buttons.map { it.mac.macCleanToReal() }
-//            log.debug("Cached buttons registered on backend:" + allRegisteredButtonsMacs.joinToString("-") { it + " " })
-//
-//            val nonRegisteredButtonsInBleProximity = bleData.values.filter {
-//                isMappedCorrectly(it, allRegisteredButtonsMacs)
-//            }
-//
-//            return nonRegisteredButtonsInBleProximity.map {
-//                val instanceKey = it.deviceAddress + ActionStatusType.BUTTON_REGISTRATION
-//                val cachedAction = ActionStatusHandler.actionStatusDb.get(instanceKey)
-//                if (DeviceStore.mDevices.containsKey(it.deviceAddress) && cachedAction != null) {
-//                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.REGISTRATION_PENDING, isInProximity = true)
-//                } else {
-//                    val key = it.deviceAddress + ActionStatusType.BUTTON_DEREGISTRATION
-//                    if (actions.contains(key)) {
-//                        ActionStatusHandler.actionStatusDb.del(key)
-//                    }
-//                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.UNREGISTERED, isInProximity = true)
-//                }
-//
-//            }.toList()
-//
+        val buttons = WSSeeUsAdmin.getAllButtons() ?: listOf()
 
+            val allRegisteredButtonsMacs = buttons.map { it.mac.macCleanToReal() }
+            log.debug("Cached buttons registered on backend:" + allRegisteredButtonsMacs.joinToString("-") { it + " " })
 
+            val nonRegisteredButtonsInBleProximity = bleData.values.filter {
+                isMappedCorrectly(it, allRegisteredButtonsMacs)
+            }
+
+            return nonRegisteredButtonsInBleProximity.map {
+                val instanceKey = it.deviceAddress + ActionStatusType.BUTTON_REGISTRATION
+                val cachedAction = App.ref.stationDb.buttonKeyDao().getButtonByKeyId(instanceKey) //ActionStatusHandler.actionStatusDb.get(instanceKey)
+                if (mDevices.containsKey(it.deviceAddress) && cachedAction != null) {
+                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.REGISTRATION_PENDING, isInProximity = true)
+                } else {
+                    val key = it.deviceAddress + ActionStatusType.BUTTON_DEREGISTRATION
+                    if (actions.contains(key)) {
+                        App.ref.stationDb.buttonKeyDao().removeButtonByKeyId(key) //ActionStatusHandler.actionStatusDb.del(key)
+                    }
+                    RButtonDataUiModel(mac = it.deviceAddress, status = DeviceStatus.UNREGISTERED, isInProximity = true)
+                }
+
+            }.toList()
     }
 
     private fun isMappedCorrectly(it: BLEDevice<BLEDeviceData>, allRegisteredButtonsMacs: List<String>): Boolean {
-
         val bleProps = it.data.properties
         when (bleProps) {
             is BLEAdvDynamic -> {

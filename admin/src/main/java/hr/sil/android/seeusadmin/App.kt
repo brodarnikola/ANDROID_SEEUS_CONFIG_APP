@@ -25,7 +25,7 @@ package hr.sil.android.seeusadmin
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
-import android.widget.Toast
+import androidx.room.Room
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.firebase.messaging.FirebaseMessaging
@@ -61,6 +61,7 @@ import java.util.*
 import hr.sil.android.rest.core.synchronizedDelegate
 import hr.sil.android.rest.core.format
 import hr.sil.android.rest.core.BluetoothAdapterMonitor
+import hr.sil.android.seeusadmin.database.StationDb
 import hr.sil.android.seeusadmin.util.ui.awaitForResult
 
 /**
@@ -147,8 +148,18 @@ class App : Application(), BLEScannerStateHolder {
 
     private lateinit var stethoClient: OkHttpClient
 
+    lateinit var stationDb: StationDb
+
+    fun setupRoomDatabase(context: Context) {
+        stationDb = Room.databaseBuilder(context, StationDb::class.java, "Station_Device_DB")
+            //.fallbackToDestructiveMigration()
+            .build()
+    }
+
     override fun onCreate() {
         super.onCreate()
+
+        setupRoomDatabase(this.applicationContext)
 
 
         Stetho.initializeWithDefaults(this)

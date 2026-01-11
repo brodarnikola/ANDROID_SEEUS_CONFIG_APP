@@ -910,7 +910,7 @@ Date:   Fri Oct 19 16:30:21 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Fri Oct 19 14:57:34 2018 +0200
 
-    Fixing peripheral administration
+    Fixing buttonKeyStatus administration
 
 [33mcommit 4ccfb7a582addc92748e6bccf5a5c8f6cf33a870[m
 Author: Stjepan Zuzul <szuzul@gmail.com>
@@ -946,7 +946,7 @@ Date:   Fri Oct 12 09:11:40 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Fri Oct 12 09:03:45 2018 +0200
 
-    Adding Force open & Discover peripheral UI
+    Adding Force open & Discover buttonKeyStatus UI
 
 [33mcommit 824d62ed8944df4e25da880751aea13cb8e0d206[m
 Author: Stjepan Zuzul <szuzul@gmail.com>
@@ -976,7 +976,7 @@ Date:   Thu Oct 11 22:47:10 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Thu Oct 11 15:59:19 2018 +0200
 
-    Add new assets. Change peripheral icon based on status
+    Add new assets. Change buttonKeyStatus icon based on status
 
 [33mcommit 43bcf57a719bd9b44daa2c031987bc538cfe42a0[m
 Merge: 28059a6 f4256d2
@@ -1147,7 +1147,7 @@ Date:   Wed Oct 3 10:05:46 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Wed Oct 3 10:05:22 2018 +0200
 
-    Fixing peripheral list
+    Fixing buttonKeyStatus list
 
 [33mcommit 27828d12082d63324583c71707fb8c93dd0a7b78[m
 Author: Stjepan Zuzul <szuzul@gmail.com>
@@ -1183,7 +1183,7 @@ Date:   Tue Oct 2 23:06:48 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Tue Oct 2 12:04:58 2018 +0200
 
-    Setting peripheral count status
+    Setting buttonKeyStatus count status
 
 [33mcommit f5a443a155310d0297813e9a90a8a210d1e38855[m
 Author: Stjepan Zuzul <szuzul@gmail.com>
@@ -1201,7 +1201,7 @@ Date:   Tue Oct 2 10:12:32 2018 +0200
 Author: Stjepan Zuzul <szuzul@gmail.com>
 Date:   Tue Oct 2 02:31:14 2018 +0200
 
-    Adding loader on peripheral manager
+    Adding loader on buttonKeyStatus manager
 
 [33mcommit 8d425c69059de0249592520b0ef6beaed03a2317[m
 Author: Stjepan Zuzul <szuzul@gmail.com>

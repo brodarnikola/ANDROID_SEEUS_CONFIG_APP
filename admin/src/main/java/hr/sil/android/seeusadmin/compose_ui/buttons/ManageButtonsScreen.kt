@@ -60,6 +60,7 @@ fun ManageButtonsScreen(
         val eventBusSubscriber = object {
             @Subscribe(threadMode = ThreadMode.MAIN)
             fun onDevicesUpdated(event: DevicesUpdatedEvent) {
+                println("manage button refresh 11")
                 viewModel.refreshButtonList()
             }
         }

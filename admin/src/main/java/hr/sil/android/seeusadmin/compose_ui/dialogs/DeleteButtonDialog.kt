@@ -66,6 +66,7 @@ fun DeleteButtonDialog(
                             end.linkTo(parent.end)
                         },
                     textAlign = TextAlign.Center,
+                    maxLines = 3,
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Normal
